@@ -191,6 +191,15 @@
                 </select>
             </div>
 
+            <div class="form-group">
+                <label for="bridgingPeriod">Overbruggingsperiode</label>
+                <select id="bridgingPeriod" required>
+                    <option value="">-- Selecteer --</option>
+                    <option value="2">2 dagen</option>
+                    <option value="3">3 dagen</option>
+                </select>
+            </div>
+
             <button type="submit">Bereken dosering</button>
         </form>
 
@@ -221,18 +230,30 @@
         }
 
         // Hoofdberekeningsfunctie
-        function calculateDoses(weight, timing) {
+        function calculateDoses(weight, timing, bridgingPeriod) {
             let loadingDose, maintenanceDose;
+            let maintenancePerKg, maintenanceMax;
 
             if (timing === 'na') {
                 // Na dialyse
                 loadingDose = Math.min(25 * weight, 2000);
-                maintenanceDose = Math.min(7.5 * weight, 750);
+                maintenancePerKg = 7.5;
+                maintenanceMax = 750;
             } else if (timing === 'tijdens') {
                 // Tijdens dialyse
                 loadingDose = Math.min(35 * weight, 2500);
-                maintenanceDose = Math.min(10 * weight, 1000);
+                maintenancePerKg = 10;
+                maintenanceMax = 1000;
             }
+
+            // Verhoog onderhoudsdosis met 25% als overbruggingsperiode 3 dagen is
+            if (bridgingPeriod === '3') {
+                maintenancePerKg *= 1.25;
+                maintenanceMax *= 1.25;
+            }
+
+            // Bereken onderhoudsdosis met maximum
+            maintenanceDose = Math.min(maintenancePerKg * weight, maintenanceMax);
 
             // Afronden op dichtstbijzijnde 250
             loadingDose = roundToNearest250(loadingDose);
@@ -250,6 +271,7 @@
 
             const weight = parseFloat(document.getElementById('weight').value);
             const timing = document.getElementById('timing').value;
+            const bridgingPeriod = document.getElementById('bridgingPeriod').value;
             const weightError = document.getElementById('weightError');
 
             // Validatie
@@ -260,12 +282,12 @@
                 weightError.classList.remove('show');
             }
 
-            if (!timing) {
+            if (!timing || !bridgingPeriod) {
                 return;
             }
 
             // Bereken doseringen
-            const doses = calculateDoses(weight, timing);
+            const doses = calculateDoses(weight, timing, bridgingPeriod);
 
             // Toon resultaten
             document.getElementById('loadingDose').textContent = doses.loadingDose;
