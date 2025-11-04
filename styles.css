@@ -6,7 +6,7 @@
 
 body {
     font-family: "Poppins", sans-serif;
-    background: white;
+    background: transparent;
     margin: 0;
     padding: 0;
 }
@@ -134,8 +134,8 @@ button:active {
 
 .result-value {
     color: #333;
-    font-size: 24px;
-    font-weight: 700;
+    font-weight: 600;
+    font-size: 14px;
 }
 
 .unit {
@@ -153,4 +153,39 @@ button:active {
 
 .error.show {
     display: block;
+}
+
+/* Radio button styling */
+.radio-group {
+    display: flex;
+    gap: 15px;
+    margin-top: 8px;
+}
+
+.radio-label {
+    display: flex;
+    align-items: center;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.radio-label input[type="radio"] {
+    margin-right: 5px;
+    width: auto;
+}
+
+/* Copy button styling */
+.copy-button {
+    background: none;
+    border: none;
+    color: #666;
+    font-size: 14px;
+    font-weight: 300;
+    cursor: pointer;
+    padding: 0;
+    margin-top: 10px;
+    line-height: 1;
+    transition: color 0.2s;
+    display: block;
+    text-align: left;
 }

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>qSOFA Calculator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="wrapper">
+        <!-- qSOFA Calculator -->
+        <div class="container">
+            <h1>qSOFA Criteria</h1>
+            <p class="subtitle">Quick Sequential Organ Failure Assessment</p>
+
+            <form id="qsofaForm">
+                <div class="form-group">
+                    <label>Ademfrequentie >22/min</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="af_qsofa" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="af_qsofa" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Veranderd bewustzijn</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="mental_qsofa" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="mental_qsofa" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Systolische bloeddruk ≤100 mmHg</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="sbp_qsofa" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="sbp_qsofa" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+            </form>
+
+            <div class="results show" id="qsofaResults">
+                <div class="result-item">
+                    <div class="result-value">
+                        <span id="qsofaScore">qSOFA score = 0</span>
+                    </div>
+                </div>
+            </div>
+            <button type="button" id="copyButton" class="copy-button" title="Kopieer naar klembord">📋 Kopieer</button>
+        </div>
+    </div>
+
+    <script>
+        let currentQsofaText = '';
+
+        // qSOFA Calculator Logic
+        function calculateQSOFA() {
+            const af_qsofa = parseInt(document.querySelector('input[name="af_qsofa"]:checked').value);
+            const mental_qsofa = parseInt(document.querySelector('input[name="mental_qsofa"]:checked').value);
+            const sbp_qsofa = parseInt(document.querySelector('input[name="sbp_qsofa"]:checked').value);
+
+            const score = af_qsofa + mental_qsofa + sbp_qsofa;
+            currentQsofaText = `qSOFA score = ${score}`;
+
+            document.getElementById('qsofaScore').textContent = currentQsofaText;
+            document.getElementById('qsofaResults').classList.add('show');
+        }
+
+        // Real-time calculation when radio buttons change
+        document.querySelectorAll('input[type="radio"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                calculateQSOFA();
+            });
+        });
+
+        // Copy to clipboard functionality
+        document.getElementById('copyButton').addEventListener('click', function() {
+            navigator.clipboard.writeText(currentQsofaText).then(function() {
+                // Visual feedback
+                const btn = document.getElementById('copyButton');
+                const originalIcon = btn.textContent;
+                btn.textContent = '✓';
+                btn.style.color = '#28a745';
+                setTimeout(() => {
+                    btn.textContent = originalIcon;
+                    btn.style.color = '#666';
+                }, 1500);
+            }).catch(function(err) {
+                console.error('Kopiëren mislukt: ', err);
+            });
+        });
+
+        // Calculate initial score
+        calculateQSOFA();
+    </script>
+</body>
+</html>
