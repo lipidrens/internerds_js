@@ -67,7 +67,160 @@
                     </div>
                 </div>
             </div>
-            <button type="button" id="copyButton" class="copy-button" title="Kopieer naar klembord">📋 Kopieer</button>
+            <button type="button" id="copyButton" class="copy-button" title="Kopieer naar klembord">Kopieer</button>
+        </div>
+
+        <!-- SIRS Calculator -->
+        <div class="container">
+            <h1>SIRS Criteria</h1>
+            <p class="subtitle">Systemic Inflammatory Response Syndrome</p>
+
+            <form id="sirsForm">
+                <div class="form-group">
+                    <label>Temperatuur <36 of >38°C</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="temp_sirs" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="temp_sirs" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Polsfrequentie >90/min</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="hr_sirs" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="hr_sirs" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Ademfrequentie >20/min</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="af_sirs" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="af_sirs" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Leukocyten <4 x10⁹/L of >12 x10⁹/L; of >10% staafkernige neutrofiele granulocyten</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="leuko_sirs" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="leuko_sirs" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+            </form>
+
+            <div class="results show" id="sirsResults">
+                <div class="result-item">
+                    <div class="result-value">
+                        <span id="sirsScore">SIRS score = 0 = geen SIRS</span>
+                    </div>
+                </div>
+            </div>
+            <button type="button" id="copyButtonSirs" class="copy-button" title="Kopieer naar klembord">Kopieer</button>
+        </div>
+
+        <!-- Glasgow Coma Scale Calculator -->
+        <div class="container">
+            <h1>Glasgow Coma Scale</h1>
+            <p class="subtitle">EMV-score</p>
+
+            <form id="emvForm">
+                <div class="form-group">
+                    <label for="E_emv">Eye opening</label>
+                    <select id="E_emv" required>
+                        <option value="4">Opent ogen spontaan</option>
+                        <option value="3">Opent ogen op aanspreken</option>
+                        <option value="2">Opent ogen op pijnprikkel</option>
+                        <option value="1">Opent ogen niet</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="M_emv">Motor response</label>
+                    <select id="M_emv" required>
+                        <option value="6">Voert eenvoudige opdracht uit</option>
+                        <option value="5">Lokaliseert een pijnprikkel</option>
+                        <option value="4">Normale flexie op pijnprikkel</option>
+                        <option value="3">Abnormale flexie op pijnprikkel</option>
+                        <option value="2">Extensie op pijnprikkel</option>
+                        <option value="1">Geen reactie op pijnprikkel</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="V_emv">Verbal response</label>
+                    <select id="V_emv" required>
+                        <option value="5">Georiënteerd in trias</option>
+                        <option value="4">Conversatie mogelijk, doch verward</option>
+                        <option value="3">Spreekt, maar geen conversatie mogelijk</option>
+                        <option value="2">Kreunt alleen</option>
+                        <option value="1">Geen verbale uitingen</option>
+                    </select>
+                </div>
+            </form>
+
+            <div class="results show" id="emvResults">
+                <div class="result-item">
+                    <div class="result-value">
+                        <span id="emvScore">EMV = E4 M6 V5 (totaal = 15)</span>
+                    </div>
+                </div>
+            </div>
+            <button type="button" id="copyButtonEmv" class="copy-button" title="Kopieer naar klembord">Kopieer</button>
+        </div>
+
+        <!-- Mean Arterial Pressure Calculator -->
+        <div class="container">
+            <h1>Mean Arterial Pressure</h1>
+            <p class="subtitle">MAP Calculator</p>
+
+            <form id="mapForm">
+                <div class="form-group">
+                    <label for="SBPmap">Systolische Bloeddruk (mmHg)</label>
+                    <input type="number" id="SBPmap" min="0" max="250" step="1" placeholder="Bijv. 120">
+                </div>
+
+                <div class="form-group">
+                    <label for="DBPmap">Diastolische Bloeddruk (mmHg)</label>
+                    <input type="number" id="DBPmap" min="0" max="130" step="1" placeholder="Bijv. 80">
+                </div>
+            </form>
+
+            <div class="results show" id="mapResults">
+                <div class="result-item">
+                    <div class="result-value">
+                        <span id="mapScore">MAP = - mmHg</span>
+                    </div>
+                </div>
+            </div>
+            <div class="button-container">
+                <button type="button" id="resetButtonMap" class="reset-button">Reset</button>
+                <button type="button" id="copyButtonMap" class="copy-button" title="Kopieer naar klembord">Kopieer</button>
+            </div>
         </div>
     </div>
 
@@ -87,8 +240,8 @@
             document.getElementById('qsofaResults').classList.add('show');
         }
 
-        // Real-time calculation when radio buttons change
-        document.querySelectorAll('input[type="radio"]').forEach(radio => {
+        // Real-time calculation when qSOFA radio buttons change
+        document.querySelectorAll('input[name="af_qsofa"], input[name="mental_qsofa"], input[name="sbp_qsofa"]').forEach(radio => {
             radio.addEventListener('change', function() {
                 calculateQSOFA();
             });
@@ -101,10 +254,10 @@
                 const btn = document.getElementById('copyButton');
                 const originalIcon = btn.textContent;
                 btn.textContent = '✓';
-                btn.style.color = '#28a745';
+                btn.classList.add('copied');
                 setTimeout(() => {
                     btn.textContent = originalIcon;
-                    btn.style.color = '#666';
+                    btn.classList.remove('copied');
                 }, 1500);
             }).catch(function(err) {
                 console.error('Kopiëren mislukt: ', err);
@@ -113,6 +266,141 @@
 
         // Calculate initial score
         calculateQSOFA();
+
+
+        // SIRS Calculator Logic
+        let currentSirsText = '';
+
+        function calculateSIRS() {
+            const temp_sirs = parseInt(document.querySelector('input[name="temp_sirs"]:checked').value);
+            const hr_sirs = parseInt(document.querySelector('input[name="hr_sirs"]:checked').value);
+            const af_sirs = parseInt(document.querySelector('input[name="af_sirs"]:checked').value);
+            const leuko_sirs = parseInt(document.querySelector('input[name="leuko_sirs"]:checked').value);
+
+            const score = temp_sirs + hr_sirs + af_sirs + leuko_sirs;
+            const interpretation = score < 2 ? '= geen SIRS' : '= wel SIRS';
+            currentSirsText = `SIRS score = ${score} ${interpretation}`;
+
+            document.getElementById('sirsScore').textContent = currentSirsText;
+            document.getElementById('sirsResults').classList.add('show');
+        }
+
+        // Real-time calculation when SIRS radio buttons change
+        document.querySelectorAll('input[name="temp_sirs"], input[name="hr_sirs"], input[name="af_sirs"], input[name="leuko_sirs"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                calculateSIRS();
+            });
+        });
+
+        // Copy to clipboard functionality for SIRS
+        document.getElementById('copyButtonSirs').addEventListener('click', function() {
+            navigator.clipboard.writeText(currentSirsText).then(function() {
+                // Visual feedback
+                const btn = document.getElementById('copyButtonSirs');
+                const originalIcon = btn.textContent;
+                btn.textContent = '✓';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.textContent = originalIcon;
+                    btn.classList.remove('copied');
+                }, 1500);
+            }).catch(function(err) {
+                console.error('Kopiëren mislukt: ', err);
+            });
+        });
+
+        // Calculate initial SIRS score
+        calculateSIRS();
+
+
+        // Glasgow Coma Scale / EMV Calculator Logic
+        let currentEmvText = '';
+
+        function calculateEMV() {
+            const E = parseInt(document.getElementById('E_emv').value);
+            const M = parseInt(document.getElementById('M_emv').value);
+            const V = parseInt(document.getElementById('V_emv').value);
+
+            const total = E + M + V;
+            currentEmvText = `EMV = E${E} M${M} V${V} (totaal = ${total})`;
+
+            document.getElementById('emvScore').textContent = currentEmvText;
+            document.getElementById('emvResults').classList.add('show');
+        }
+
+        // Real-time calculation when EMV dropdowns change
+        document.getElementById('E_emv').addEventListener('change', calculateEMV);
+        document.getElementById('M_emv').addEventListener('change', calculateEMV);
+        document.getElementById('V_emv').addEventListener('change', calculateEMV);
+
+        // Copy to clipboard functionality for EMV
+        document.getElementById('copyButtonEmv').addEventListener('click', function() {
+            navigator.clipboard.writeText(currentEmvText).then(function() {
+                // Visual feedback
+                const btn = document.getElementById('copyButtonEmv');
+                const originalIcon = btn.textContent;
+                btn.textContent = '✓';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.textContent = originalIcon;
+                    btn.classList.remove('copied');
+                }, 1500);
+            }).catch(function(err) {
+                console.error('Kopiëren mislukt: ', err);
+            });
+        });
+
+        // Calculate initial EMV score
+        calculateEMV();
+
+
+        // Mean Arterial Pressure Calculator Logic
+        let currentMapText = '';
+
+        function calculateMAP() {
+            const SBP = parseFloat(document.getElementById('SBPmap').value);
+            const DBP = parseFloat(document.getElementById('DBPmap').value);
+
+            if (isNaN(SBP) || isNaN(DBP)) {
+                currentMapText = 'MAP = - mmHg';
+            } else {
+                const map = Math.round((1/3) * SBP + (2/3) * DBP);
+                currentMapText = `MAP = ${map} mmHg`;
+            }
+
+            document.getElementById('mapScore').textContent = currentMapText;
+            document.getElementById('mapResults').classList.add('show');
+        }
+
+        // Real-time calculation when MAP inputs change
+        document.getElementById('SBPmap').addEventListener('input', calculateMAP);
+        document.getElementById('DBPmap').addEventListener('input', calculateMAP);
+
+        // Reset functionality for MAP
+        document.getElementById('resetButtonMap').addEventListener('click', function() {
+            document.getElementById('SBPmap').value = '';
+            document.getElementById('DBPmap').value = '';
+            calculateMAP();
+        });
+
+        // Copy to clipboard functionality for MAP
+        document.getElementById('copyButtonMap').addEventListener('click', function() {
+            navigator.clipboard.writeText(currentMapText).then(function() {
+                const btn = document.getElementById('copyButtonMap');
+                const originalIcon = btn.textContent;
+                btn.textContent = '✓';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.textContent = originalIcon;
+                    btn.classList.remove('copied');
+                }, 1500);
+            }).catch(function(err) {
+                console.error('Kopiëren mislukt: ', err);
+            });
+        });
+
+        // Calculate initial MAP
+        calculateMAP();
     </script>
 </body>
 </html>

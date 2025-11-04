@@ -23,20 +23,36 @@
                     <div class="error" id="input1Error">Voer een geldige waarde in</div>
                 </div>
 
-                <button type="submit">Bereken</button>
+                <!-- Voeg meer inputs toe indien nodig -->
+
+                <!-- Voor radio buttons gebruik deze structuur:
+                <div class="form-group">
+                    <label>Optie label</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="option1" value="0" checked>
+                            Optie 1
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="option1" value="1">
+                            Optie 2
+                        </label>
+                    </div>
+                </div>
+                -->
             </form>
 
-            <div class="results" id="results1">
+            <div class="results show" id="results1">
                 <div class="result-item">
-                    <div class="result-label">Resultaat</div>
                     <div class="result-value">
-                        <span id="result1">-</span> <span class="unit">eenheid</span>
+                        <span id="result1">Resultaat = -</span>
                     </div>
                 </div>
             </div>
+            <button type="button" id="copyButton1" class="copy-button" title="Kopieer naar klembord">📋 Kopieer</button>
         </div>
 
-        <!-- Calculator 2 (optioneel) -->
+        <!-- Calculator 2 (optioneel - verwijder indien niet nodig) -->
         <div class="container">
             <h1>Calculator Titel 2</h1>
             <p class="subtitle">Beschrijving van de calculator</p>
@@ -47,77 +63,112 @@
                     <input type="number" id="input2" min="0" step="0.1" required placeholder="Bijv. 70">
                     <div class="error" id="input2Error">Voer een geldige waarde in</div>
                 </div>
-
-                <button type="submit">Bereken</button>
             </form>
 
-            <div class="results" id="results2">
+            <div class="results show" id="results2">
                 <div class="result-item">
-                    <div class="result-label">Resultaat</div>
                     <div class="result-value">
-                        <span id="result2">-</span> <span class="unit">eenheid</span>
+                        <span id="result2">Resultaat = -</span>
                     </div>
                 </div>
             </div>
+            <button type="button" id="copyButton2" class="copy-button" title="Kopieer naar klembord">📋 Kopieer</button>
         </div>
     </div>
 
     <script>
         // Calculator 1 Logic
-        document.getElementById('calculatorForm1').addEventListener('submit', function(e) {
-            e.preventDefault();
+        let currentResult1 = '';
 
+        function calculateResult1() {
             const input1 = parseFloat(document.getElementById('input1').value);
             const input1Error = document.getElementById('input1Error');
 
             // Validatie
             if (!input1 || input1 <= 0) {
                 input1Error.classList.add('show');
-                return;
+                currentResult1 = 'Resultaat = -';
             } else {
                 input1Error.classList.remove('show');
+
+                // VERVANG DIT: Bereken hier je resultaat
+                const result = input1 * 2; // Voorbeeld berekening
+                currentResult1 = `Resultaat = ${result}`;
             }
 
-            // Bereken hier je resultaat
-            const result = input1 * 2; // Voorbeeld berekening
-
             // Toon resultaten
-            document.getElementById('result1').textContent = result;
+            document.getElementById('result1').textContent = currentResult1;
             document.getElementById('results1').classList.add('show');
+        }
+
+        // Real-time berekening bij input wijziging
+        document.getElementById('input1').addEventListener('input', calculateResult1);
+
+        // Copy to clipboard functionaliteit voor Calculator 1
+        document.getElementById('copyButton1').addEventListener('click', function() {
+            navigator.clipboard.writeText(currentResult1).then(function() {
+                const btn = document.getElementById('copyButton1');
+                const originalText = btn.textContent;
+                btn.textContent = '✓ Gekopieerd';
+                btn.style.color = '#28a745';
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.color = '#666';
+                }, 1500);
+            }).catch(function(err) {
+                console.error('Kopiëren mislukt: ', err);
+            });
         });
 
-        // Reset error bij input wijziging
-        document.getElementById('input1').addEventListener('input', function() {
-            document.getElementById('input1Error').classList.remove('show');
-        });
+        // Initiële berekening
+        calculateResult1();
 
-        // Calculator 2 Logic
-        document.getElementById('calculatorForm2').addEventListener('submit', function(e) {
-            e.preventDefault();
 
+        // Calculator 2 Logic (optioneel - verwijder indien niet nodig)
+        let currentResult2 = '';
+
+        function calculateResult2() {
             const input2 = parseFloat(document.getElementById('input2').value);
             const input2Error = document.getElementById('input2Error');
 
             // Validatie
             if (!input2 || input2 <= 0) {
                 input2Error.classList.add('show');
-                return;
+                currentResult2 = 'Resultaat = -';
             } else {
                 input2Error.classList.remove('show');
+
+                // VERVANG DIT: Bereken hier je resultaat
+                const result = input2 * 3; // Voorbeeld berekening
+                currentResult2 = `Resultaat = ${result}`;
             }
 
-            // Bereken hier je resultaat
-            const result = input2 * 3; // Voorbeeld berekening
-
             // Toon resultaten
-            document.getElementById('result2').textContent = result;
+            document.getElementById('result2').textContent = currentResult2;
             document.getElementById('results2').classList.add('show');
+        }
+
+        // Real-time berekening bij input wijziging
+        document.getElementById('input2').addEventListener('input', calculateResult2);
+
+        // Copy to clipboard functionaliteit voor Calculator 2
+        document.getElementById('copyButton2').addEventListener('click', function() {
+            navigator.clipboard.writeText(currentResult2).then(function() {
+                const btn = document.getElementById('copyButton2');
+                const originalText = btn.textContent;
+                btn.textContent = '✓ Gekopieerd';
+                btn.style.color = '#28a745';
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.color = '#666';
+                }, 1500);
+            }).catch(function(err) {
+                console.error('Kopiëren mislukt: ', err);
+            });
         });
 
-        // Reset error bij input wijziging
-        document.getElementById('input2').addEventListener('input', function() {
-            document.getElementById('input2Error').classList.remove('show');
-        });
+        // Initiële berekening
+        calculateResult2();
     </script>
 </body>
 </html>
