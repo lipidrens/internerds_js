@@ -69,7 +69,7 @@
             </div>
             <div class="button-container">
                 <button type="button" id="resetButtonQsofa" class="reset-button">Reset</button>
-                <button type="button" id="copyButton" class="copy-button" title="Kopieer naar klembord">Kopieer</button>
+                <button type="button" id="copyButtonQsofa" class="copy-button" title="Kopieer naar klembord">Kopieer</button>
             </div>
         </div>
 
@@ -256,11 +256,11 @@
             });
         });
 
-        // Copy to clipboard functionality
-        document.getElementById('copyButton').addEventListener('click', function() {
+        // Copy to clipboard functionality for qSOFA
+        document.getElementById('copyButtonQsofa').addEventListener('click', function() {
             navigator.clipboard.writeText(currentQsofaText).then(function() {
                 // Visual feedback
-                const btn = document.getElementById('copyButton');
+                const btn = document.getElementById('copyButtonQsofa');
                 const originalIcon = btn.textContent;
                 btn.textContent = '✓';
                 btn.classList.add('copied');
