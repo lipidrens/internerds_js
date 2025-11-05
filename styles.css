@@ -7,8 +7,6 @@
 body {
     font-family: "Poppins", sans-serif;
     background: transparent;
-    margin: 0;
-    padding: 0;
 }
 
 .wrapper {
@@ -23,9 +21,9 @@ body {
     background: white;
     border-radius: 16px;
     padding: 25px;
-    max-width: 500px;
     flex: 1;
     min-width: 300px;
+    max-width: 500px;
     display: flex;
     flex-direction: column;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -181,25 +179,8 @@ button:active {
     width: auto;
 }
 
-/* Copy button styling */
-.copy-button {
-    background: #f8f9fa;
-    border: 1px solid #ddd;
-    color: #666;
-    font-size: 14px;
-    font-weight: 400;
-    cursor: pointer;
-    padding: 8px 16px;
-    margin-top: 10px;
-    border-radius: 8px;
-    transition: color 0.2s;
-}
-
-.copy-button.copied {
-    color: #28a745;
-}
-
-/* Reset button styling */
+/* Copy and Reset button styling */
+.copy-button,
 .reset-button {
     background: #f8f9fa;
     border: 1px solid #ddd;
@@ -209,6 +190,15 @@ button:active {
     cursor: pointer;
     padding: 8px 16px;
     border-radius: 8px;
+}
+
+.copy-button {
+    margin-top: 10px;
+    transition: color 0.2s;
+}
+
+.copy-button.copied {
+    color: #28a745;
 }
 
 /* Button container for side-by-side buttons */
