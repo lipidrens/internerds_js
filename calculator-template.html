@@ -49,7 +49,10 @@
                     </div>
                 </div>
             </div>
-            <button type="button" id="copyButton1" class="copy-button" title="Kopieer naar klembord">📋 Kopieer</button>
+            <div class="button-container">
+                <button type="button" id="resetButton1" class="reset-button">Reset</button>
+                <button type="button" id="copyButton1" class="copy-button" title="Kopieer naar klembord">Kopieer</button>
+            </div>
         </div>
 
         <!-- Calculator 2 (optioneel - verwijder indien niet nodig) -->
@@ -72,11 +75,48 @@
                     </div>
                 </div>
             </div>
-            <button type="button" id="copyButton2" class="copy-button" title="Kopieer naar klembord">📋 Kopieer</button>
+            <div class="button-container">
+                <button type="button" id="resetButton2" class="reset-button">Reset</button>
+                <button type="button" id="copyButton2" class="copy-button" title="Kopieer naar klembord">Kopieer</button>
+            </div>
         </div>
     </div>
 
     <script>
+        // Helper function for copy feedback
+        function showCopyFeedback(btn) {
+            const originalIcon = btn.textContent;
+            btn.textContent = '✓';
+            btn.classList.add('copied');
+            setTimeout(() => {
+                btn.textContent = originalIcon;
+                btn.classList.remove('copied');
+            }, 1500);
+        }
+
+        // Fallback copy function for browsers/iframes that don't support clipboard API
+        function fallbackCopyText(text, btn) {
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            textArea.className = 'clipboard-helper';
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    showCopyFeedback(btn);
+                } else {
+                    console.error('Fallback kopiëren mislukt');
+                }
+            } catch (err) {
+                console.error('Fallback error:', err);
+            }
+
+            document.body.removeChild(textArea);
+        }
+
         // Calculator 1 Logic
         let currentResult1 = '';
 
@@ -106,18 +146,40 @@
 
         // Copy to clipboard functionaliteit voor Calculator 1
         document.getElementById('copyButton1').addEventListener('click', function() {
-            navigator.clipboard.writeText(currentResult1).then(function() {
-                const btn = document.getElementById('copyButton1');
-                const originalText = btn.textContent;
-                btn.textContent = '✓ Gekopieerd';
-                btn.style.color = '#28a745';
-                setTimeout(() => {
-                    btn.textContent = originalText;
-                    btn.style.color = '#666';
-                }, 1500);
-            }).catch(function(err) {
-                console.error('Kopiëren mislukt: ', err);
-            });
+            const textToCopy = currentResult1;
+            const btn = this;
+
+            // Try modern clipboard API first
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    showCopyFeedback(btn);
+                }).catch(function(err) {
+                    console.error('Clipboard API mislukt, probeer fallback:', err);
+                    fallbackCopyText(textToCopy, btn);
+                });
+            } else {
+                // Fallback for older browsers or iframe restrictions
+                fallbackCopyText(textToCopy, btn);
+            }
+        });
+
+        // Reset functionality voor Calculator 1
+        document.getElementById('resetButton1').addEventListener('click', function() {
+            // VERVANG DIT: Reset logic afhankelijk van je input types
+            // Voor number inputs:
+            document.getElementById('input1').value = '';
+
+            // Voor radio buttons gebruik:
+            // document.querySelectorAll('input[name="optionname"]').forEach(radio => {
+            //     if (radio.value === "0") {
+            //         radio.checked = true;
+            //     }
+            // });
+
+            // Voor dropdowns gebruik:
+            // document.getElementById('selectId').selectedIndex = 0;
+
+            calculateResult1();
         });
 
         // Initiële berekening
@@ -153,18 +215,26 @@
 
         // Copy to clipboard functionaliteit voor Calculator 2
         document.getElementById('copyButton2').addEventListener('click', function() {
-            navigator.clipboard.writeText(currentResult2).then(function() {
-                const btn = document.getElementById('copyButton2');
-                const originalText = btn.textContent;
-                btn.textContent = '✓ Gekopieerd';
-                btn.style.color = '#28a745';
-                setTimeout(() => {
-                    btn.textContent = originalText;
-                    btn.style.color = '#666';
-                }, 1500);
-            }).catch(function(err) {
-                console.error('Kopiëren mislukt: ', err);
-            });
+            const textToCopy = currentResult2;
+            const btn = this;
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    showCopyFeedback(btn);
+                }).catch(function(err) {
+                    console.error('Clipboard API mislukt, probeer fallback:', err);
+                    fallbackCopyText(textToCopy, btn);
+                });
+            } else {
+                fallbackCopyText(textToCopy, btn);
+            }
+        });
+
+        // Reset functionality voor Calculator 2
+        document.getElementById('resetButton2').addEventListener('click', function() {
+            // VERVANG DIT: Reset logic afhankelijk van je input types
+            document.getElementById('input2').value = '';
+            calculateResult2();
         });
 
         // Initiële berekening
