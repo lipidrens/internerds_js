@@ -6,39 +6,57 @@
 
 body {
     font-family: "Poppins", sans-serif;
-    background: transparent;
+    background-color: #ffffff;
+    /* White background */
+    color: #333;
+    line-height: 1.6;
 }
 
 .wrapper {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-    padding: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    /* Increased gap for airiness */
+    padding: 40px;
+    max-width: 1400px;
+    margin: 0 auto;
 }
 
 .container {
     background: white;
-    border-radius: 16px;
-    padding: 25px;
+    border-radius: 24px;
+    /* Large rounded corners */
+    padding: 35px;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    border: 1px solid #e8e8e8;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    /* Soft, diffuse shadow */
+    border: none;
+    /* Removed border */
+    transition: box-shadow 0.3s ease;
 }
 
+/* Hover effect removed as per user request */
+/* .container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+} */
+
 h1 {
-    color: #333;
+    color: #2d3748;
     margin-bottom: 10px;
-    font-size: 28px;
-    font-weight: 500;
+    font-size: 26px;
+    font-weight: 600;
     text-align: center;
+    letter-spacing: -0.5px;
 }
 
 .subtitle {
-    color: #666;
+    color: #718096;
     text-align: center;
-    margin-bottom: 30px;
-    font-size: 14px;
+    margin-bottom: 35px;
+    font-size: 15px;
+    font-weight: 400;
 }
 
 .form-group {
@@ -47,66 +65,83 @@ h1 {
 
 label {
     display: block;
-    margin-bottom: 8px;
-    color: #333;
-    font-weight: 600;
+    margin-bottom: 10px;
+    color: #4a5568;
+    font-weight: 500;
     font-size: 14px;
+    margin-left: 5px;
+    /* Slight indent to align with rounded inputs */
 }
 
 input[type="number"],
 select {
     width: 100%;
-    padding: 12px;
-    border: 2px solid #e0e0e0;
-    border-radius: 8px;
-    font-size: 14px;
-    transition: border-color 0.3s;
+    padding: 14px 18px;
+    border: 2px solid transparent;
+    background-color: #f8f9fa;
+    /* Light grey background for inputs */
+    border-radius: 12px;
+    /* Rounded inputs */
+    font-size: 15px;
+    color: #2d3748;
+    transition: all 0.3s ease;
+    font-family: inherit;
 }
 
 input[type="number"]:focus,
 select:focus {
     outline: none;
-    border-color: #667eea;
+    background-color: #fff;
+    border-color: #e2e8f0;
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
 }
 
 button {
     width: 100%;
-    padding: 14px;
+    padding: 16px;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     border: none;
-    border-radius: 8px;
+    border-radius: 50px;
+    /* Pill shape */
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(118, 75, 162, 0.2);
+    margin-top: 10px;
 }
 
 button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 8px 25px rgba(118, 75, 162, 0.3);
+    filter: brightness(1.05);
 }
 
 button:active {
-    transform: translateY(0);
+    transform: translateY(1px);
+    box-shadow: 0 2px 10px rgba(118, 75, 162, 0.2);
 }
 
 .results {
-    padding: 20px;
-    background: #DBDDF5;
-    border-radius: 8px;
+    margin-top: 25px;
+    padding: 25px;
+    background: #f0f4ff;
+    /* Very soft blue background */
+    border-radius: 16px;
     display: none;
+    border: 1px solid rgba(102, 126, 234, 0.1);
 }
 
 .results.show {
     display: block;
-    animation: slideIn 0.3s ease-out;
+    animation: fadeIn 0.4s ease-out;
 }
 
-@keyframes slideIn {
+@keyframes fadeIn {
     from {
         opacity: 0;
-        transform: translateY(-10px);
+        transform: translateY(10px);
     }
 
     to {
@@ -118,7 +153,10 @@ button:active {
 .result-item {
     margin-bottom: 15px;
     padding-bottom: 15px;
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .result-item:last-child {
@@ -128,95 +166,169 @@ button:active {
 }
 
 .result-label {
-    color: #666;
+    color: #718096;
     font-size: 14px;
-    margin-bottom: 5px;
 }
 
 .result-value {
-    color: #333;
+    color: #2d3748;
     font-weight: 600;
-    font-size: 14px;
+    font-size: 16px;
 }
 
 .unit {
-    font-size: 18px;
-    color: #666;
+    font-size: 14px;
+    color: #718096;
     font-weight: 500;
+    margin-left: 4px;
 }
 
 .error {
-    color: #dc3545;
-    font-size: 14px;
-    margin-top: 5px;
+    color: #e53e3e;
+    font-size: 13px;
+    margin-top: 8px;
+    margin-left: 5px;
     display: none;
+    font-weight: 500;
 }
 
 .error.show {
     display: block;
+    animation: shake 0.4s cubic-bezier(.36, .07, .19, .97) both;
+}
+
+@keyframes shake {
+
+    10%,
+    90% {
+        transform: translate3d(-1px, 0, 0);
+    }
+
+    20%,
+    80% {
+        transform: translate3d(2px, 0, 0);
+    }
+
+    30%,
+    50%,
+    70% {
+        transform: translate3d(-4px, 0, 0);
+    }
+
+    40%,
+    60% {
+        transform: translate3d(4px, 0, 0);
+    }
 }
 
 /* Radio button styling */
 .radio-group {
     display: flex;
-    gap: 15px;
-    margin-top: 8px;
+    gap: 12px;
+    margin-top: 10px;
+    flex-wrap: wrap;
 }
 
 .radio-group.vertical {
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
 }
 
 .radio-label {
     display: flex;
     align-items: center;
-    font-weight: 400;
+    font-weight: 500;
     cursor: pointer;
+    padding: 8px 12px;
+    background: #f8f9fa;
+    border-radius: 12px;
+    transition: all 0.2s ease;
+    border: 2px solid transparent;
+    color: #4a5568;
+    font-size: 14px;
+    flex: 1;
+}
+
+.radio-label:hover {
+    background: #edf2f7;
 }
 
 .radio-label input[type="radio"] {
-    margin-right: 5px;
+    margin-right: 10px;
     width: auto;
+    accent-color: #667eea;
+}
+
+/* Style for checked state if possible, or rely on accent-color */
+.radio-label:has(input:checked) {
+    background: #fff;
+    border-color: #e2e8f0;
+    /* Much softer border (light grey) */
+    color: #667eea;
+    /* Softer purple/blue text */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+    /* Very subtle shadow */
 }
 
 /* Copy and Reset button styling */
-.copy-button,
-.reset-button {
-    background: #f8f9fa;
-    border: 1px solid #ddd;
-    color: #666;
-    font-size: 14px;
-    font-weight: 400;
-    cursor: pointer;
-    padding: 8px 16px;
-    border-radius: 8px;
+.button-container {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
 }
 
-.copy-button {
-    margin-top: 10px;
-    transition: color 0.2s;
+.copy-button,
+.reset-button {
+    background: white;
+    border: 1px solid #e2e8f0;
+    color: #718096;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 12px 20px;
+    border-radius: 50px;
+    /* Pill shape */
+    transition: all 0.2s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+    flex: 1;
+    margin-top: 0;
+}
+
+.copy-button:hover,
+.reset-button:hover {
+    background: #f7fafc;
+    border-color: #cbd5e0;
+    color: #4a5568;
+    transform: translateY(-1px);
 }
 
 .copy-button.copied {
-    color: #28a745;
-}
-
-/* Button container for side-by-side buttons */
-.button-container {
-    display: flex;
-    gap: 10px;
-    margin-top: 10px;
-}
-
-/* Remove margin-top from copy button when inside button-container */
-.button-container .copy-button {
-    margin-top: 0;
+    background: #c6f6d5;
+    border-color: #9ae6b4;
+    color: #276749;
 }
 
 /* Hidden element for clipboard fallback */
 .clipboard-helper {
     position: fixed;
-    left: -999999px;
-    top: -999999px;
+    left: -9999px;
+    top: -9999px;
+    opacity: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    .wrapper {
+        padding: 20px;
+        gap: 20px;
+    }
+
+    .container {
+        padding: 25px;
+        border-radius: 20px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
 }
