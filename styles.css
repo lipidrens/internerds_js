@@ -7,7 +7,7 @@
 body {
     font-family: "Poppins", sans-serif;
     background-color: #ffffff;
-    /* White background */
+    /* White background for iframe */
     color: #333;
     line-height: 1.6;
 }
@@ -43,7 +43,10 @@ body {
 } */
 
 h1 {
-    color: #2d3748;
+    font-family: 'Inter', sans-serif;
+    /* Internerds Heading Font */
+    color: #282828;
+    /* Internerds Heading Color */
     margin-bottom: 10px;
     font-size: 26px;
     font-weight: 600;
@@ -93,13 +96,15 @@ select:focus {
     outline: none;
     background-color: #fff;
     border-color: #e2e8f0;
-    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+    box-shadow: 0 0 0 4px rgba(0, 17, 183, 0.1);
+    /* Blue shadow */
 }
 
 button {
     width: 100%;
     padding: 16px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #0011B7;
+    /* Internerds Blue */
     color: white;
     border: none;
     border-radius: 50px;
@@ -108,7 +113,7 @@ button {
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 4px 15px rgba(118, 75, 162, 0.2);
+    box-shadow: 0 4px 15px rgba(0, 17, 183, 0.2);
     margin-top: 10px;
 }
 

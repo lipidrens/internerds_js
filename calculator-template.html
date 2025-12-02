@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="nl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculator Template</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <div class="wrapper">
         <!-- Calculator 1 -->
@@ -51,7 +55,8 @@
             </div>
             <div class="button-container">
                 <button type="button" id="resetButton1" class="reset-button">Reset</button>
-                <button type="button" id="copyButton1" class="copy-button" title="Kopieer naar klembord">Kopieer</button>
+                <button type="button" id="copyButton1" class="copy-button"
+                    title="Kopieer naar klembord">Kopieer</button>
             </div>
         </div>
 
@@ -77,7 +82,8 @@
             </div>
             <div class="button-container">
                 <button type="button" id="resetButton2" class="reset-button">Reset</button>
-                <button type="button" id="copyButton2" class="copy-button" title="Kopieer naar klembord">Kopieer</button>
+                <button type="button" id="copyButton2" class="copy-button"
+                    title="Kopieer naar klembord">Kopieer</button>
             </div>
         </div>
     </div>
@@ -145,15 +151,15 @@
         document.getElementById('input1').addEventListener('input', calculateResult1);
 
         // Copy to clipboard functionaliteit voor Calculator 1
-        document.getElementById('copyButton1').addEventListener('click', function() {
+        document.getElementById('copyButton1').addEventListener('click', function () {
             const textToCopy = currentResult1;
             const btn = this;
 
             // Try modern clipboard API first
             if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(textToCopy).then(function() {
+                navigator.clipboard.writeText(textToCopy).then(function () {
                     showCopyFeedback(btn);
-                }).catch(function(err) {
+                }).catch(function (err) {
                     console.error('Clipboard API mislukt, probeer fallback:', err);
                     fallbackCopyText(textToCopy, btn);
                 });
@@ -164,7 +170,7 @@
         });
 
         // Reset functionality voor Calculator 1
-        document.getElementById('resetButton1').addEventListener('click', function() {
+        document.getElementById('resetButton1').addEventListener('click', function () {
             // VERVANG DIT: Reset logic afhankelijk van je input types
             // Voor number inputs:
             document.getElementById('input1').value = '';
@@ -214,14 +220,14 @@
         document.getElementById('input2').addEventListener('input', calculateResult2);
 
         // Copy to clipboard functionaliteit voor Calculator 2
-        document.getElementById('copyButton2').addEventListener('click', function() {
+        document.getElementById('copyButton2').addEventListener('click', function () {
             const textToCopy = currentResult2;
             const btn = this;
 
             if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(textToCopy).then(function() {
+                navigator.clipboard.writeText(textToCopy).then(function () {
                     showCopyFeedback(btn);
-                }).catch(function(err) {
+                }).catch(function (err) {
                     console.error('Clipboard API mislukt, probeer fallback:', err);
                     fallbackCopyText(textToCopy, btn);
                 });
@@ -231,7 +237,7 @@
         });
 
         // Reset functionality voor Calculator 2
-        document.getElementById('resetButton2').addEventListener('click', function() {
+        document.getElementById('resetButton2').addEventListener('click', function () {
             // VERVANG DIT: Reset logic afhankelijk van je input types
             document.getElementById('input2').value = '';
             calculateResult2();
@@ -241,4 +247,5 @@
         calculateResult2();
     </script>
 </body>
+
 </html>
