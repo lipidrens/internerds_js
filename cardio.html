@@ -4,109 +4,220 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cardio Calculators</title>
+    <title>Cardiologie</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@400;500;600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .result-value span {
+            white-space: pre-line;
+        }
+    </style>
 </head>
 
 <body>
     <div class="wrapper">
-        <!-- HEART Score Calculator -->
+        <!-- GRACE Score -->
+        <div class="container">
+            <h1>GRACE</h1>
+
+
+            <form id="graceForm">
+                <div class="form-group">
+                    <label for="age_grace">Leeftijd</label>
+                    <input type="number" id="age_grace" min="18" max="110" step="1" placeholder="Bijv. 65">
+                </div>
+
+                <div class="form-group">
+                    <label for="pulse_grace">Pols (/min)</label>
+                    <input type="number" id="pulse_grace" min="20" max="250" step="1" placeholder="Bijv. 80">
+                </div>
+
+                <div class="form-group">
+                    <label for="sbp_grace">Systolische bloeddruk (mmHg)</label>
+                    <input type="number" id="sbp_grace" min="20" max="250" step="1" placeholder="Bijv. 120">
+                </div>
+
+                <div class="form-group">
+                    <label for="creat_grace">Kreatinine (mmol/L)</label>
+                    <input type="number" id="creat_grace" min="0" step="1" placeholder="Bijv. 60">
+                </div>
+
+                <div class="form-group">
+                    <label>Hartfalen (Killip)</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="killip_grace" value="0" checked>
+                            I: Geen symptomen
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="killip_grace" value="15">
+                            II: Milde symptomen: crepitaties/S3 gallop/verhoogde CVD
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="killip_grace" value="29">
+                            III: Astma cardiale
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="killip_grace" value="44">
+                            IV: Cardiogene shock
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Hartstilstand bij presentatie</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="arrest_grace" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="arrest_grace" value="30">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>ST afwijkingen</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="st_grace" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="st_grace" value="17">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Positieve hartenzymen</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="trop_grace" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="trop_grace" value="13">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+            </form>
+
+            <div class="results show" id="graceResults">
+                <div class="result-item">
+                    <div class="result-value">
+                        <span id="graceScore">GRACE = -
+Mortaliteit (6m) = -%</span>
+                    </div>
+                </div>
+            </div>
+            <div class="button-container">
+                <button type="button" id="resetButtonGrace" class="reset-button">Reset</button>
+                <button type="button" id="copyButtonGrace" class="copy-button"
+                    title="Kopieer naar klembord">Kopieer</button>
+            </div>
+        </div>
+
+        <!-- HEART Score -->
         <div class="container">
             <h1>HEART</h1>
-            <p class="subtitle">Chest Pain Risk Assessment</p>
+
 
             <form id="heartForm">
                 <div class="form-group">
                     <label>Anamnese</label>
-                    <div class="radio-group vertical">
+                    <div class="radio-group">
                         <label class="radio-label">
-                            <input type="radio" name="ana_heart" value="2">
-                            Sterk verdacht (typische pijn)
+                            <input type="radio" name="ana_heart" value="0" checked>
+                            Mild verdacht (aspecifieke klachten)
                         </label>
                         <label class="radio-label">
                             <input type="radio" name="ana_heart" value="1">
                             Matig verdacht (atypische pijn)
                         </label>
                         <label class="radio-label">
-                            <input type="radio" name="ana_heart" value="0" checked>
-                            Mild verdacht (aspecifieke klachten)
+                            <input type="radio" name="ana_heart" value="2">
+                            Sterk verdacht (typische pijn)
                         </label>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label>ECG</label>
-                    <div class="radio-group vertical">
+                    <div class="radio-group">
                         <label class="radio-label">
-                            <input type="radio" name="ecg_heart" value="2">
-                            Significante ST-depressie
+                            <input type="radio" name="ecg_heart" value="0" checked>
+                            Normaal
                         </label>
                         <label class="radio-label">
                             <input type="radio" name="ecg_heart" value="1">
                             Niet-specifieke repolarisatiestoornissen / LBTB / Pacemaker
                         </label>
                         <label class="radio-label">
-                            <input type="radio" name="ecg_heart" value="0" checked>
-                            Normaal
+                            <input type="radio" name="ecg_heart" value="2">
+                            Significante ST-depressie
                         </label>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label>Leeftijd</label>
-                    <div class="radio-group vertical">
+                    <div class="radio-group">
                         <label class="radio-label">
-                            <input type="radio" name="age_heart" value="2">
-                            ≥65 jaar
+                            <input type="radio" name="age_heart" value="0" checked>
+                            &lt;45 jaar
                         </label>
                         <label class="radio-label">
                             <input type="radio" name="age_heart" value="1">
                             45-65 jaar
                         </label>
                         <label class="radio-label">
-                            <input type="radio" name="age_heart" value="0" checked>
-                            &lt;45 jaar
+                            <input type="radio" name="age_heart" value="2">
+                            ≥65 jaar
                         </label>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label>Risicofactoren*</label>
-                    <div class="radio-group vertical">
+                    <div class="radio-group">
                         <label class="radio-label">
-                            <input type="radio" name="risk_heart" value="2">
-                            ≥3 risicofactoren of VG van atherosclerotisch event
+                            <input type="radio" name="risk_heart" value="0" checked>
+                            Geen risicofactoren
                         </label>
                         <label class="radio-label">
                             <input type="radio" name="risk_heart" value="1">
                             1 of 2 risicofactoren
                         </label>
                         <label class="radio-label">
-                            <input type="radio" name="risk_heart" value="0" checked>
-                            Geen risicofactoren
+                            <input type="radio" name="risk_heart" value="2">
+                            ≥3 risicofactoren of VG van atherosclerotisch event
                         </label>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label>Troponine</label>
-                    <div class="radio-group vertical">
+                    <div class="radio-group">
                         <label class="radio-label">
-                            <input type="radio" name="trop_heart" value="2">
-                            ≥3x normaalwaarde
+                            <input type="radio" name="trop_heart" value="0" checked>
+                            &lt; normaalwaarde
                         </label>
                         <label class="radio-label">
                             <input type="radio" name="trop_heart" value="1">
                             1-3x normaalwaarde
                         </label>
                         <label class="radio-label">
-                            <input type="radio" name="trop_heart" value="0" checked>
-                            &lt;normaalwaarde
+                            <input type="radio" name="trop_heart" value="2">
+                            ≥3x normaalwaarde
                         </label>
                     </div>
                 </div>
@@ -115,7 +226,8 @@
             <div class="results show" id="heartResults">
                 <div class="result-item">
                     <div class="result-value">
-                        <span id="heartScore">HEART score = 0<br>Risico MACE (6w) = laag = 1.7%</span>
+                        <span id="heartScore">HEART score = 0
+Risico MACE (6w) = laag = 1.7%</span>
                     </div>
                 </div>
             </div>
@@ -124,14 +236,13 @@
                 <button type="button" id="copyButtonHeart" class="copy-button"
                     title="Kopieer naar klembord">Kopieer</button>
             </div>
-            <p class="subtitle" style="margin-top: 15px; font-size: 12px;">*Risicofactoren: roken, hypertensie, diabetes
-                mellitus, obesitas (BMI>30), hypercholesterolemie, positieve familie-anamnese.</p>
+            <p style="font-size: 0.85em; color: #666; margin-top: 0.5em;">*Risicofactoren: roken, hypertensie, diabetes mellitus, obesitas (BMI>30), hypercholesterolemie, positieve famillie-anamnese.</p>
         </div>
 
         <!-- QTc Calculator -->
         <div class="container">
             <h1>Corrected QT interval (QTc)</h1>
-            <p class="subtitle">Bazett's Formula</p>
+
 
             <form id="qtcForm">
                 <div class="form-group">
@@ -141,7 +252,7 @@
 
                 <div class="form-group">
                     <label for="rr_qtc">Hartfrequentie</label>
-                    <input type="number" id="rr_qtc" min="0" step="1" placeholder="Bijv. 60">
+                    <input type="number" id="rr_qtc" min="0" step="1" placeholder="Bijv. 70">
                 </div>
 
                 <div class="form-group">
@@ -167,139 +278,15 @@
             </div>
         </div>
 
-        <!-- Duke Calculator -->
+        <!-- CHA2DS2-VASc -->
         <div class="container">
-            <h1>Duke (endocarditis)</h1>
-            <p class="subtitle">Modified Duke Criteria</p>
+            <h1>CHA₂DS₂-VA(Sc)</h1>
 
-            <form id="dukeForm">
-                <p style="font-weight: 600; margin-bottom: 10px;">Major</p>
-                <div class="form-group">
-                    <label>Positieve bloedkweken passende bij infectieuze endocarditis</label>
-                    <div class="radio-group">
-                        <label class="radio-label">
-                            <input type="radio" name="kweken_duke" value="0" checked>
-                            Nee
-                        </label>
-                        <label class="radio-label">
-                            <input type="radio" name="kweken_duke" value="1">
-                            Ja
-                        </label>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label>Beeldvorming positief voor infectieuze endocarditis</label>
-                    <div class="radio-group">
-                        <label class="radio-label">
-                            <input type="radio" name="beeldvorming_duke" value="0" checked>
-                            Nee
-                        </label>
-                        <label class="radio-label">
-                            <input type="radio" name="beeldvorming_duke" value="1">
-                            Ja
-                        </label>
-                    </div>
-                </div>
-
-                <hr style="margin: 20px 0; border: none; border-top: 1px solid #e0e0e0;">
-                <p style="font-weight: 600; margin-bottom: 10px;">Minor</p>
-
-                <div class="form-group">
-                    <label>Predisponerende hartaandoening, of i.v. drugsgebruik</label>
-                    <div class="radio-group">
-                        <label class="radio-label">
-                            <input type="radio" name="aanleg_duke" value="0" checked>
-                            Nee
-                        </label>
-                        <label class="radio-label">
-                            <input type="radio" name="aanleg_duke" value="1">
-                            Ja
-                        </label>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label>Koorts >38°C</label>
-                    <div class="radio-group">
-                        <label class="radio-label">
-                            <input type="radio" name="koorts_duke" value="0" checked>
-                            Nee
-                        </label>
-                        <label class="radio-label">
-                            <input type="radio" name="koorts_duke" value="1">
-                            Ja
-                        </label>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label>Vasculair fenomeen (grote arteriële trombi, septische pulmonale infarcten, etc.)</label>
-                    <div class="radio-group">
-                        <label class="radio-label">
-                            <input type="radio" name="vasculair_duke" value="0" checked>
-                            Nee
-                        </label>
-                        <label class="radio-label">
-                            <input type="radio" name="vasculair_duke" value="1">
-                            Ja
-                        </label>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label>Immunologische fenomenen (glomerulonefritis, Osler nodes, Roth's spots, etc.)</label>
-                    <div class="radio-group">
-                        <label class="radio-label">
-                            <input type="radio" name="immuno_duke" value="0" checked>
-                            Nee
-                        </label>
-                        <label class="radio-label">
-                            <input type="radio" name="immuno_duke" value="1">
-                            Ja
-                        </label>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label>Microbiologisch bewijs (positieve bloedkweek niet voldoend aan major, of serologisch
-                        bewijs)</label>
-                    <div class="radio-group">
-                        <label class="radio-label">
-                            <input type="radio" name="micro_duke" value="0" checked>
-                            Nee
-                        </label>
-                        <label class="radio-label">
-                            <input type="radio" name="micro_duke" value="1">
-                            Ja
-                        </label>
-                    </div>
-                </div>
-            </form>
-
-            <div class="results show" id="dukeResults">
-                <div class="result-item">
-                    <div class="result-value">
-                        <span id="dukeScore">DUKE = major 0/2 en minor 0/5<br>= criteria niet passende bij IE</span>
-                    </div>
-                </div>
-            </div>
-            <div class="button-container">
-                <button type="button" id="resetButtonDuke" class="reset-button">Reset</button>
-                <button type="button" id="copyButtonDuke" class="copy-button"
-                    title="Kopieer naar klembord">Kopieer</button>
-            </div>
-        </div>
-
-        <!-- CHA2DS2-VASc Calculator -->
-        <div class="container">
-            <h1>CHA2DS2-VA(Sc)</h1>
-            <p class="subtitle">Stroke Risk in Atrial Fibrillation</p>
 
             <form id="chadForm">
                 <div class="form-group">
                     <label>Leeftijd</label>
-                    <div class="radio-group vertical">
+                    <div class="radio-group">
                         <label class="radio-label">
                             <input type="radio" name="chad_age" value="0" checked>
                             &lt;65
@@ -403,8 +390,11 @@
             <div class="results show" id="chadResults">
                 <div class="result-item">
                     <div class="result-value">
-                        <span id="chadScore">CHA2DS2-VA = 0/8<br>CHA2DS2-VASc = 0/9<br>Risico herseninfarct =
-                            0.0%<br>Risico herseninfarct/TIA/sys. trombo-embolie = 0.0%<br>(risico per jaar)</span>
+                        <span id="chadScore">CHA₂DS₂-VA = 0/8
+CHA₂DS₂-VASc = 0/9
+Risico herseninfarct = 0.2%
+Risico herseninfarct/TIA/sys. trombo-embolie = 0.3%
+(risico per jaar)</span>
                     </div>
                 </div>
             </div>
@@ -415,10 +405,10 @@
             </div>
         </div>
 
-        <!-- HAS-BLED Calculator -->
+        <!-- HAS-BLED -->
         <div class="container">
             <h1>HAS-BLED</h1>
-            <p class="subtitle">Bleeding Risk in Atrial Fibrillation</p>
+
 
             <form id="bledForm">
                 <div class="form-group">
@@ -436,7 +426,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Onbehandelde hypertensie (>160 mmHg)</label>
+                    <label>Onbehandelde hypertensie (&gt;160 mmHg)</label>
                     <div class="radio-group">
                         <label class="radio-label">
                             <input type="radio" name="bled_ht" value="0" checked>
@@ -450,7 +440,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Nierziekte (dialyse/transplantaat/kreat >200 umol/L)</label>
+                    <label>Nierziekte*</label>
                     <div class="radio-group">
                         <label class="radio-label">
                             <input type="radio" name="bled_kd" value="0" checked>
@@ -464,7 +454,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Leverziekte (cirrose/bilirubine >2x ULN met enzymen >3x ULN)</label>
+                    <label>Leverziekte*</label>
                     <div class="radio-group">
                         <label class="radio-label">
                             <input type="radio" name="bled_liver" value="0" checked>
@@ -506,7 +496,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Instabiele INR (&lt;60% van tijd in therapeutische range)</label>
+                    <label>Instabiele INR*</label>
                     <div class="radio-group">
                         <label class="radio-label">
                             <input type="radio" name="bled_inr" value="0" checked>
@@ -551,8 +541,9 @@
             <div class="results show" id="bledResults">
                 <div class="result-item">
                     <div class="result-value">
-                        <span id="bledScore">HAS-BLED = 0/9<br>Risico majeure bloeding = 1.13<br>(bloedingen per 100
-                            patiëntjaren)</span>
+                        <span id="bledScore">HAS-BLED = 0/9
+Risico majeure bloeding = 1.13
+(bloedingen per 100 patiëntjaren)</span>
                     </div>
                 </div>
             </div>
@@ -561,19 +552,15 @@
                 <button type="button" id="copyButtonBled" class="copy-button"
                     title="Kopieer naar klembord">Kopieer</button>
             </div>
+            <p style="font-size: 0.85em; color: #666; margin-top: 0.5em;">*Nierziekte: Dialyse/transplantaat/kreat >200 umol/L. Leverziekte: cirrose of bilirubine >2x ULN met ASAT/ALAT/AF >3x ULN. Instabiele INR: &lt;60% van tijd in therapeutische range</p>
         </div>
 
-        <!-- RoPE Calculator -->
+        <!-- RoPE -->
         <div class="container">
             <h1>RoPE</h1>
-            <p class="subtitle">Risk of Paradoxical Embolism</p>
+
 
             <form id="ropeForm">
-                <div class="form-group">
-                    <label for="rope_age">Leeftijd</label>
-                    <input type="number" id="rope_age" min="18" max="110" placeholder="Bijv. 45">
-                </div>
-
                 <div class="form-group">
                     <label>Hypertensie</label>
                     <div class="radio-group">
@@ -634,22 +621,26 @@
                     <label>Corticaal infarct op beeldvorming</label>
                     <div class="radio-group">
                         <label class="radio-label">
-                            <input type="radio" name="rope_cortical" value="0" checked>
+                            <input type="radio" name="rope_cortical" value="0">
                             Nee
                         </label>
                         <label class="radio-label">
-                            <input type="radio" name="rope_cortical" value="1">
+                            <input type="radio" name="rope_cortical" value="1" checked>
                             Ja
                         </label>
                     </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="rope_age">Leeftijd</label>
+                    <input type="number" id="rope_age" min="18" max="110" step="1" placeholder="Bijv. 55">
                 </div>
             </form>
 
             <div class="results show" id="ropeResults">
                 <div class="result-item">
                     <div class="result-value">
-                        <span id="ropeScore">RoPE = -<br>Kans dat PFO gerelateerd is aan infarct = -%<br>2-jaars risico
-                            op stroke/TIA = -%</span>
+                        <span id="ropeScore">RoPE = -</span>
                     </div>
                 </div>
             </div>
@@ -660,107 +651,126 @@
             </div>
         </div>
 
-        <!-- GRACE Calculator -->
+        <!-- Duke (endocarditis) -->
         <div class="container">
-            <h1>GRACE</h1>
-            <p class="subtitle">6-Month Mortality Risk Post-ACS</p>
+            <h1>Duke (endocarditis)</h1>
 
-            <form id="graceForm">
-                <div class="form-group">
-                    <label for="grace_age">Leeftijd (jaren)</label>
-                    <input type="number" id="grace_age" min="18" max="110" placeholder="Bijv. 65">
-                </div>
 
+            <form id="dukeForm">
+                <p><strong>Major</strong></p>
                 <div class="form-group">
-                    <label for="grace_hr">Hartfrequentie (slagen/min)</label>
-                    <input type="number" id="grace_hr" min="0" placeholder="Bijv. 80">
-                </div>
-
-                <div class="form-group">
-                    <label for="grace_sbp">Systolische bloeddruk (mmHg)</label>
-                    <input type="number" id="grace_sbp" min="0" placeholder="Bijv. 120">
-                </div>
-
-                <div class="form-group">
-                    <label for="grace_creat">Creatinine (µmol/L)</label>
-                    <input type="number" id="grace_creat" min="0" step="0.1" placeholder="Bijv. 90">
-                </div>
-
-                <div class="form-group">
-                    <label>Hartfalen (Killip)</label>
-                    <div class="radio-group vertical">
-                        <label class="radio-label">
-                            <input type="radio" name="grace_killip" value="1" checked>
-                            I (geen symptomen)
-                        </label>
-                        <label class="radio-label">
-                            <input type="radio" name="grace_killip" value="2">
-                            II (milde symptomen: creptitiaties/S3 gallop/verhoogde CVD)
-                        </label>
-                        <label class="radio-label">
-                            <input type="radio" name="grace_killip" value="3">
-                            III (astma cardiale)
-                        </label>
-                        <label class="radio-label">
-                            <input type="radio" name="grace_killip" value="4">
-                            IV (cardiogene shock)
-                        </label>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label>Hartstilstand bij presentatie</label>
+                    <label>Positieve bloedkweken passende bij infectieuze endocarditis</label>
                     <div class="radio-group">
                         <label class="radio-label">
-                            <input type="radio" name="grace_arrest" value="0" checked>
+                            <input type="radio" name="kweken_duke" value="0" checked>
                             Nee
                         </label>
                         <label class="radio-label">
-                            <input type="radio" name="grace_arrest" value="1">
+                            <input type="radio" name="kweken_duke" value="1">
                             Ja
                         </label>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label>Afwijkende cardiale enzymen</label>
+                    <label>Beeldvorming positief voor infectieuze endocarditis</label>
                     <div class="radio-group">
                         <label class="radio-label">
-                            <input type="radio" name="grace_enzymes" value="0" checked>
+                            <input type="radio" name="beeldvorming_duke" value="0" checked>
                             Nee
                         </label>
                         <label class="radio-label">
-                            <input type="radio" name="grace_enzymes" value="1">
+                            <input type="radio" name="beeldvorming_duke" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <hr>
+                <p><strong>Minor</strong></p>
+
+                <div class="form-group">
+                    <label>Predisponerende hartaandoening, of i.v. drugsgebruik</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="aanleg_duke" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="aanleg_duke" value="1">
                             Ja
                         </label>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label>ST-segment deviatie</label>
+                    <label>Koorts &gt;38°C</label>
                     <div class="radio-group">
                         <label class="radio-label">
-                            <input type="radio" name="grace_st" value="0" checked>
+                            <input type="radio" name="koorts_duke" value="0" checked>
                             Nee
                         </label>
                         <label class="radio-label">
-                            <input type="radio" name="grace_st" value="1">
+                            <input type="radio" name="koorts_duke" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Vasculair fenomeen (klinisch of radiologisch): grote arteriële trombi, septische pulmonale infarcten, infectieuze (mycotische) aneurysma, intracraniële bloeding, conjunctivale bloeding, Janeway lesions</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="vasculair_duke" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="vasculair_duke" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Immunologische fenomenen: glomerulonefritis, Osler nodes, Roth's spots, positieve reumafactor</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="immuno_duke" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="immuno_duke" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Microbiologisch bewijs: positieve bloedkweek, maar voldoet niet aan major criteria, of serologisch bewijs voor actieve infectie, consistent met infectieuze endocarditis</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="micro_duke" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="micro_duke" value="1">
                             Ja
                         </label>
                     </div>
                 </div>
             </form>
 
-            <div class="results show" id="graceResults">
+            <div class="results show" id="dukeResults">
                 <div class="result-item">
                     <div class="result-value">
-                        <span id="graceScore">GRACE score = -<br>6-maands mortaliteit = -%</span>
+                        <span id="dukeScore">DUKE = major 0/2 en minor 0/5
+= criteria niet passende bij IE</span>
                     </div>
                 </div>
             </div>
             <div class="button-container">
-                <button type="button" id="resetButtonGrace" class="reset-button">Reset</button>
-                <button type="button" id="copyButtonGrace" class="copy-button"
+                <button type="button" id="resetButtonDuke" class="reset-button">Reset</button>
+                <button type="button" id="copyButtonDuke" class="copy-button"
                     title="Kopieer naar klembord">Kopieer</button>
             </div>
         </div>
@@ -801,7 +811,160 @@
             document.body.removeChild(textArea);
         }
 
-        // HEART Score Calculator Logic
+        // Generic copy handler
+        function setupCopy(buttonId, getTextFn) {
+            document.getElementById(buttonId).addEventListener('click', function () {
+                const textToCopy = getTextFn();
+                const btn = this;
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(textToCopy).then(function () {
+                        showCopyFeedback(btn);
+                    }).catch(function (err) {
+                        fallbackCopyText(textToCopy, btn);
+                    });
+                } else {
+                    fallbackCopyText(textToCopy, btn);
+                }
+            });
+        }
+
+        // ============================================================
+        // GRACE Score
+        // ============================================================
+        // Grace lookup table (score;risk)
+        const graceTable = [
+            [6, 0.2], [27, 0.4], [39, 0.6], [48, 0.8], [55, 1.0], [60, 1.2],
+            [65, 1.4], [69, 1.6], [73, 1.8], [76, 2], [88, 3], [97, 4],
+            [104, 5], [110, 6], [115, 7], [119, 8], [123, 9], [126, 10],
+            [129, 11], [132, 12], [134, 13], [137, 14], [139, 15], [141, 16],
+            [143, 17], [145, 18], [147, 19], [149, 20], [150, 21], [152, 22],
+            [153, 23], [155, 24], [156, 25], [158, 26], [159, 27], [160, 28],
+            [162, 29], [163, 30], [174, 40], [183, 50], [191, 60], [200, 70],
+            [208, 80], [219, 90], [285, 99]
+        ];
+
+        let currentGraceText = '';
+
+        function calculateGRACE() {
+            const age = parseFloat(document.getElementById('age_grace').value);
+            const pulse = parseFloat(document.getElementById('pulse_grace').value);
+            const sbp = parseFloat(document.getElementById('sbp_grace').value);
+            const creatInput = parseFloat(document.getElementById('creat_grace').value);
+            const killip = parseInt(document.querySelector('input[name="killip_grace"]:checked').value);
+            const arrest = parseInt(document.querySelector('input[name="arrest_grace"]:checked').value);
+            const st = parseInt(document.querySelector('input[name="st_grace"]:checked').value);
+            const trop = parseInt(document.querySelector('input[name="trop_grace"]:checked').value);
+
+            // Age points
+            let age2 = NaN;
+            if (!isNaN(age)) {
+                if (age < 35) age2 = 0;
+                else if (age < 45) age2 = 0 + (age - 35) * 1.8;
+                else if (age < 55) age2 = 18 + (age - 45) * 1.8;
+                else if (age < 65) age2 = 36 + (age - 55) * 1.8;
+                else if (age < 75) age2 = 54 + (age - 65) * 1.9;
+                else if (age < 85) age2 = 73 + (age - 75) * 1.8;
+                else if (age < 90) age2 = 91 + (age - 85) * 1.8;
+                else age2 = 100;
+            }
+
+            // Pulse points
+            let pulse2 = NaN;
+            if (!isNaN(pulse)) {
+                if (pulse < 70) pulse2 = 0;
+                else if (pulse < 80) pulse2 = 0 + (pulse - 70) * 0.3;
+                else if (pulse < 90) pulse2 = 3 + (pulse - 80) * 0.2;
+                else if (pulse < 100) pulse2 = 5 + (pulse - 90) * 0.3;
+                else if (pulse < 110) pulse2 = 8 + (pulse - 100) * 0.2;
+                else if (pulse < 150) pulse2 = 10 + (pulse - 110) * 0.3;
+                else if (pulse < 200) pulse2 = 22 + (pulse - 150) * 0.3;
+                else pulse2 = 34;
+            }
+
+            // SBP points
+            let sysbp2 = NaN;
+            if (!isNaN(sbp)) {
+                if (sbp < 80) sysbp2 = 40;
+                else if (sbp < 100) sysbp2 = 40 - (sbp - 80) * 0.3;
+                else if (sbp < 110) sysbp2 = 34 - (sbp - 100) * 0.3;
+                else if (sbp < 120) sysbp2 = 31 - (sbp - 110) * 0.4;
+                else if (sbp < 130) sysbp2 = 27 - (sbp - 120) * 0.3;
+                else if (sbp < 140) sysbp2 = 24 - (sbp - 130) * 0.3;
+                else if (sbp < 150) sysbp2 = 20 - (sbp - 140) * 0.4;
+                else if (sbp < 160) sysbp2 = 17 - (sbp - 150) * 0.3;
+                else if (sbp < 180) sysbp2 = 14 - (sbp - 160) * 0.3;
+                else if (sbp < 200) sysbp2 = 8 - (sbp - 180) * 0.4;
+                else sysbp2 = 0;
+            }
+
+            // Creatinine points (input in mmol/L, convert to mg/dL)
+            let crt2 = NaN;
+            if (!isNaN(creatInput) && creatInput >= 0) {
+                const creat = creatInput * 0.0113;
+                if (creat < 0.2) crt2 = 0 + (creat - 0) * (1 / 0.2);
+                else if (creat < 0.4) crt2 = 1 + (creat - 0.2) * (2 / 0.2);
+                else if (creat < 0.6) crt2 = 3 + (creat - 0.4) * (1 / 0.2);
+                else if (creat < 0.8) crt2 = 4 + (creat - 0.6) * (2 / 0.2);
+                else if (creat < 1.0) crt2 = 6 + (creat - 0.8) * (1 / 0.2);
+                else if (creat < 1.2) crt2 = 7 + (creat - 1.0) * (1 / 0.2);
+                else if (creat < 1.4) crt2 = 8 + (creat - 1.2) * (2 / 0.2);
+                else if (creat < 1.6) crt2 = 10 + (creat - 1.4) * (1 / 0.2);
+                else if (creat < 1.8) crt2 = 11 + (creat - 1.6) * (2 / 0.2);
+                else if (creat < 2.0) crt2 = 13 + (creat - 1.8) * (1 / 0.2);
+                else if (creat < 3.0) crt2 = 14 + (creat - 2.0) * (7 / 1);
+                else if (creat < 4.0) crt2 = 21 + (creat - 3.0) * (7 / 1);
+                else crt2 = 28;
+            }
+
+            const graceScore = killip + sysbp2 + pulse2 + age2 + crt2 + st + trop + arrest;
+
+            if (isNaN(graceScore)) {
+                currentGraceText = 'GRACE = -\nMortaliteit (6m) = -%';
+            } else {
+                let graceRisk;
+                if (graceScore >= 6) {
+                    // Find last entry where table score <= graceScore
+                    let lastIdx = -1;
+                    for (let i = 0; i < graceTable.length; i++) {
+                        if (graceTable[i][0] <= graceScore) lastIdx = i;
+                    }
+                    graceRisk = lastIdx >= 0 ? graceTable[lastIdx][1] : 0;
+                } else {
+                    graceRisk = 0;
+                }
+                currentGraceText = `GRACE = ${Math.round(graceScore)}\nMortaliteit (6m) = ${graceRisk}%`;
+            }
+
+            document.getElementById('graceScore').textContent = currentGraceText;
+        }
+
+        // Event listeners for GRACE
+        ['age_grace', 'pulse_grace', 'sbp_grace', 'creat_grace'].forEach(id => {
+            document.getElementById(id).addEventListener('input', calculateGRACE);
+        });
+        document.querySelectorAll('input[name="killip_grace"], input[name="arrest_grace"], input[name="st_grace"], input[name="trop_grace"]').forEach(radio => {
+            radio.addEventListener('change', calculateGRACE);
+        });
+
+        setupCopy('copyButtonGrace', () => currentGraceText);
+
+        document.getElementById('resetButtonGrace').addEventListener('click', function () {
+            ['age_grace', 'pulse_grace', 'sbp_grace', 'creat_grace'].forEach(id => {
+                document.getElementById(id).value = '';
+            });
+            ['killip_grace', 'arrest_grace', 'st_grace', 'trop_grace'].forEach(name => {
+                document.querySelectorAll(`input[name="${name}"]`).forEach(radio => {
+                    radio.checked = radio.value === "0";
+                });
+            });
+            calculateGRACE();
+        });
+
+        calculateGRACE();
+
+        // ============================================================
+        // HEART Score
+        // ============================================================
         let currentHeartText = '';
 
         function calculateHEART() {
@@ -812,196 +975,178 @@
             const trop = parseInt(document.querySelector('input[name="trop_heart"]:checked').value);
 
             const score = ana + ecg + age + risk + trop;
-            let interpretation;
 
+            let interp;
             if (score <= 3) {
-                interpretation = 'Risico MACE (6w) = laag = 1.7%';
+                interp = 'Risico MACE (6w) = laag = 1.7%';
             } else if (score <= 6) {
-                interpretation = 'Risico MACE (6w) = intermediate = 16.6%';
+                interp = 'Risico MACE (6w) = intermediate = 16.6%';
             } else {
-                interpretation = 'Risico MACE (6w) = hoog = 50.1%';
+                interp = 'Risico MACE (6w) = hoog = 50.1%';
             }
 
-            currentHeartText = `HEART score = ${score}\n${interpretation}`;
-            document.getElementById('heartScore').innerHTML = `HEART score = ${score}<br>${interpretation}`;
-            document.getElementById('heartResults').classList.add('show');
+            currentHeartText = `HEART score = ${score}\n${interp}`;
+            document.getElementById('heartScore').textContent = currentHeartText;
         }
 
-        // Real-time calculation when HEART radio buttons change
         document.querySelectorAll('input[name="ana_heart"], input[name="ecg_heart"], input[name="age_heart"], input[name="risk_heart"], input[name="trop_heart"]').forEach(radio => {
             radio.addEventListener('change', calculateHEART);
         });
 
-        // Copy to clipboard functionality for HEART
-        document.getElementById('copyButtonHeart').addEventListener('click', function () {
-            const textToCopy = currentHeartText;
-            const btn = this;
+        setupCopy('copyButtonHeart', () => currentHeartText);
 
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(textToCopy).then(function () {
-                    showCopyFeedback(btn);
-                }).catch(function (err) {
-                    console.error('Clipboard API mislukt, probeer fallback:', err);
-                    fallbackCopyText(textToCopy, btn);
-                });
-            } else {
-                fallbackCopyText(textToCopy, btn);
-            }
-        });
-
-        // Reset functionality for HEART
         document.getElementById('resetButtonHeart').addEventListener('click', function () {
-            document.querySelectorAll('input[name="ana_heart"], input[name="ecg_heart"], input[name="age_heart"], input[name="risk_heart"], input[name="trop_heart"]').forEach(radio => {
-                if (radio.value === "0") {
-                    radio.checked = true;
-                }
+            ['ana_heart', 'ecg_heart', 'age_heart', 'risk_heart', 'trop_heart'].forEach(name => {
+                document.querySelectorAll(`input[name="${name}"]`).forEach(radio => {
+                    radio.checked = radio.value === "0";
+                });
             });
             calculateHEART();
         });
 
-        // Calculate initial HEART score
         calculateHEART();
 
-
-        // QTc Calculator Logic
+        // ============================================================
+        // QTc Calculator
+        // ============================================================
         let currentQtcText = '';
 
-        function calculateQTC() {
+        function calculateQTc() {
             const qt = parseFloat(document.getElementById('qt_qtc').value);
             const rrInput = parseFloat(document.getElementById('rr_qtc').value);
             const unit = document.getElementById('unit_qtc').value;
 
-            if (!qt || !rrInput || qt <= 0 || rrInput <= 0) {
+            if (isNaN(qt) || isNaN(rrInput) || rrInput <= 0) {
                 currentQtcText = 'QTc = - ms';
-                document.getElementById('qtcScore').textContent = currentQtcText;
-                return;
+            } else {
+                const rr = unit === 'rr' ? rrInput : (60 / rrInput) * 1000;
+                const qtc = qt / Math.sqrt(rr / 1000);
+                currentQtcText = `QTc = ${Math.round(qtc)} ms`;
             }
 
-            // Convert to RR interval in ms
-            const rr = (unit === 'bpm') ? (60 / rrInput) * 1000 : rrInput;
-
-            // Bazett's formula
-            const qtc = qt / Math.sqrt(rr / 1000);
-
-            currentQtcText = `QTc = ${Math.round(qtc)} ms`;
             document.getElementById('qtcScore').textContent = currentQtcText;
-            document.getElementById('qtcResults').classList.add('show');
         }
 
-        // Real-time calculation for QTc
-        document.getElementById('qt_qtc').addEventListener('input', calculateQTC);
-        document.getElementById('rr_qtc').addEventListener('input', calculateQTC);
-        document.getElementById('unit_qtc').addEventListener('change', calculateQTC);
+        document.getElementById('qt_qtc').addEventListener('input', calculateQTc);
+        document.getElementById('rr_qtc').addEventListener('input', calculateQTc);
+        document.getElementById('unit_qtc').addEventListener('change', calculateQTc);
 
-        // Copy to clipboard functionality for QTc
-        document.getElementById('copyButtonQtc').addEventListener('click', function () {
-            const textToCopy = currentQtcText;
-            const btn = this;
+        setupCopy('copyButtonQtc', () => currentQtcText);
 
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(textToCopy).then(function () {
-                    showCopyFeedback(btn);
-                }).catch(function (err) {
-                    console.error('Clipboard API mislukt, probeer fallback:', err);
-                    fallbackCopyText(textToCopy, btn);
-                });
-            } else {
-                fallbackCopyText(textToCopy, btn);
-            }
-        });
-
-        // Reset functionality for QTc
         document.getElementById('resetButtonQtc').addEventListener('click', function () {
             document.getElementById('qt_qtc').value = '';
             document.getElementById('rr_qtc').value = '';
             document.getElementById('unit_qtc').selectedIndex = 0;
-            calculateQTC();
+            calculateQTc();
         });
 
-        // Calculate initial QTc
-        calculateQTC();
+        calculateQTc();
 
-
-        // Duke Calculator Logic
-        let currentDukeText = '';
-
-        function calculateDUKE() {
-            const kweken = parseInt(document.querySelector('input[name="kweken_duke"]:checked').value);
-            const beeldvorming = parseInt(document.querySelector('input[name="beeldvorming_duke"]:checked').value);
-            const aanleg = parseInt(document.querySelector('input[name="aanleg_duke"]:checked').value);
-            const koorts = parseInt(document.querySelector('input[name="koorts_duke"]:checked').value);
-            const vasculair = parseInt(document.querySelector('input[name="vasculair_duke"]:checked').value);
-            const immuno = parseInt(document.querySelector('input[name="immuno_duke"]:checked').value);
-            const micro = parseInt(document.querySelector('input[name="micro_duke"]:checked').value);
-
-            const major = kweken + beeldvorming;
-            const minor = aanleg + koorts + vasculair + immuno + micro;
-
-            let interpretation;
-            if (major === 2 || (major === 1 && minor >= 3) || minor === 5) {
-                interpretation = 'diagnose IE zeker';
-            } else if ((major === 1 && minor >= 1) || minor >= 3) {
-                interpretation = 'diagnose IE mogelijk';
-            } else {
-                interpretation = 'criteria niet passende bij IE';
-            }
-
-            currentDukeText = `DUKE = major ${major}/2 en minor ${minor}/5\n= ${interpretation}`;
-            document.getElementById('dukeScore').innerHTML = `DUKE = major ${major}/2 en minor ${minor}/5<br>= ${interpretation}`;
-            document.getElementById('dukeResults').classList.add('show');
-        }
-
-        // Real-time calculation when Duke radio buttons change
-        document.querySelectorAll('input[name="kweken_duke"], input[name="beeldvorming_duke"], input[name="aanleg_duke"], input[name="koorts_duke"], input[name="vasculair_duke"], input[name="immuno_duke"], input[name="micro_duke"]').forEach(radio => {
-            radio.addEventListener('change', calculateDUKE);
-        });
-
-        // Copy to clipboard functionality for Duke
-        document.getElementById('copyButtonDuke').addEventListener('click', function () {
-            const textToCopy = currentDukeText;
-            const btn = this;
-
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(textToCopy).then(function () {
-                    showCopyFeedback(btn);
-                }).catch(function (err) {
-                    console.error('Clipboard API mislukt, probeer fallback:', err);
-                    fallbackCopyText(textToCopy, btn);
-                });
-            } else {
-                fallbackCopyText(textToCopy, btn);
-            }
-        });
-
-        // Reset functionality for Duke
-        document.getElementById('resetButtonDuke').addEventListener('click', function () {
-            document.querySelectorAll('input[name="kweken_duke"], input[name="beeldvorming_duke"], input[name="aanleg_duke"], input[name="koorts_duke"], input[name="vasculair_duke"], input[name="immuno_duke"], input[name="micro_duke"]').forEach(radio => {
-                if (radio.value === "0") {
-                    radio.checked = true;
-                }
-            });
-            calculateDUKE();
-        });
-
-        // Calculate initial Duke score
-        calculateDUKE();
-
-
-        // CSV Data for risk calculations
-        const chadRiskData = [
-            { score: 0, risk_icva: 0.002, risk_iscva_tia_vte: 0.003, risk_bleed: 1.13 },
-            { score: 1, risk_icva: 0.006, risk_iscva_tia_vte: 0.009, risk_bleed: 1.02 },
-            { score: 2, risk_icva: 0.022, risk_iscva_tia_vte: 0.029, risk_bleed: 1.88 },
-            { score: 3, risk_icva: 0.032, risk_iscva_tia_vte: 0.046, risk_bleed: 3.74 },
-            { score: 4, risk_icva: 0.048, risk_iscva_tia_vte: 0.067, risk_bleed: 8.70 },
-            { score: 5, risk_icva: 0.072, risk_iscva_tia_vte: 0.1, risk_bleed: 12.5 },
-            { score: 6, risk_icva: 0.097, risk_iscva_tia_vte: 0.136, risk_bleed: null },
-            { score: 7, risk_icva: 0.112, risk_iscva_tia_vte: 0.157, risk_bleed: null },
-            { score: 8, risk_icva: 0.108, risk_iscva_tia_vte: 0.152, risk_bleed: null },
-            { score: 9, risk_icva: 0.122, risk_iscva_tia_vte: 0.174, risk_bleed: null }
+        // ============================================================
+        // CHA2DS2-VASc
+        // ============================================================
+        // Lookup table from chadvascrisks.csv
+        const chadRiskTable = [
+            { score: 0, risk_icva: 0.002, risk_icva_tia: 0.003, risk_bleed: 1.13 },
+            { score: 1, risk_icva: 0.006, risk_icva_tia: 0.009, risk_bleed: 1.02 },
+            { score: 2, risk_icva: 0.022, risk_icva_tia: 0.029, risk_bleed: 1.88 },
+            { score: 3, risk_icva: 0.032, risk_icva_tia: 0.046, risk_bleed: 3.74 },
+            { score: 4, risk_icva: 0.048, risk_icva_tia: 0.067, risk_bleed: 8.70 },
+            { score: 5, risk_icva: 0.072, risk_icva_tia: 0.100, risk_bleed: 12.50 },
+            { score: 6, risk_icva: 0.097, risk_icva_tia: 0.136 },
+            { score: 7, risk_icva: 0.112, risk_icva_tia: 0.157 },
+            { score: 8, risk_icva: 0.108, risk_icva_tia: 0.152 },
+            { score: 9, risk_icva: 0.122, risk_icva_tia: 0.174 }
         ];
 
-        const ropeData = [
+        let currentChadText = '';
+
+        function calculateCHAD() {
+            const chadAge = parseInt(document.querySelector('input[name="chad_age"]:checked').value);
+            const chadSex = parseInt(document.querySelector('input[name="chad_sex"]:checked').value);
+            const chadChf = parseInt(document.querySelector('input[name="chad_chf"]:checked').value);
+            const chadHt = parseInt(document.querySelector('input[name="chad_ht"]:checked').value);
+            const chadVte = parseInt(document.querySelector('input[name="chad_vte"]:checked').value);
+            const chadAte = parseInt(document.querySelector('input[name="chad_ate"]:checked').value);
+            const chadDm = parseInt(document.querySelector('input[name="chad_dm"]:checked').value);
+
+            const chadscore = chadAge + chadSex + chadChf + chadHt + chadVte + chadAte + chadDm;
+            const chadscore_nosex = chadAge + chadChf + chadHt + chadVte + chadAte + chadDm;
+
+            const row = chadRiskTable.find(r => r.score === chadscore);
+            const risk_icva = row ? (row.risk_icva * 100).toFixed(1) : '-';
+            const risk_icva_tia = row ? (row.risk_icva_tia * 100).toFixed(1) : '-';
+
+            currentChadText = `CHA2DS2-VA = ${chadscore_nosex}/8\nCHA2DS2-VASc = ${chadscore}/9\nRisico herseninfarct = ${risk_icva}%\nRisico herseninfarct/TIA/\nsys. trombo-embolie = ${risk_icva_tia}%\n(risico per jaar)`;
+
+            document.getElementById('chadScore').textContent = currentChadText;
+        }
+
+        document.querySelectorAll('input[name="chad_age"], input[name="chad_sex"], input[name="chad_chf"], input[name="chad_ht"], input[name="chad_vte"], input[name="chad_ate"], input[name="chad_dm"]').forEach(radio => {
+            radio.addEventListener('change', calculateCHAD);
+        });
+
+        setupCopy('copyButtonChad', () => currentChadText);
+
+        document.getElementById('resetButtonChad').addEventListener('click', function () {
+            ['chad_age', 'chad_sex', 'chad_chf', 'chad_ht', 'chad_vte', 'chad_ate', 'chad_dm'].forEach(name => {
+                document.querySelectorAll(`input[name="${name}"]`).forEach(radio => {
+                    radio.checked = radio.value === "0";
+                });
+            });
+            calculateCHAD();
+        });
+
+        calculateCHAD();
+
+        // ============================================================
+        // HAS-BLED
+        // ============================================================
+        let currentBledText = '';
+
+        function calculateBLED() {
+            const bledAge = parseInt(document.querySelector('input[name="bled_age"]:checked').value);
+            const bledHt = parseInt(document.querySelector('input[name="bled_ht"]:checked').value);
+            const bledKd = parseInt(document.querySelector('input[name="bled_kd"]:checked').value);
+            const bledLiver = parseInt(document.querySelector('input[name="bled_liver"]:checked').value);
+            const bledStroke = parseInt(document.querySelector('input[name="bled_stroke"]:checked').value);
+            const bledBleed = parseInt(document.querySelector('input[name="bled_bleed"]:checked').value);
+            const bledInr = parseInt(document.querySelector('input[name="bled_inr"]:checked').value);
+            const bledMed = parseInt(document.querySelector('input[name="bled_med"]:checked').value);
+            const bledAlcohol = parseInt(document.querySelector('input[name="bled_alcohol"]:checked').value);
+
+            const bledscore = bledAge + bledHt + bledKd + bledLiver + bledStroke + bledBleed + bledInr + bledMed + bledAlcohol;
+
+            const row = chadRiskTable.find(r => r.score === bledscore);
+            const risk_bleed = row && row.risk_bleed !== undefined ? row.risk_bleed.toFixed(2) : '-';
+
+            currentBledText = `HAS-BLED = ${bledscore}/9\nRisico majeure bloeding = ${risk_bleed}\n(bloedingen per 100 patiëntjaren)`;
+
+            document.getElementById('bledScore').textContent = currentBledText;
+        }
+
+        document.querySelectorAll('input[name="bled_age"], input[name="bled_ht"], input[name="bled_kd"], input[name="bled_liver"], input[name="bled_stroke"], input[name="bled_bleed"], input[name="bled_inr"], input[name="bled_med"], input[name="bled_alcohol"]').forEach(radio => {
+            radio.addEventListener('change', calculateBLED);
+        });
+
+        setupCopy('copyButtonBled', () => currentBledText);
+
+        document.getElementById('resetButtonBled').addEventListener('click', function () {
+            ['bled_age', 'bled_ht', 'bled_kd', 'bled_liver', 'bled_stroke', 'bled_bleed', 'bled_inr', 'bled_med', 'bled_alcohol'].forEach(name => {
+                document.querySelectorAll(`input[name="${name}"]`).forEach(radio => {
+                    radio.checked = radio.value === "0";
+                });
+            });
+            calculateBLED();
+        });
+
+        calculateBLED();
+
+        // ============================================================
+        // RoPE Score
+        // ============================================================
+        // Lookup table from rope.csv
+        const ropeRiskTable = [
             { score: 0, pfo_frac: 0, risk_stroke: 20 },
             { score: 1, pfo_frac: 0, risk_stroke: 20 },
             { score: 2, pfo_frac: 0, risk_stroke: 20 },
@@ -1015,414 +1160,116 @@
             { score: 10, pfo_frac: 88, risk_stroke: 2 }
         ];
 
-        const graceData = [
-            { score: 6, risk: 0.2 }, { score: 27, risk: 0.4 }, { score: 39, risk: 0.6 }, { score: 48, risk: 0.8 },
-            { score: 55, risk: 1.0 }, { score: 60, risk: 1.2 }, { score: 65, risk: 1.4 }, { score: 69, risk: 1.6 },
-            { score: 73, risk: 1.8 }, { score: 76, risk: 2 }, { score: 88, risk: 3 }, { score: 97, risk: 4 },
-            { score: 104, risk: 5 }, { score: 110, risk: 6 }, { score: 115, risk: 7 }, { score: 119, risk: 8 },
-            { score: 123, risk: 9 }, { score: 126, risk: 10 }, { score: 129, risk: 11 }, { score: 132, risk: 12 },
-            { score: 134, risk: 13 }, { score: 137, risk: 14 }, { score: 139, risk: 15 }, { score: 141, risk: 16 },
-            { score: 143, risk: 17 }, { score: 145, risk: 18 }, { score: 147, risk: 19 }, { score: 149, risk: 20 },
-            { score: 150, risk: 21 }, { score: 152, risk: 22 }, { score: 153, risk: 23 }, { score: 155, risk: 24 },
-            { score: 156, risk: 25 }, { score: 158, risk: 26 }, { score: 159, risk: 27 }, { score: 160, risk: 28 },
-            { score: 162, risk: 29 }, { score: 163, risk: 30 }, { score: 174, risk: 40 }, { score: 183, risk: 50 },
-            { score: 191, risk: 60 }, { score: 200, risk: 70 }, { score: 208, risk: 80 }, { score: 219, risk: 90 },
-            { score: 285, risk: 99 }
-        ];
-
-
-        // CHA2DS2-VASc Calculator Logic
-        let currentChadText = '';
-
-        function calculateCHAD() {
-            const age = parseInt(document.querySelector('input[name="chad_age"]:checked').value);
-            const sex = parseInt(document.querySelector('input[name="chad_sex"]:checked').value);
-            const chf = parseInt(document.querySelector('input[name="chad_chf"]:checked').value);
-            const ht = parseInt(document.querySelector('input[name="chad_ht"]:checked').value);
-            const vte = parseInt(document.querySelector('input[name="chad_vte"]:checked').value);
-            const ate = parseInt(document.querySelector('input[name="chad_ate"]:checked').value);
-            const dm = parseInt(document.querySelector('input[name="chad_dm"]:checked').value);
-
-            const chadScore = age + sex + chf + ht + vte + ate + dm;
-            const chadScoreNoSex = age + chf + ht + vte + ate + dm;
-
-            const riskData = chadRiskData.find(d => d.score === chadScore) || chadRiskData[chadRiskData.length - 1];
-            const riskIcva = (riskData.risk_icva * 100).toFixed(1);
-            const riskIcvaTia = (riskData.risk_iscva_tia_vte * 100).toFixed(1);
-
-            currentChadText = `CHA2DS2-VA = ${chadScoreNoSex}/8\nCHA2DS2-VASc = ${chadScore}/9\nRisico herseninfarct = ${riskIcva}%\nRisico herseninfarct/TIA/sys. trombo-embolie = ${riskIcvaTia}%\n(risico per jaar)`;
-
-            document.getElementById('chadScore').innerHTML = `CHA2DS2-VA = ${chadScoreNoSex}/8<br>CHA2DS2-VASc = ${chadScore}/9<br>Risico herseninfarct = ${riskIcva}%<br>Risico herseninfarct/TIA/sys. trombo-embolie = ${riskIcvaTia}%<br>(risico per jaar)`;
-            document.getElementById('chadResults').classList.add('show');
-        }
-
-        // Real-time calculation when CHA2DS2-VASc radio buttons change
-        document.querySelectorAll('input[name="chad_age"], input[name="chad_sex"], input[name="chad_chf"], input[name="chad_ht"], input[name="chad_vte"], input[name="chad_ate"], input[name="chad_dm"]').forEach(radio => {
-            radio.addEventListener('change', calculateCHAD);
-        });
-
-        // Copy to clipboard functionality for CHA2DS2-VASc
-        document.getElementById('copyButtonChad').addEventListener('click', function () {
-            const textToCopy = currentChadText;
-            const btn = this;
-
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(textToCopy).then(function () {
-                    showCopyFeedback(btn);
-                }).catch(function (err) {
-                    console.error('Clipboard API mislukt, probeer fallback:', err);
-                    fallbackCopyText(textToCopy, btn);
-                });
-            } else {
-                fallbackCopyText(textToCopy, btn);
-            }
-        });
-
-        // Reset functionality for CHA2DS2-VASc
-        document.getElementById('resetButtonChad').addEventListener('click', function () {
-            document.querySelectorAll('input[name="chad_age"], input[name="chad_sex"], input[name="chad_chf"], input[name="chad_ht"], input[name="chad_vte"], input[name="chad_ate"], input[name="chad_dm"]').forEach(radio => {
-                if (radio.value === "0") {
-                    radio.checked = true;
-                }
-            });
-            calculateCHAD();
-        });
-
-        // Calculate initial CHA2DS2-VASc score
-        calculateCHAD();
-
-
-        // HAS-BLED Calculator Logic
-        let currentBledText = '';
-
-        function calculateBLED() {
-            const age = parseInt(document.querySelector('input[name="bled_age"]:checked').value);
-            const ht = parseInt(document.querySelector('input[name="bled_ht"]:checked').value);
-            const kd = parseInt(document.querySelector('input[name="bled_kd"]:checked').value);
-            const liver = parseInt(document.querySelector('input[name="bled_liver"]:checked').value);
-            const stroke = parseInt(document.querySelector('input[name="bled_stroke"]:checked').value);
-            const bleed = parseInt(document.querySelector('input[name="bled_bleed"]:checked').value);
-            const inr = parseInt(document.querySelector('input[name="bled_inr"]:checked').value);
-            const med = parseInt(document.querySelector('input[name="bled_med"]:checked').value);
-            const alcohol = parseInt(document.querySelector('input[name="bled_alcohol"]:checked').value);
-
-            const bledScore = age + ht + kd + liver + stroke + bleed + inr + med + alcohol;
-
-            const riskData = chadRiskData.find(d => d.score === bledScore);
-            const riskBleed = riskData && riskData.risk_bleed !== null ? riskData.risk_bleed.toFixed(2) : '-';
-
-            currentBledText = `HAS-BLED = ${bledScore}/9\nRisico majeure bloeding = ${riskBleed}\n(bloedingen per 100 patiëntjaren)`;
-
-            document.getElementById('bledScore').innerHTML = `HAS-BLED = ${bledScore}/9<br>Risico majeure bloeding = ${riskBleed}<br>(bloedingen per 100 patiëntjaren)`;
-            document.getElementById('bledResults').classList.add('show');
-        }
-
-        // Real-time calculation when HAS-BLED radio buttons change
-        document.querySelectorAll('input[name="bled_age"], input[name="bled_ht"], input[name="bled_kd"], input[name="bled_liver"], input[name="bled_stroke"], input[name="bled_bleed"], input[name="bled_inr"], input[name="bled_med"], input[name="bled_alcohol"]').forEach(radio => {
-            radio.addEventListener('change', calculateBLED);
-        });
-
-        // Copy to clipboard functionality for HAS-BLED
-        document.getElementById('copyButtonBled').addEventListener('click', function () {
-            const textToCopy = currentBledText;
-            const btn = this;
-
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(textToCopy).then(function () {
-                    showCopyFeedback(btn);
-                }).catch(function (err) {
-                    console.error('Clipboard API mislukt, probeer fallback:', err);
-                    fallbackCopyText(textToCopy, btn);
-                });
-            } else {
-                fallbackCopyText(textToCopy, btn);
-            }
-        });
-
-        // Reset functionality for HAS-BLED
-        document.getElementById('resetButtonBled').addEventListener('click', function () {
-            document.querySelectorAll('input[name="bled_age"], input[name="bled_ht"], input[name="bled_kd"], input[name="bled_liver"], input[name="bled_stroke"], input[name="bled_bleed"], input[name="bled_inr"], input[name="bled_med"], input[name="bled_alcohol"]').forEach(radio => {
-                if (radio.value === "0") {
-                    radio.checked = true;
-                }
-            });
-            calculateBLED();
-        });
-
-        // Calculate initial HAS-BLED score
-        calculateBLED();
-
-
-        // RoPE Calculator Logic
         let currentRopeText = '';
 
         function calculateRoPE() {
+            const ropeHt = parseInt(document.querySelector('input[name="rope_ht"]:checked').value);
+            const ropeDm = parseInt(document.querySelector('input[name="rope_dm"]:checked').value);
+            const ropeTia = parseInt(document.querySelector('input[name="rope_tia"]:checked').value);
+            const ropeSmoke = parseInt(document.querySelector('input[name="rope_smoke"]:checked').value);
+            const ropeCortical = parseInt(document.querySelector('input[name="rope_cortical"]:checked').value);
             const age = parseFloat(document.getElementById('rope_age').value);
-            const ht = parseInt(document.querySelector('input[name="rope_ht"]:checked').value);
-            const dm = parseInt(document.querySelector('input[name="rope_dm"]:checked').value);
-            const tia = parseInt(document.querySelector('input[name="rope_tia"]:checked').value);
-            const smoke = parseInt(document.querySelector('input[name="rope_smoke"]:checked').value);
-            const cortical = parseInt(document.querySelector('input[name="rope_cortical"]:checked').value);
 
-            if (!age || age < 18 || age > 110) {
-                currentRopeText = 'RoPE = -\nKans dat PFO gerelateerd is aan infarct = -%\n2-jaars risico op stroke/TIA = -%';
-                document.getElementById('ropeScore').innerHTML = 'RoPE = -<br>Kans dat PFO gerelateerd is aan infarct = -%<br>2-jaars risico op stroke/TIA = -%';
-                return;
+            let age2 = NaN;
+            if (!isNaN(age)) {
+                if (age < 30) age2 = 5;
+                else if (age < 40) age2 = 4;
+                else if (age < 50) age2 = 3;
+                else if (age < 60) age2 = 2;
+                else if (age < 70) age2 = 1;
+                else age2 = 0;
             }
 
-            // Calculate age score
-            let age2;
-            if (age < 30) age2 = 5;
-            else if (age < 40) age2 = 4;
-            else if (age < 50) age2 = 3;
-            else if (age < 60) age2 = 2;
-            else if (age < 70) age2 = 1;
-            else age2 = 0;
+            const ropescore = ropeHt + ropeDm + ropeTia + ropeSmoke + ropeCortical + age2;
 
-            const ropeScore = ht + dm + tia + smoke + cortical + age2;
-
-            const riskData = ropeData.find(d => d.score === ropeScore) || ropeData[ropeData.length - 1];
-            const pfoFrac = riskData.pfo_frac;
-            const riskStroke = riskData.risk_stroke;
-
-            let conclusion = '';
-            if (ropeScore < 6) {
-                conclusion = '\n(<6, PFO-geassocieerd infarct minder waarschijnlijk)';
+            if (isNaN(ropescore)) {
+                currentRopeText = 'RoPE = -';
             } else {
-                conclusion = '\n(≥6, PFO-geassocieerd infarct waarschijnlijker)';
+                let conclusie = '';
+                if (ropescore < 6) {
+                    conclusie = '\n(<6, PFO-geassocieerd infarct minder waarschijnlijk)';
+                } else {
+                    conclusie = '\n(\u22656, PFO-geassocieerd infarct waarschijnlijker)';
+                }
+
+                const row = ropeRiskTable.find(r => r.score === ropescore);
+                const pfo_frac = row ? row.pfo_frac : '-';
+                const risk_stroke = row ? row.risk_stroke : '-';
+
+                currentRopeText = `RoPE = ${ropescore}/10${conclusie}\nKans dat PFO gerelateerd is aan infarct = ${pfo_frac}%\n2-jaars risico op stroke/TIA = ${risk_stroke}%`;
             }
 
-            currentRopeText = `RoPE = ${ropeScore}/10 ${conclusion}\nKans dat PFO gerelateerd is aan infarct = ${pfoFrac}%\n2-jaars risico op stroke/TIA = ${riskStroke}%`;
-
-            document.getElementById('ropeScore').innerHTML = `RoPE = ${ropeScore}/10 ${conclusion}<br>Kans dat PFO gerelateerd is aan infarct = ${pfoFrac}%<br>2-jaars risico op stroke/TIA = ${riskStroke}%`;
-            document.getElementById('ropeResults').classList.add('show');
+            document.getElementById('ropeScore').textContent = currentRopeText;
         }
 
-        // Real-time calculation for RoPE
         document.getElementById('rope_age').addEventListener('input', calculateRoPE);
         document.querySelectorAll('input[name="rope_ht"], input[name="rope_dm"], input[name="rope_tia"], input[name="rope_smoke"], input[name="rope_cortical"]').forEach(radio => {
             radio.addEventListener('change', calculateRoPE);
         });
 
-        // Copy to clipboard functionality for RoPE
-        document.getElementById('copyButtonRope').addEventListener('click', function () {
-            const textToCopy = currentRopeText;
-            const btn = this;
+        setupCopy('copyButtonRope', () => currentRopeText);
 
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(textToCopy).then(function () {
-                    showCopyFeedback(btn);
-                }).catch(function (err) {
-                    console.error('Clipboard API mislukt, probeer fallback:', err);
-                    fallbackCopyText(textToCopy, btn);
-                });
-            } else {
-                fallbackCopyText(textToCopy, btn);
-            }
-        });
-
-        // Reset functionality for RoPE
         document.getElementById('resetButtonRope').addEventListener('click', function () {
-            document.getElementById('rope_age').value = '';
-            document.querySelectorAll('input[name="rope_ht"], input[name="rope_dm"], input[name="rope_tia"], input[name="rope_smoke"]').forEach(radio => {
-                if (radio.value === "1") {
-                    radio.checked = true;
-                }
+            ['rope_ht', 'rope_dm', 'rope_tia', 'rope_smoke'].forEach(name => {
+                document.querySelectorAll(`input[name="${name}"]`).forEach(radio => {
+                    radio.checked = radio.value === "1";
+                });
             });
             document.querySelectorAll('input[name="rope_cortical"]').forEach(radio => {
-                if (radio.value === "0") {
-                    radio.checked = true;
-                }
+                radio.checked = radio.value === "1";
             });
+            document.getElementById('rope_age').value = '';
             calculateRoPE();
         });
 
-        // Calculate initial RoPE score
         calculateRoPE();
 
+        // ============================================================
+        // Duke (Endocarditis)
+        // ============================================================
+        let currentDukeText = '';
 
-        // GRACE Calculator Logic
-        let currentGraceText = '';
+        function calculateDuke() {
+            const kweken = parseInt(document.querySelector('input[name="kweken_duke"]:checked').value);
+            const beeldvorming = parseInt(document.querySelector('input[name="beeldvorming_duke"]:checked').value);
+            const aanleg = parseInt(document.querySelector('input[name="aanleg_duke"]:checked').value);
+            const koorts = parseInt(document.querySelector('input[name="koorts_duke"]:checked').value);
+            const vasculair = parseInt(document.querySelector('input[name="vasculair_duke"]:checked').value);
+            const immuno = parseInt(document.querySelector('input[name="immuno_duke"]:checked').value);
+            const micro = parseInt(document.querySelector('input[name="micro_duke"]:checked').value);
 
-        function calculateGRACE() {
-            const age = parseFloat(document.getElementById('grace_age').value);
-            const hr = parseFloat(document.getElementById('grace_hr').value);
-            const sbp = parseFloat(document.getElementById('grace_sbp').value);
-            const creat = parseFloat(document.getElementById('grace_creat').value);
-            const killip = parseInt(document.querySelector('input[name="grace_killip"]:checked').value);
-            const arrest = parseInt(document.querySelector('input[name="grace_arrest"]:checked').value);
-            const enzymes = parseInt(document.querySelector('input[name="grace_enzymes"]:checked').value);
-            const st = parseInt(document.querySelector('input[name="grace_st"]:checked').value);
+            const major = kweken + beeldvorming;
+            const minor = aanleg + koorts + vasculair + immuno + micro;
 
-            if (!age || !hr || !sbp || !creat) {
-                currentGraceText = 'GRACE score = -\n6-maands mortaliteit = -%';
-                document.getElementById('graceScore').innerHTML = 'GRACE score = -<br>6-maands mortaliteit = -%';
-                return;
+            let interp;
+            if (major === 2 || (major === 1 && minor >= 3) || minor === 5) {
+                interp = 'diagnose IE zeker';
+            } else if ((major === 1 && minor >= 1) || minor >= 3) {
+                interp = 'diagnose IE mogelijk';
+            } else {
+                interp = 'criteria niet passende bij IE';
             }
 
-            // Age score
-            let age_score;
-            if (age < 35) age_score = 0;
-            else if (age < 45) age_score = 0 + (age - 35) * (1.8);
-            else if (age < 55) age_score = 18 + (age - 45) * (1.8);
-            else if (age < 65) age_score = 36 + (age - 55) * (1.8);
-            else if (age < 75) age_score = 54 + (age - 65) * (1.9);
-            else if (age < 85) age_score = 73 + (age - 75) * (1.8);
-            else if (age < 90) age_score = 91 + (age - 85) * (1.8);
-            else if (age >= 90) age_score = 100;
-
-            // Heart rate score
-            let hr_score;
-            if (hr < 70) hr_score = 0;
-            else if (hr < 80) hr_score = 0 + (hr - 70) * (0.3);
-            else if (hr < 90) hr_score = 3 + (hr - 80) * (0.2);
-            else if (hr < 100) hr_score = 5 + (hr - 90) * (0.3);
-            else if (hr < 110) hr_score = 8 + (hr - 100) * (0.2);
-            else if (hr < 150) hr_score = 10 + (hr - 110) * (0.3);
-            else if (hr < 200) hr_score = 22 + (hr - 150) * (0.3);
-            else if (hr >= 200) hr_score = 34;
-
-            // Systolic BP score
-            let sbp_score;
-            if (sbp < 80) sbp_score = 40;
-            else if (sbp < 100) sbp_score = 40 - (sbp - 80) * (0.3);
-            else if (sbp < 110) sbp_score = 34 - (sbp - 100) * (0.3);
-            else if (sbp < 120) sbp_score = 31 - (sbp - 110) * (0.4);
-            else if (sbp < 130) sbp_score = 27 - (sbp - 120) * (0.3);
-            else if (sbp < 140) sbp_score = 24 - (sbp - 130) * (0.3);
-            else if (sbp < 150) sbp_score = 20 - (sbp - 140) * (0.4);
-            else if (sbp < 160) sbp_score = 17 - (sbp - 150) * (0.3);
-            else if (sbp < 180) sbp_score = 14 - (sbp - 160) * (0.3);
-            else if (sbp < 200) sbp_score = 8 - (sbp - 180) * (0.4);
-            else if (sbp >= 200) sbp_score = 0;
-
-            // Creatinine score (input in µmol/L)
-            let creat_score;
-            if (creat <= 35.36) creat_score = 2;
-            else if (creat <= 70.72) creat_score = 5;
-            else if (creat <= 106.08) creat_score = 8;
-            else if (creat <= 141.44) creat_score = 11;
-            else if (creat <= 176.8) creat_score = 14;
-            else if (creat <= 353.6) creat_score = 23;
-            else creat_score = 31;
-
-            // Killip class score
-            let killip_score;
-            if (killip === 1) killip_score = 0;
-            else if (killip === 2) killip_score = 21;
-            else if (killip === 3) killip_score = 43;
-            else killip_score = 64;
-
-            // Cardiac arrest score
-            const arrest_score = arrest === 1 ? 43 : 0;
-
-            // Elevated enzymes score
-            const enzymes_score = enzymes === 1 ? 15 : 0;
-
-            // ST deviation score
-            const st_score = st === 1 ? 30 : 0;
-
-            // Calculate total GRACE score
-            const graceScore = age_score + hr_score + sbp_score + creat_score + killip_score + arrest_score + enzymes_score + st_score;
-
-            // Find closest risk from lookup table
-            let closestRisk = graceData[0];
-            let minDiff = Math.abs(graceScore - graceData[0].score);
-
-            for (let i = 1; i < graceData.length; i++) {
-                const diff = Math.abs(graceScore - graceData[i].score);
-                if (diff < minDiff) {
-                    minDiff = diff;
-                    closestRisk = graceData[i];
-                }
-            }
-
-            currentGraceText = `GRACE score = ${graceScore}\n6-maands mortaliteit = ${closestRisk.risk}%`;
-            document.getElementById('graceScore').innerHTML = `GRACE score = ${graceScore}<br>6-maands mortaliteit = ${closestRisk.risk}%`;
-            document.getElementById('graceResults').classList.add('show');
+            currentDukeText = `DUKE = major ${major}/2 en minor ${minor}/5\n= ${interp}`;
+            document.getElementById('dukeScore').textContent = currentDukeText;
         }
 
-        // Real-time calculation for GRACE
-        document.getElementById('grace_age').addEventListener('input', calculateGRACE);
-        document.getElementById('grace_hr').addEventListener('input', calculateGRACE);
-        document.getElementById('grace_sbp').addEventListener('input', calculateGRACE);
-        document.getElementById('grace_creat').addEventListener('input', calculateGRACE);
-        document.querySelectorAll('input[name="grace_killip"], input[name="grace_arrest"], input[name="grace_enzymes"], input[name="grace_st"]').forEach(radio => {
-            radio.addEventListener('change', calculateGRACE);
+        document.querySelectorAll('input[name="kweken_duke"], input[name="beeldvorming_duke"], input[name="aanleg_duke"], input[name="koorts_duke"], input[name="vasculair_duke"], input[name="immuno_duke"], input[name="micro_duke"]').forEach(radio => {
+            radio.addEventListener('change', calculateDuke);
         });
 
-        // Copy to clipboard functionality for GRACE
-        document.getElementById('copyButtonGrace').addEventListener('click', function () {
-            const textToCopy = currentGraceText;
-            const btn = this;
+        setupCopy('copyButtonDuke', () => currentDukeText);
 
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(textToCopy).then(function () {
-                    showCopyFeedback(btn);
-                }).catch(function (err) {
-                    console.error('Clipboard API mislukt, probeer fallback:', err);
-                    fallbackCopyText(textToCopy, btn);
+        document.getElementById('resetButtonDuke').addEventListener('click', function () {
+            ['kweken_duke', 'beeldvorming_duke', 'aanleg_duke', 'koorts_duke', 'vasculair_duke', 'immuno_duke', 'micro_duke'].forEach(name => {
+                document.querySelectorAll(`input[name="${name}"]`).forEach(radio => {
+                    radio.checked = radio.value === "0";
                 });
-            } else {
-                fallbackCopyText(textToCopy, btn);
-            }
+            });
+            calculateDuke();
         });
 
-        // Reset functionality for GRACE
-        document.getElementById('resetButtonGrace').addEventListener('click', function () {
-            document.getElementById('grace_age').value = '';
-            document.getElementById('grace_hr').value = '';
-            document.getElementById('grace_sbp').value = '';
-            document.getElementById('grace_creat').value = '';
-            document.querySelectorAll('input[name="grace_killip"]').forEach(radio => {
-                if (radio.value === "1") {
-                    radio.checked = true;
-                }
-            });
-            document.querySelectorAll('input[name="grace_arrest"], input[name="grace_enzymes"], input[name="grace_st"]').forEach(radio => {
-                if (radio.value === "0") {
-                    radio.checked = true;
-                }
-            });
-            calculateGRACE();
-        });
-
-        // Calculate initial GRACE score
-        calculateGRACE();
-
-        /*! iFrame Resizer (iframeSizer.contentWindow.min.js) - v4.3.4 - 2023-02-18
-        *  Desc: Include this file in any page being loaded into an iframe
-        *  to force the iframe to resize to the content size.
-        *  Requires: iframeResizer.min.js on host page.
-        *  Copyright: (c) 2023 David J. Bradshaw - dave@bradshaw.net
-        *  License: MIT
-        */
-        !function (a) {
-            if ("undefined" != typeof window) { var r = !0, P = "", u = 0, c = "", s = null, D = "", d = !1, j = { resize: 1, click: 1 }, l = 128, q = !0, f = 1, n = "bodyOffset", m = n, H = !0, W = "", h = {}, g = 32, B = null, p = !1, v = !1, y = "[iFrameSizer]", J = y.length, w = "", U = { max: 1, min: 1, bodyScroll: 1, documentElementScroll: 1 }, b = "child", V = !0, X = window.parent, T = "*", E = 0, i = !1, Y = null, O = 16, S = 1, K = "scroll", M = K, Q = window, G = function () { x("onMessage function not defined") }, Z = function () { }, $ = function () { }, _ = { height: function () { return x("Custom height calculation function not defined"), document.documentElement.offsetHeight }, width: function () { return x("Custom width calculation function not defined"), document.body.scrollWidth } }, ee = {}, te = !1; try { var ne = Object.create({}, { passive: { get: function () { te = !0 } } }); window.addEventListener("test", ae, ne), window.removeEventListener("test", ae, ne) } catch (e) { } var oe, o, I, ie, N, A, C = { bodyOffset: function () { return document.body.offsetHeight + ye("marginTop") + ye("marginBottom") }, offset: function () { return C.bodyOffset() }, bodyScroll: function () { return document.body.scrollHeight }, custom: function () { return _.height() }, documentElementOffset: function () { return document.documentElement.offsetHeight }, documentElementScroll: function () { return document.documentElement.scrollHeight }, max: function () { return Math.max.apply(null, e(C)) }, min: function () { return Math.min.apply(null, e(C)) }, grow: function () { return C.max() }, lowestElement: function () { return Math.max(C.bodyOffset() || C.documentElementOffset(), we("bottom", Te())) }, taggedElement: function () { return be("bottom", "data-iframe-height") } }, z = { bodyScroll: function () { return document.body.scrollWidth }, bodyOffset: function () { return document.body.offsetWidth }, custom: function () { return _.width() }, documentElementScroll: function () { return document.documentElement.scrollWidth }, documentElementOffset: function () { return document.documentElement.offsetWidth }, scroll: function () { return Math.max(z.bodyScroll(), z.documentElementScroll()) }, max: function () { return Math.max.apply(null, e(z)) }, min: function () { return Math.min.apply(null, e(z)) }, rightMostElement: function () { return we("right", Te()) }, taggedElement: function () { return be("right", "data-iframe-width") } }, re = (oe = Ee, N = null, A = 0, function () { var e = Date.now(), t = O - (e - (A = A || e)); return o = this, I = arguments, t <= 0 || O < t ? (N && (clearTimeout(N), N = null), A = e, ie = oe.apply(o, I), N || (o = I = null)) : N = N || setTimeout(Oe, t), ie }); k(window, "message", function (t) { var n = { init: function () { W = t.data, X = t.source, se(), q = !1, setTimeout(function () { H = !1 }, l) }, reset: function () { H ? R("Page reset ignored by init") : (R("Page size reset by host page"), Me("resetPage")) }, resize: function () { L("resizeParent", "Parent window requested size check") }, moveToAnchor: function () { h.findTarget(i()) }, inPageLink: function () { this.moveToAnchor() }, pageInfo: function () { var e = i(); R("PageInfoFromParent called from parent: " + e), $(JSON.parse(e)), R(" --") }, message: function () { var e = i(); R("onMessage called from parent: " + e), G(JSON.parse(e)), R(" --") } }; function o() { return t.data.split("]")[1].split(":")[0] } function i() { return t.data.slice(t.data.indexOf(":") + 1) } function r() { return t.data.split(":")[2] in { true: 1, false: 1 } } function e() { var e = o(); e in n ? n[e]() : ("undefined" == typeof module || !module.exports) && "iFrameResize" in window || window.jQuery !== a && "iFrameResize" in window.jQuery.prototype || r() || x("Unexpected message (" + t.data + ")") } y === ("" + t.data).slice(0, J) && (!1 === q ? e() : r() ? n.init() : R('Ignored message of type "' + o() + '". Received before initialization.')) }), k(window, "readystatechange", Ne), Ne() } function ae() { } function k(e, t, n, o) { e.addEventListener(t, n, !!te && (o || {})) } function ue(e) { return e.charAt(0).toUpperCase() + e.slice(1) } function ce(e) { return y + "[" + w + "] " + e } function R(e) { p && "object" == typeof window.console && console.log(ce(e)) } function x(e) { "object" == typeof window.console && console.warn(ce(e)) } function se() { function e(e) { return "true" === e } function t(e, t) { return "function" == typeof e && (R("Setup custom " + t + "CalcMethod"), _[t] = e, e = "custom"), e } { var n; n = W.slice(J).split(":"), w = n[0], u = a === n[1] ? u : Number(n[1]), d = a === n[2] ? d : e(n[2]), p = a === n[3] ? p : e(n[3]), g = a === n[4] ? g : Number(n[4]), r = a === n[6] ? r : e(n[6]), c = n[7], m = a === n[8] ? m : n[8], P = n[9], D = n[10], E = a === n[11] ? E : Number(n[11]), h.enable = a !== n[12] && e(n[12]), b = a === n[13] ? b : n[13], M = a === n[14] ? M : n[14], v = a === n[15] ? v : e(n[15]), R("Initialising iFrame (" + window.location.href + ")"), "iFrameResizer" in window && Object === window.iFrameResizer.constructor && (n = window.iFrameResizer, R("Reading data from page: " + JSON.stringify(n)), Object.keys(n).forEach(de, n), G = "onMessage" in n ? n.onMessage : G, Z = "onReady" in n ? n.onReady : Z, T = "targetOrigin" in n ? n.targetOrigin : T, m = "heightCalculationMethod" in n ? n.heightCalculationMethod : m, M = "widthCalculationMethod" in n ? n.widthCalculationMethod : M, m = t(m, "height"), M = t(M, "width")) } function o(e) { F(0, 0, e.type, e.screenY + ":" + e.screenX) } function i(e, t) { R("Add event listener: " + t), k(window.document, e, o) } R("TargetOrigin for parent set to: " + T), le("margin", function (e, t) { -1 !== t.indexOf("-") && (x("Negative CSS value ignored for " + e), t = ""); return t }("margin", c = a === c ? u + "px" : c)), le("background", P), le("padding", D), (n = document.createElement("div")).style.clear = "both", n.style.display = "block", n.style.height = "0", document.body.appendChild(n), he(), ge(), document.documentElement.style.height = "", document.body.style.height = "", R('HTML & body height set to "auto"'), R("Enable public methods"), Q.parentIFrame = { autoResize: function (e) { return !0 === e && !1 === r ? (r = !0, pe()) : !1 === e && !0 === r && (r = !1, fe("remove"), null !== s && s.disconnect(), clearInterval(B)), F(0, 0, "autoResize", JSON.stringify(r)), r }, close: function () { F(0, 0, "close") }, getId: function () { return w }, getPageInfo: function (e) { "function" == typeof e ? ($ = e, F(0, 0, "pageInfo")) : ($ = function () { }, F(0, 0, "pageInfoStop")) }, moveToAnchor: function (e) { h.findTarget(e) }, reset: function () { Ie("parentIFrame.reset") }, scrollTo: function (e, t) { F(t, e, "scrollTo") }, scrollToOffset: function (e, t) { F(t, e, "scrollToOffset") }, sendMessage: function (e, t) { F(0, 0, "message", JSON.stringify(e), t) }, setHeightCalculationMethod: function (e) { m = e, he() }, setWidthCalculationMethod: function (e) { M = e, ge() }, setTargetOrigin: function (e) { R("Set targetOrigin: " + e), T = e }, size: function (e, t) { L("size", "parentIFrame.size(" + ((e || "") + (t ? "," + t : "")) + ")", e, t) } }, !0 === v && (i("mouseenter", "Mouse Enter"), i("mouseleave", "Mouse Leave")), pe(), h = function () { function n(e) { var e = e.getBoundingClientRect(), t = { x: window.pageXOffset === a ? document.documentElement.scrollLeft : window.pageXOffset, y: window.pageYOffset === a ? document.documentElement.scrollTop : window.pageYOffset }; return { x: parseInt(e.left, 10) + parseInt(t.x, 10), y: parseInt(e.top, 10) + parseInt(t.y, 10) } } function o(e) { var e = e.split("#")[1] || e, t = decodeURIComponent(e), t = document.getElementById(t) || document.getElementsByName(t)[0]; a === t ? (R("In page link (#" + e + ") not found in iFrame, so sending to parent"), F(0, 0, "inPageLink", "#" + e)) : (t = n(t = t), R("Moving to in page link (#" + e + ") at x: " + t.x + " y: " + t.y), F(t.y, t.x, "scrollToOffset")) } function e() { var e = window.location.hash, t = window.location.href; "" !== e && "#" !== e && o(t) } function t() { Array.prototype.forEach.call(document.querySelectorAll('a[href^="#"]'), function (e) { "#" !== e.getAttribute("href") && k(e, "click", function (e) { e.preventDefault(), o(this.getAttribute("href")) }) }) } function i() { Array.prototype.forEach && document.querySelectorAll ? (R("Setting up location.hash handlers"), t(), k(window, "hashchange", e), setTimeout(e, l)) : x("In page linking not fully supported in this browser! (See README.md for IE8 workaround)") } h.enable ? i() : R("In page linking not enabled"); return { findTarget: o } }(), L("init", "Init message from host page"), Z() } function de(e) { var t = e.split("Callback"); 2 === t.length && (this[t = "on" + t[0].charAt(0).toUpperCase() + t[0].slice(1)] = this[e], delete this[e], x("Deprecated: '" + e + "' has been renamed '" + t + "'. The old method will be removed in the next major version.")) } function le(e, t) { a !== t && "" !== t && "null" !== t && R("Body " + e + ' set to "' + (document.body.style[e] = t) + '"') } function t(n) { var e = { add: function (e) { function t() { L(n.eventName, n.eventType) } ee[e] = t, k(window, e, t, { passive: !0 }) }, remove: function (e) { var t = ee[e]; delete ee[e], window.removeEventListener(e, t, !1) } }; n.eventNames && Array.prototype.map ? (n.eventName = n.eventNames[0], n.eventNames.map(e[n.method])) : e[n.method](n.eventName), R(ue(n.method) + " event listener: " + n.eventType) } function fe(e) { t({ method: e, eventType: "Animation Start", eventNames: ["animationstart", "webkitAnimationStart"] }), t({ method: e, eventType: "Animation Iteration", eventNames: ["animationiteration", "webkitAnimationIteration"] }), t({ method: e, eventType: "Animation End", eventNames: ["animationend", "webkitAnimationEnd"] }), t({ method: e, eventType: "Input", eventName: "input" }), t({ method: e, eventType: "Mouse Up", eventName: "mouseup" }), t({ method: e, eventType: "Mouse Down", eventName: "mousedown" }), t({ method: e, eventType: "Orientation Change", eventName: "orientationchange" }), t({ method: e, eventType: "Print", eventNames: ["afterprint", "beforeprint"] }), t({ method: e, eventType: "Ready State Change", eventName: "readystatechange" }), t({ method: e, eventType: "Touch Start", eventName: "touchstart" }), t({ method: e, eventType: "Touch End", eventName: "touchend" }), t({ method: e, eventType: "Touch Cancel", eventName: "touchcancel" }), t({ method: e, eventType: "Transition Start", eventNames: ["transitionstart", "webkitTransitionStart", "MSTransitionStart", "oTransitionStart", "otransitionstart"] }), t({ method: e, eventType: "Transition Iteration", eventNames: ["transitioniteration", "webkitTransitionIteration", "MSTransitionIteration", "oTransitionIteration", "otransitioniteration"] }), t({ method: e, eventType: "Transition End", eventNames: ["transitionend", "webkitTransitionEnd", "MSTransitionEnd", "oTransitionEnd", "otransitionend"] }), "child" === b && t({ method: e, eventType: "IFrame Resized", eventName: "resize" }) } function me(e, t, n, o) { return t !== e && (e in n || (x(e + " is not a valid option for " + o + "CalculationMethod."), e = t), R(o + ' calculation method set to "' + e + '"')), e } function he() { m = me(m, n, C, "height") } function ge() { M = me(M, K, z, "width") } function pe() { var e; !0 === r ? (fe("add"), e = g < 0, window.MutationObserver || window.WebKitMutationObserver ? e ? ve() : s = function () { function t(e) { function t(e) { !1 === e.complete && (R("Attach listeners to " + e.src), e.addEventListener("load", i, !1), e.addEventListener("error", r, !1), u.push(e)) } "attributes" === e.type && "src" === e.attributeName ? t(e.target) : "childList" === e.type && Array.prototype.forEach.call(e.target.querySelectorAll("img"), t) } function o(e) { R("Remove listeners from " + e.src), e.removeEventListener("load", i, !1), e.removeEventListener("error", r, !1), u.splice(u.indexOf(e), 1) } function n(e, t, n) { o(e.target), L(t, n + ": " + e.target.src) } function i(e) { n(e, "imageLoad", "Image loaded") } function r(e) { n(e, "imageLoadFailed", "Image load failed") } function a(e) { L("mutationObserver", "mutationObserver: " + e[0].target + " " + e[0].type), e.forEach(t) } var u = [], c = window.MutationObserver || window.WebKitMutationObserver, s = function () { var e = document.querySelector("body"); return s = new c(a), R("Create body MutationObserver"), s.observe(e, { attributes: !0, attributeOldValue: !1, characterData: !0, characterDataOldValue: !1, childList: !0, subtree: !0 }), s }(); return { disconnect: function () { "disconnect" in s && (R("Disconnect body MutationObserver"), s.disconnect(), u.forEach(o)) } } }() : (R("MutationObserver not supported in this browser!"), ve())) : R("Auto Resize disabled") } function ve() { 0 !== g && (R("setInterval: " + g + "ms"), B = setInterval(function () { L("interval", "setInterval: " + g) }, Math.abs(g))) } function ye(e, t) { return t = t || document.body, t = null === (t = document.defaultView.getComputedStyle(t, null)) ? 0 : t[e], parseInt(t, 10) } function we(e, t) { for (var n, o = t.length, i = 0, r = ue(e), a = Date.now(), u = 0; u < o; u++)i < (n = t[u].getBoundingClientRect()[e] + ye("margin" + r, t[u])) && (i = n); return a = Date.now() - a, R("Parsed " + o + " HTML elements"), R("Element position calculated in " + a + "ms"), O / 2 < (a = a) && R("Event throttle increased to " + (O = 2 * a) + "ms"), i } function e(e) { return [e.bodyOffset(), e.bodyScroll(), e.documentElementOffset(), e.documentElementScroll()] } function be(e, t) { var n = document.querySelectorAll("[" + t + "]"); return 0 === n.length && (x("No tagged elements (" + t + ") found on page"), document.querySelectorAll("body *")), we(e, n) } function Te() { return document.querySelectorAll("body *") } function Ee(e, t, n, o) { function i() { e in { init: 1, interval: 1, size: 1 } || !(m in U || d && M in U) ? e in { interval: 1 } || R("No change in size detected") : Ie(t) } function r(e, t) { return !(Math.abs(e - t) <= E) } n = a === n ? C[m]() : n, o = a === o ? z[M]() : o, r(f, n) || d && r(S, o) || "init" === e ? (Se(), F(f = n, S = o, e)) : i() } function Oe() { A = Date.now(), N = null, ie = oe.apply(o, I), N || (o = I = null) } function L(e, t, n, o) { i && e in j ? R("Trigger event cancelled: " + e) : (e in { reset: 1, resetPage: 1, init: 1 } || R("Trigger event: " + t), ("init" === e ? Ee : re)(e, t, n, o)) } function Se() { i || (i = !0, R("Trigger event lock on")), clearTimeout(Y), Y = setTimeout(function () { i = !1, R("Trigger event lock off"), R("--") }, l) } function Me(e) { f = C[m](), S = z[M](), F(f, S, e) } function Ie(e) { var t = m; m = n, R("Reset trigger event: " + e), Se(), Me("reset"), m = t } function F(e, t, n, o, i) { !0 === V && (a === i ? i = T : R("Message targetOrigin: " + i), R("Sending message to host page (" + (e = w + ":" + (e + ":" + t) + ":" + n + (a === o ? "" : ":" + o)) + ")"), X.postMessage(y + e, i)) } function Ne() { "loading" !== document.readyState && window.parent.postMessage("[iFrameResizerChild]Ready", "*") }
-            function addToDoOpen() {
-                window.parent.postMessage("alertopen", "*")
-                jQuery('.info-box-icon, .info-box-content, .selectize-input, input#ldlc, button#sharebutton,button.radiobtn').addClass('myoverlayb');
-                jQuery('body,.selectize-dropdown, .btn-default,h1, h3, .selectize-input>div, .shiny-bound-input,.selectize-input:after').addClass('myoverlayc');
-                jQuery('.info-box-icon,.info-box-text, .info-box-number, .radiobtn,.btn-primary').addClass('myoverlayd');
-                jQuery('.selectize-input, .shiny-bound-input').addClass('myoverlaye');
-            }
-            function addToDoClose() {
-                if (event.target.matches("button.confirm")) {
-                    window.parent.postMessage("alertclose", "*")
-                    jQuery('.info-box-icon, .info-box-content, .selectize-input, input#ldlc, button#sharebutton,button.radiobtn').removeClass('myoverlayb');
-                    jQuery('body,.selectize-dropdown, .btn-default,h1, h3, .selectize-input>div,.shiny-bound-input,.selectize-input:after').removeClass('myoverlayc');
-                    jQuery('.info-box-icon,.info-box-text, .info-box-number, .radiobtn,.btn-primary').removeClass('myoverlayd');
-                    jQuery('.selectize-input, .shiny-bound-input').removeClass('myoverlaye');
-                }
-            }
-            window.onload = function () {
-                var addButtonOpen = document.getElementById("sharebutton");
-                addButtonOpen.addEventListener("click", addToDoOpen);
-                const body = document.querySelector('body');
-                body.addEventListener("click", addToDoClose);
-            }
-        }();
-        //# sourceMappingURL=iframeResizer.contentWindow.map
+        calculateDuke();
     </script>
 </body>
 
