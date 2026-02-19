@@ -8,16 +8,15 @@ body {
     font-family: "Poppins", sans-serif;
     background-color: #ffffff;
     /* White background for iframe */
-    color: #333;
+    color: #4a5568;
     line-height: 1.6;
 }
 
 .wrapper {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 30px;
-    /* Increased gap for airiness */
-    padding: 40px;
+    gap: 16px;
+    padding: 24px;
     max-width: 1400px;
     margin: 0 auto;
 }
@@ -26,7 +25,7 @@ body {
     background: white;
     border-radius: 24px;
     /* Large rounded corners */
-    padding: 35px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
@@ -63,7 +62,7 @@ h1 {
 }
 
 .form-group {
-    margin-bottom: 25px;
+    margin-bottom: 16px;
 }
 
 label {
@@ -79,14 +78,14 @@ label {
 input[type="number"],
 select {
     width: 100%;
-    padding: 14px 18px;
+    padding: 5px 14px;
     border: 2px solid transparent;
     background-color: #f8f9fa;
     /* Light grey background for inputs */
     border-radius: 12px;
     /* Rounded inputs */
     font-size: 15px;
-    color: #2d3748;
+    color: #282828;
     transition: all 0.3s ease;
     font-family: inherit;
 }
@@ -102,7 +101,7 @@ select:focus {
 
 button {
     width: 100%;
-    padding: 16px;
+    padding: 12px;
     background: #0011B7;
     /* Internerds Blue */
     color: white;
@@ -129,8 +128,8 @@ button:active {
 }
 
 .results {
-    margin-top: 25px;
-    padding: 25px;
+    margin-top: 16px;
+    padding: 16px;
     background: #f0f4ff;
     /* Very soft blue background */
     border-radius: 16px;
@@ -176,7 +175,7 @@ button:active {
 }
 
 .result-value {
-    color: #2d3748;
+    color: #282828;
     font-weight: 600;
     font-size: 16px;
 }
@@ -244,7 +243,7 @@ button:active {
     align-items: center;
     font-weight: 500;
     cursor: pointer;
-    padding: 8px 12px;
+    padding: 5px 10px;
     background: #f8f9fa;
     border-radius: 12px;
     transition: all 0.2s ease;
@@ -278,8 +277,8 @@ button:active {
 /* Copy and Reset button styling */
 .button-container {
     display: flex;
-    gap: 15px;
-    margin-top: 20px;
+    gap: 10px;
+    margin-top: 12px;
 }
 
 .copy-button,
@@ -290,7 +289,7 @@ button:active {
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
-    padding: 12px 20px;
+    padding: 10px 16px;
     border-radius: 50px;
     /* Pill shape */
     transition: all 0.2s;
