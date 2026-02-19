@@ -89,14 +89,14 @@
     </div>
 
     <script>
-        // Helper function for copy feedback
-        function showCopyFeedback(btn) {
-            const originalIcon = btn.textContent;
+        // Helper function for button feedback
+        function showButtonFeedback(btn, cssClass) {
+            const originalText = btn.textContent;
             btn.textContent = '✓';
-            btn.classList.add('copied');
+            btn.classList.add(cssClass);
             setTimeout(() => {
-                btn.textContent = originalIcon;
-                btn.classList.remove('copied');
+                btn.textContent = originalText;
+                btn.classList.remove(cssClass);
             }, 1500);
         }
 
@@ -112,7 +112,7 @@
             try {
                 const successful = document.execCommand('copy');
                 if (successful) {
-                    showCopyFeedback(btn);
+                    showButtonFeedback(btn, 'copied');
                 } else {
                     console.error('Fallback kopiëren mislukt');
                 }
@@ -158,7 +158,7 @@
             // Try modern clipboard API first
             if (navigator.clipboard && navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(textToCopy).then(function () {
-                    showCopyFeedback(btn);
+                    showButtonFeedback(btn, 'copied');
                 }).catch(function (err) {
                     console.error('Clipboard API mislukt, probeer fallback:', err);
                     fallbackCopyText(textToCopy, btn);
@@ -186,6 +186,7 @@
             // document.getElementById('selectId').selectedIndex = 0;
 
             calculateResult1();
+            showButtonFeedback(this, 'reset-done');
         });
 
         // Initiële berekening
@@ -226,7 +227,7 @@
 
             if (navigator.clipboard && navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(textToCopy).then(function () {
-                    showCopyFeedback(btn);
+                    showButtonFeedback(btn, 'copied');
                 }).catch(function (err) {
                     console.error('Clipboard API mislukt, probeer fallback:', err);
                     fallbackCopyText(textToCopy, btn);
@@ -241,6 +242,7 @@
             // VERVANG DIT: Reset logic afhankelijk van je input types
             document.getElementById('input2').value = '';
             calculateResult2();
+            showButtonFeedback(this, 'reset-done');
         });
 
         // Initiële berekening

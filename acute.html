@@ -242,14 +242,14 @@
     </div>
 
     <script>
-        // Helper function for copy feedback
-        function showCopyFeedback(btn) {
-            const originalIcon = btn.textContent;
+        // Helper function for button feedback
+        function showButtonFeedback(btn, cssClass) {
+            const originalText = btn.textContent;
             btn.textContent = '✓';
-            btn.classList.add('copied');
+            btn.classList.add(cssClass);
             setTimeout(() => {
-                btn.textContent = originalIcon;
-                btn.classList.remove('copied');
+                btn.textContent = originalText;
+                btn.classList.remove(cssClass);
             }, 1500);
         }
 
@@ -265,7 +265,7 @@
             try {
                 const successful = document.execCommand('copy');
                 if (successful) {
-                    showCopyFeedback(btn);
+                    showButtonFeedback(btn, 'copied');
                 } else {
                     console.error('Fallback kopiëren mislukt');
                 }
@@ -306,7 +306,7 @@
             // Try modern clipboard API first
             if (navigator.clipboard && navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(textToCopy).then(function () {
-                    showCopyFeedback(btn);
+                    showButtonFeedback(btn, 'copied');
                 }).catch(function (err) {
                     console.error('Clipboard API mislukt, probeer fallback:', err);
                     fallbackCopyText(textToCopy, btn);
@@ -325,6 +325,7 @@
                 }
             });
             calculateQSOFA();
+            showButtonFeedback(this, 'reset-done');
         });
 
         // Calculate initial score
@@ -362,7 +363,7 @@
 
             if (navigator.clipboard && navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(textToCopy).then(function () {
-                    showCopyFeedback(btn);
+                    showButtonFeedback(btn, 'copied');
                 }).catch(function (err) {
                     console.error('Clipboard API mislukt, probeer fallback:', err);
                     fallbackCopyText(textToCopy, btn);
@@ -380,6 +381,7 @@
                 }
             });
             calculateSIRS();
+            showButtonFeedback(this, 'reset-done');
         });
 
         // Calculate initial SIRS score
@@ -413,7 +415,7 @@
 
             if (navigator.clipboard && navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(textToCopy).then(function () {
-                    showCopyFeedback(btn);
+                    showButtonFeedback(btn, 'copied');
                 }).catch(function (err) {
                     console.error('Clipboard API mislukt, probeer fallback:', err);
                     fallbackCopyText(textToCopy, btn);
@@ -429,6 +431,7 @@
             document.getElementById('M_emv').selectedIndex = 0;
             document.getElementById('V_emv').selectedIndex = 0;
             calculateEMV();
+            showButtonFeedback(this, 'reset-done');
         });
 
         // Calculate initial EMV score
@@ -462,6 +465,7 @@
             document.getElementById('SBPmap').value = '';
             document.getElementById('DBPmap').value = '';
             calculateMAP();
+            showButtonFeedback(this, 'reset-done');
         });
 
         // Copy to clipboard functionality for MAP
@@ -471,7 +475,7 @@
 
             if (navigator.clipboard && navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(textToCopy).then(function () {
-                    showCopyFeedback(btn);
+                    showButtonFeedback(btn, 'copied');
                 }).catch(function (err) {
                     console.error('Clipboard API mislukt, probeer fallback:', err);
                     fallbackCopyText(textToCopy, btn);

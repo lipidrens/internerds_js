@@ -777,14 +777,14 @@ Risico majeure bloeding = 1.13
     </div>
 
     <script>
-        // Helper function for copy feedback
-        function showCopyFeedback(btn) {
-            const originalIcon = btn.textContent;
+        // Helper function for button feedback
+        function showButtonFeedback(btn, cssClass) {
+            const originalText = btn.textContent;
             btn.textContent = '✓';
-            btn.classList.add('copied');
+            btn.classList.add(cssClass);
             setTimeout(() => {
-                btn.textContent = originalIcon;
-                btn.classList.remove('copied');
+                btn.textContent = originalText;
+                btn.classList.remove(cssClass);
             }, 1500);
         }
 
@@ -800,7 +800,7 @@ Risico majeure bloeding = 1.13
             try {
                 const successful = document.execCommand('copy');
                 if (successful) {
-                    showCopyFeedback(btn);
+                    showButtonFeedback(btn, 'copied');
                 } else {
                     console.error('Fallback kopiëren mislukt');
                 }
@@ -818,7 +818,7 @@ Risico majeure bloeding = 1.13
                 const btn = this;
                 if (navigator.clipboard && navigator.clipboard.writeText) {
                     navigator.clipboard.writeText(textToCopy).then(function () {
-                        showCopyFeedback(btn);
+                        showButtonFeedback(btn, 'copied');
                     }).catch(function (err) {
                         fallbackCopyText(textToCopy, btn);
                     });
@@ -958,6 +958,7 @@ Risico majeure bloeding = 1.13
                 });
             });
             calculateGRACE();
+            showButtonFeedback(this, 'reset-done');
         });
 
         calculateGRACE();
@@ -1002,6 +1003,7 @@ Risico majeure bloeding = 1.13
                 });
             });
             calculateHEART();
+            showButtonFeedback(this, 'reset-done');
         });
 
         calculateHEART();
@@ -1038,6 +1040,7 @@ Risico majeure bloeding = 1.13
             document.getElementById('rr_qtc').value = '';
             document.getElementById('unit_qtc').selectedIndex = 0;
             calculateQTc();
+            showButtonFeedback(this, 'reset-done');
         });
 
         calculateQTc();
@@ -1095,6 +1098,7 @@ Risico majeure bloeding = 1.13
                 });
             });
             calculateCHAD();
+            showButtonFeedback(this, 'reset-done');
         });
 
         calculateCHAD();
@@ -1138,6 +1142,7 @@ Risico majeure bloeding = 1.13
                 });
             });
             calculateBLED();
+            showButtonFeedback(this, 'reset-done');
         });
 
         calculateBLED();
@@ -1220,6 +1225,7 @@ Risico majeure bloeding = 1.13
             });
             document.getElementById('rope_age').value = '';
             calculateRoPE();
+            showButtonFeedback(this, 'reset-done');
         });
 
         calculateRoPE();
@@ -1267,6 +1273,7 @@ Risico majeure bloeding = 1.13
                 });
             });
             calculateDuke();
+            showButtonFeedback(this, 'reset-done');
         });
 
         calculateDuke();
