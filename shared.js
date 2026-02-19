@@ -17,7 +17,7 @@ function fallbackCopyText(text, btn) {
     textArea.value = text;
     textArea.className = 'clipboard-helper';
     document.body.appendChild(textArea);
-    textArea.focus();
+    textArea.focus({ preventScroll: true });
     textArea.select();
 
     try {
