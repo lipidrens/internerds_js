@@ -58,9 +58,9 @@ body {
     flex-wrap: wrap;
     justify-content: center;
     align-items: start;
-    gap: var(--spacing-md);
-    padding: var(--spacing-xl);
-    max-width: 1400px;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md);
+    max-width: 1200px;
     margin: 0 auto;
 }
 
@@ -68,7 +68,7 @@ body {
     background: var(--background-white);
     border-radius: var(--radius-xl);
     padding: var(--spacing-lg);
-    max-width: 420px;
+    max-width: 380px;
     width: 100%;
     display: flex;
     flex-direction: column;
