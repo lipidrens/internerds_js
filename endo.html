@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Endocrinologie</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- Effectieve osmolariteit -->
+        <div class="container">
+            <h1>Effectieve osmolariteit</h1>
+            <p class="subtitle">Vergelijk twee tijdspunten</p>
+
+            <form id="eoForm">
+                <div class="form-group">
+                    <label for="na1_eo">Natrium 1 (mmol/L)</label>
+                    <input type="number" id="na1_eo" min="90" max="180" step="1" placeholder="Bijv. 140">
+                </div>
+                <div class="form-group">
+                    <label for="glu1_eo">Glucose 1 (mmol/L)</label>
+                    <input type="number" id="glu1_eo" min="0" max="100" step="0.1" placeholder="Bijv. 20">
+                </div>
+                <div class="form-group">
+                    <label for="na2_eo">Natrium 2 (mmol/L)</label>
+                    <input type="number" id="na2_eo" min="90" max="180" step="1" placeholder="Bijv. 142">
+                </div>
+                <div class="form-group">
+                    <label for="glu2_eo">Glucose 2 (mmol/L)</label>
+                    <input type="number" id="glu2_eo" min="0" max="100" step="0.1" placeholder="Bijv. 15">
+                </div>
+                <div class="form-group">
+                    <label for="dT_eo">Tijdverschil (uur)</label>
+                    <input type="number" id="dT_eo" min="0" max="24" step="0.25" placeholder="Bijv. 4">
+                </div>
+            </form>
+
+            <div class="results show" id="eoResults">
+                <div class="result-item">
+                    <div class="result-value">
+                        <span id="eoResult" style="white-space: pre-line;">Vul alle velden in</span>
+                    </div>
+                </div>
+            </div>
+            <div class="button-container">
+                <button type="button" id="resetButtonEo" class="reset-button">Reset</button>
+                <button type="button" id="copyButtonEo" class="copy-button"
+                    title="Kopieer naar klembord">Kopieer</button>
+            </div>
+        </div>
+
+        <!-- Thyreotoxische crisis -->
+        <div class="container">
+            <h1>Thyreotoxische crisis</h1>
+            <p class="subtitle">Burch-Wartofsky score</p>
+
+            <form id="tsForm">
+                <div class="form-group">
+                    <label for="TEMP">Lichaamstemperatuur (°C)</label>
+                    <input type="number" id="TEMP" min="32" max="42" step="0.1" placeholder="Bijv. 38.5">
+                </div>
+                <div class="form-group">
+                    <label for="HF">Hartfrequentie (/min)</label>
+                    <input type="number" id="HF" min="20" max="250" step="1" placeholder="Bijv. 120">
+                </div>
+
+                <div class="form-group">
+                    <label for="CNS">Centraal zenuwstelsel</label>
+                    <select id="CNS">
+                        <option value="0">Afwezig</option>
+                        <option value="10">Mild (agitatie)</option>
+                        <option value="20">Matig (delier/psychose/lethargie)</option>
+                        <option value="30">Ernstig (epileptische aanvallen/coma)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="MDL">Maag, darm, lever</label>
+                    <select id="MDL">
+                        <option value="0">Afwezig</option>
+                        <option value="10">Matig (diarree/misselijkheid/braken/buikpijn)</option>
+                        <option value="20">Ernstig (onverklaarde icterus)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="DC">Decompensatio cordis</label>
+                    <select id="DC">
+                        <option value="0">Afwezig</option>
+                        <option value="5">Mild (perifeer oedeem)</option>
+                        <option value="10">Matig (beiderzijds crepiteren)</option>
+                        <option value="15">Ernstig (longoedeem)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Atriumfibrilleren</label>
+                    <div class="radio-group">
+                        <label class="radio-label"><input type="radio" name="AF" value="0" checked> Afwezig</label>
+                        <label class="radio-label"><input type="radio" name="AF" value="10"> Aanwezig</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Uitlokkende factor</label>
+                    <div class="radio-group">
+                        <label class="radio-label"><input type="radio" name="UF" value="0" checked> Afwezig</label>
+                        <label class="radio-label"><input type="radio" name="UF" value="10"> Aanwezig</label>
+                    </div>
+                </div>
+            </form>
+
+            <div class="results show" id="tsResults">
+                <div class="result-item">
+                    <div class="result-value">
+                        <span id="tsResult" style="white-space: pre-line;">Vul temperatuur en hartfrequentie in</span>
+                    </div>
+                </div>
+            </div>
+            <div class="button-container">
+                <button type="button" id="resetButtonTs" class="reset-button">Reset</button>
+                <button type="button" id="copyButtonTs" class="copy-button"
+                    title="Kopieer naar klembord">Kopieer</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="shared.js"></script>
+    <script>
+        // ============================================================
+        // Effectieve osmolariteit
+        // ============================================================
+        let currentEoText = '';
+
+        function calculateEo() {
+            const na1 = parseFloat(document.getElementById('na1_eo').value);
+            const glu1 = parseFloat(document.getElementById('glu1_eo').value);
+            const na2 = parseFloat(document.getElementById('na2_eo').value);
+            const glu2 = parseFloat(document.getElementById('glu2_eo').value);
+            const dT = parseFloat(document.getElementById('dT_eo').value);
+
+            if (isNaN(na1) || isNaN(glu1) || isNaN(na2) || isNaN(glu2) || isNaN(dT) || dT === 0) {
+                currentEoText = 'Vul alle velden in';
+            } else {
+                const eo1 = 2 * na1 + glu1;
+                const eo2 = 2 * na2 + glu2;
+                const eoD = eo2 - eo1;
+                const eoT = eoD / dT;
+                currentEoText = `Eff. osmol T1 = ${Math.round(eo1)} mosm\nEff. osmol T2 = ${Math.round(eo2)} mosm\n∆ = ${eoD.toFixed(1)} mosm = ${eoT.toFixed(1)} mosm/uur`;
+            }
+
+            document.getElementById('eoResult').textContent = currentEoText;
+            document.getElementById('eoResults').classList.add('show');
+        }
+
+        ['na1_eo', 'glu1_eo', 'na2_eo', 'glu2_eo', 'dT_eo'].forEach(id => {
+            document.getElementById(id).addEventListener('input', calculateEo);
+        });
+
+        setupCopy('copyButtonEo', () => currentEoText);
+
+        document.getElementById('resetButtonEo').addEventListener('click', function () {
+            ['na1_eo', 'glu1_eo', 'na2_eo', 'glu2_eo', 'dT_eo'].forEach(id => {
+                document.getElementById(id).value = '';
+            });
+            calculateEo();
+            showButtonFeedback(this, 'reset-done');
+        });
+
+        calculateEo();
+
+        // ============================================================
+        // Thyreotoxische crisis (Burch-Wartofsky)
+        // ============================================================
+        let currentTsText = '';
+
+        function getTempScore(temp) {
+            if (isNaN(temp)) return 0;
+            if (temp < 37.2) return 0;
+            if (temp <= 37.7) return 5;
+            if (temp <= 38.2) return 10;
+            if (temp <= 38.8) return 15;
+            if (temp <= 39.3) return 20;
+            if (temp <= 39.9) return 25;
+            return 30;
+        }
+
+        function getHfScore(hf) {
+            if (isNaN(hf)) return 0;
+            if (hf < 99) return 0;
+            if (hf <= 109) return 5;
+            if (hf <= 119) return 10;
+            if (hf <= 129) return 15;
+            if (hf <= 139) return 20;
+            return 25;
+        }
+
+        function calculateTs() {
+            const temp = parseFloat(document.getElementById('TEMP').value);
+            const hf = parseInt(document.getElementById('HF').value);
+
+            if (isNaN(temp) || isNaN(hf)) {
+                currentTsText = 'Vul temperatuur en hartfrequentie in';
+            } else {
+                const tempScore = getTempScore(temp);
+                const hfScore = getHfScore(hf);
+                const cns = parseInt(document.getElementById('CNS').value);
+                const mdl = parseInt(document.getElementById('MDL').value);
+                const dc = parseInt(document.getElementById('DC').value);
+                const af = parseInt(document.querySelector('input[name="AF"]:checked').value);
+                const uf = parseInt(document.querySelector('input[name="UF"]:checked').value);
+
+                const score = tempScore + hfScore + cns + mdl + dc + af + uf;
+
+                let interpretatie;
+                if (score >= 45) {
+                    interpretatie = 'Zeer suggestief voor thyreotoxische crise';
+                } else if (score >= 25) {
+                    interpretatie = 'Ondersteunt thyreotoxische crise';
+                } else {
+                    interpretatie = 'Thyreotoxische crise onwaarschijnlijk';
+                }
+
+                currentTsText = `Thyreotoxische crise score = ${score}\n${interpretatie}`;
+            }
+
+            document.getElementById('tsResult').textContent = currentTsText;
+            document.getElementById('tsResults').classList.add('show');
+        }
+
+        document.getElementById('TEMP').addEventListener('input', calculateTs);
+        document.getElementById('HF').addEventListener('input', calculateTs);
+        ['CNS', 'MDL', 'DC'].forEach(id => {
+            document.getElementById(id).addEventListener('change', calculateTs);
+        });
+        document.querySelectorAll('input[name="AF"], input[name="UF"]').forEach(radio => {
+            radio.addEventListener('change', calculateTs);
+        });
+
+        setupCopy('copyButtonTs', () => currentTsText);
+
+        document.getElementById('resetButtonTs').addEventListener('click', function () {
+            document.getElementById('TEMP').value = '';
+            document.getElementById('HF').value = '';
+            ['CNS', 'MDL', 'DC'].forEach(id => {
+                document.getElementById(id).selectedIndex = 0;
+            });
+            ['AF', 'UF'].forEach(name => {
+                document.querySelectorAll(`input[name="${name}"]`).forEach(radio => {
+                    if (radio.value === "0") radio.checked = true;
+                });
+            });
+            calculateTs();
+            showButtonFeedback(this, 'reset-done');
+        });
+
+        calculateTs();
+    </script>
+</body>
+
+</html>
