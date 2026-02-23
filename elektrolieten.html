@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elektrolyten</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- Natrium correctie bij hyperglycemie -->
+        <div class="container">
+            <h1>Natrium correctie bij hyperglycemie</h1>
+            <p class="subtitle">Gecorrigeerd natrium voor glucose</p>
+
+            <form id="cornaForm">
+                <div class="form-group">
+                    <label for="natrium_corna">Natrium (mmol/L)</label>
+                    <input type="number" id="natrium_corna" min="90" max="180" step="1" placeholder="Bijv. 135">
+                </div>
+                <div class="form-group">
+                    <label for="glucose_corna">Glucose (mmol/L)</label>
+                    <input type="number" id="glucose_corna" min="0" max="100" step="0.1" placeholder="Bijv. 10">
+                </div>
+            </form>
+
+            <div class="results show" id="cornaResults">
+                <div class="result-item">
+                    <div class="result-value">
+                        <span id="cornaResult">Gecorr. natrium = -</span>
+                    </div>
+                </div>
+            </div>
+            <div class="button-container">
+                <button type="button" id="resetButtonCorna" class="reset-button">Reset</button>
+                <button type="button" id="copyButtonCorna" class="copy-button"
+                    title="Kopieer naar klembord">Kopieer</button>
+            </div>
+        </div>
+
+        <!-- Gecorrigeerd calcium -->
+        <div class="container">
+            <h1>Gecorrigeerd calcium</h1>
+            <p class="subtitle">Calcium gecorrigeerd voor albumine</p>
+
+            <form id="caForm">
+                <div class="form-group">
+                    <label for="ca_ca">Calcium (mmol/L)</label>
+                    <input type="number" id="ca_ca" min="0" max="8" step="0.01" placeholder="Bijv. 2.20">
+                </div>
+                <div class="form-group">
+                    <label for="alb_ca">Albumine (g/L)</label>
+                    <input type="number" id="alb_ca" min="0" max="80" step="0.1" placeholder="Bijv. 35">
+                </div>
+            </form>
+
+            <div class="results show" id="caResults">
+                <div class="result-item">
+                    <div class="result-value">
+                        <span id="caResult">Gecorr. calcium = -</span>
+                    </div>
+                </div>
+            </div>
+            <div class="button-container">
+                <button type="button" id="resetButtonCa" class="reset-button">Reset</button>
+                <button type="button" id="copyButtonCa" class="copy-button"
+                    title="Kopieer naar klembord">Kopieer</button>
+            </div>
+        </div>
+
+        <!-- Lean Body Weight -->
+        <div class="container">
+            <h1>Lean Body Weight</h1>
+            <p class="subtitle">James formule</p>
+
+            <form id="leanForm">
+                <div class="form-group">
+                    <label for="gewicht_lean">Gewicht (kg)</label>
+                    <input type="number" id="gewicht_lean" min="0" max="200" step="0.1" placeholder="Bijv. 70">
+                </div>
+                <div class="form-group">
+                    <label for="lengte_lean">Lengte (cm)</label>
+                    <input type="number" id="lengte_lean" min="0" max="220" step="1" placeholder="Bijv. 175">
+                </div>
+                <div class="form-group">
+                    <label>Geslacht</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="geslacht_lean" value="Man" checked>
+                            Man
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="geslacht_lean" value="Vrouw">
+                            Vrouw
+                        </label>
+                    </div>
+                </div>
+            </form>
+
+            <div class="results show" id="leanResults">
+                <div class="result-item">
+                    <div class="result-value">
+                        <span id="leanResult">LBW (James eq.) = -</span>
+                    </div>
+                </div>
+            </div>
+            <div class="button-container">
+                <button type="button" id="resetButtonLean" class="reset-button">Reset</button>
+                <button type="button" id="copyButtonLean" class="copy-button"
+                    title="Kopieer naar klembord">Kopieer</button>
+            </div>
+        </div>
+
+        <!-- Hypo/hypernatriëmie correctie -->
+        <div class="container">
+            <h1>Hypo/hypernatriëmie correctie</h1>
+            <p class="subtitle">Adrogué-Madias formule</p>
+
+            <form id="amForm">
+                <div class="form-group">
+                    <label for="gewicht_AM">(Lean) gewicht (kg)</label>
+                    <input type="number" id="gewicht_AM" min="0" max="200" step="0.1" placeholder="Bijv. 70">
+                </div>
+                <div class="form-group">
+                    <label for="keuze_TBW_AM">Factor voor TBW</label>
+                    <select id="keuze_TBW_AM">
+                        <option value="Man">Man</option>
+                        <option value="Man, ouderen/ernstige dehydratie">Man, ouderen/ernstige dehydratie</option>
+                        <option value="Vrouw">Vrouw</option>
+                        <option value="Vrouw, ouderen">Vrouw, ouderen</option>
+                        <option value="Vrouw, ernstige dehydratie">Vrouw, ernstige dehydratie</option>
+                        <option value="Handmatige invoer">Handmatige invoer</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="tbw_AM">TBW factor</label>
+                    <input type="number" id="tbw_AM" min="0" max="1" step="0.1" value="0.6">
+                </div>
+                <div class="form-group">
+                    <label for="plasma_na_AM">Plasma natrium (mmol/L)</label>
+                    <input type="number" id="plasma_na_AM" min="90" max="180" step="1" placeholder="Bijv. 130">
+                </div>
+                <div class="form-group">
+                    <label for="delta_na_AM">Gewenste absolute daling natrium (mmol/L)</label>
+                    <input type="number" id="delta_na_AM" min="0" max="20" step="0.5" placeholder="Bijv. 6">
+                </div>
+                <div class="form-group">
+                    <label for="type_AM">(Infuus)vloeistof</label>
+                    <select id="type_AM">
+                        <option value="Glucose of Water">Glucose of Water</option>
+                        <option value="NaCl 0.9%">NaCl 0.9%</option>
+                        <option value="NaCl 0.45%">NaCl 0.45%</option>
+                        <option value="NaCl 3%">NaCl 3%</option>
+                        <option value="Ringerlactaat">Ringerlactaat</option>
+                        <option value="Handmatige invoer">Handmatige invoer</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="infuus_na_AM">Natrium concentratie infuus (mmol/L)</label>
+                    <input type="number" id="infuus_na_AM" min="0" max="750" step="1" value="0">
+                </div>
+                <div class="form-group">
+                    <label for="infuus_k_AM">Kalium concentratie infuus (mmol/L)</label>
+                    <input type="number" id="infuus_k_AM" min="0" max="100" step="1" value="0">
+                </div>
+            </form>
+
+            <div class="results show" id="amResults">
+                <div class="result-item">
+                    <div class="result-value">
+                        <span id="amResult" style="white-space: pre-line;">Vul alle velden in</span>
+                    </div>
+                </div>
+            </div>
+            <div class="button-container">
+                <button type="button" id="resetButtonAM" class="reset-button">Reset</button>
+                <button type="button" id="copyButtonAM" class="copy-button"
+                    title="Kopieer naar klembord">Kopieer</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="shared.js"></script>
+    <script>
+        // ============================================================
+        // Natrium correctie bij hyperglycemie
+        // ============================================================
+        let currentCornaText = '';
+
+        function calculateCorna() {
+            const natrium = parseFloat(document.getElementById('natrium_corna').value);
+            const glucose = parseFloat(document.getElementById('glucose_corna').value);
+
+            if (isNaN(natrium) || isNaN(glucose)) {
+                currentCornaText = 'Gecorr. natrium = -';
+            } else {
+                const corna = natrium + ((glucose - 5.6) / 5.6) * 2.4;
+                currentCornaText = `Gecorr. natrium = ${corna.toFixed(1)} mmol/L`;
+            }
+
+            document.getElementById('cornaResult').textContent = currentCornaText;
+            document.getElementById('cornaResults').classList.add('show');
+        }
+
+        document.getElementById('natrium_corna').addEventListener('input', calculateCorna);
+        document.getElementById('glucose_corna').addEventListener('input', calculateCorna);
+
+        setupCopy('copyButtonCorna', () => currentCornaText);
+
+        document.getElementById('resetButtonCorna').addEventListener('click', function () {
+            document.getElementById('natrium_corna').value = '';
+            document.getElementById('glucose_corna').value = '';
+            calculateCorna();
+            showButtonFeedback(this, 'reset-done');
+        });
+
+        calculateCorna();
+
+        // ============================================================
+        // Gecorrigeerd calcium
+        // ============================================================
+        let currentCaText = '';
+
+        function calculateCa() {
+            const ca = parseFloat(document.getElementById('ca_ca').value);
+            const alb = parseFloat(document.getElementById('alb_ca').value);
+
+            if (isNaN(ca) || isNaN(alb)) {
+                currentCaText = 'Gecorr. calcium = -';
+            } else {
+                const gecorCa = ca + 0.025 * (40 - alb);
+                currentCaText = `Gecorr. calcium = ${gecorCa.toFixed(2)} mmol/L`;
+            }
+
+            document.getElementById('caResult').textContent = currentCaText;
+            document.getElementById('caResults').classList.add('show');
+        }
+
+        document.getElementById('ca_ca').addEventListener('input', calculateCa);
+        document.getElementById('alb_ca').addEventListener('input', calculateCa);
+
+        setupCopy('copyButtonCa', () => currentCaText);
+
+        document.getElementById('resetButtonCa').addEventListener('click', function () {
+            document.getElementById('ca_ca').value = '';
+            document.getElementById('alb_ca').value = '';
+            calculateCa();
+            showButtonFeedback(this, 'reset-done');
+        });
+
+        calculateCa();
+
+        // ============================================================
+        // Lean Body Weight
+        // ============================================================
+        let currentLeanText = '';
+
+        function calculateLean() {
+            const gewicht = parseFloat(document.getElementById('gewicht_lean').value);
+            const lengte = parseFloat(document.getElementById('lengte_lean').value);
+            const geslacht = document.querySelector('input[name="geslacht_lean"]:checked').value;
+
+            if (isNaN(gewicht) || isNaN(lengte) || lengte === 0) {
+                currentLeanText = 'LBW (James eq.) = -';
+            } else {
+                let lbw;
+                if (geslacht === 'Man') {
+                    lbw = 1.10 * gewicht - 128 * (gewicht ** 2) / (lengte ** 2);
+                } else {
+                    lbw = 1.07 * gewicht - 148 * (gewicht ** 2) / (lengte ** 2);
+                }
+                currentLeanText = `LBW (James eq.) = ${lbw.toFixed(1)} kg`;
+            }
+
+            document.getElementById('leanResult').textContent = currentLeanText;
+            document.getElementById('leanResults').classList.add('show');
+        }
+
+        document.getElementById('gewicht_lean').addEventListener('input', calculateLean);
+        document.getElementById('lengte_lean').addEventListener('input', calculateLean);
+        document.querySelectorAll('input[name="geslacht_lean"]').forEach(radio => {
+            radio.addEventListener('change', calculateLean);
+        });
+
+        setupCopy('copyButtonLean', () => currentLeanText);
+
+        document.getElementById('resetButtonLean').addEventListener('click', function () {
+            document.getElementById('gewicht_lean').value = '';
+            document.getElementById('lengte_lean').value = '';
+            document.querySelectorAll('input[name="geslacht_lean"]').forEach(radio => {
+                if (radio.value === "Man") radio.checked = true;
+            });
+            calculateLean();
+            showButtonFeedback(this, 'reset-done');
+        });
+
+        calculateLean();
+
+        // ============================================================
+        // Hypo/hypernatriëmie correctie (Adrogué-Madias)
+        // ============================================================
+        let currentAMText = '';
+
+        // TBW factor keuze
+        const tbwSelect = document.getElementById('keuze_TBW_AM');
+        const tbwInput = document.getElementById('tbw_AM');
+
+        tbwSelect.addEventListener('change', function () {
+            const tbwMap = {
+                'Man': 0.6,
+                'Man, ouderen/ernstige dehydratie': 0.5,
+                'Vrouw': 0.5,
+                'Vrouw, ouderen': 0.45,
+                'Vrouw, ernstige dehydratie': 0.40
+            };
+            if (this.value in tbwMap) {
+                tbwInput.value = tbwMap[this.value];
+            }
+            calculateAM();
+        });
+
+        // Infuusvloeistof keuze
+        const typeSelect = document.getElementById('type_AM');
+        const infuusNaInput = document.getElementById('infuus_na_AM');
+        const infuusKInput = document.getElementById('infuus_k_AM');
+
+        typeSelect.addEventListener('change', function () {
+            const infuusMap = {
+                'Glucose of Water': { na: 0, k: 0 },
+                'NaCl 0.9%': { na: 154, k: 0 },
+                'NaCl 0.45%': { na: 77, k: 0 },
+                'NaCl 3%': { na: 514, k: 0 },
+                'Ringerlactaat': { na: 130, k: 5.4 }
+            };
+            if (this.value in infuusMap) {
+                infuusNaInput.value = infuusMap[this.value].na;
+                infuusKInput.value = infuusMap[this.value].k;
+            }
+            calculateAM();
+        });
+
+        function calculateAM() {
+            const gewicht = parseFloat(document.getElementById('gewicht_AM').value);
+            const tbwFactor = parseFloat(tbwInput.value);
+            const plasmaNa = parseFloat(document.getElementById('plasma_na_AM').value);
+            const deltaNa = parseFloat(document.getElementById('delta_na_AM').value);
+            const infuusNa = parseFloat(infuusNaInput.value);
+            const infuusK = parseFloat(infuusKInput.value);
+
+            if (isNaN(gewicht) || isNaN(tbwFactor) || isNaN(plasmaNa) || isNaN(deltaNa)) {
+                currentAMText = 'Vul alle velden in';
+                document.getElementById('amResult').textContent = currentAMText;
+                document.getElementById('amResults').classList.add('show');
+                return;
+            }
+
+            const na = isNaN(infuusNa) ? 0 : infuusNa;
+            const k = isNaN(infuusK) ? 0 : infuusK;
+
+            const TBW = gewicht * tbwFactor;
+            const deltaWater = TBW * (plasmaNa / 140 - 1);
+            const deltaNaLInfuus = (na + k - plasmaNa) / (TBW + 1);
+            const doelNa = plasmaNa + deltaNa;
+            const infuusVolume = deltaNa / deltaNaLInfuus;
+            const infuusPerUur = (infuusVolume / 24) * 1000;
+
+            const typeValue = typeSelect.value;
+            const infuustype = typeValue === 'Handmatige invoer'
+                ? `infuus met ${Math.round(na)} mmol/L Na en ${Math.round(k)} mmol/L K`
+                : typeValue;
+
+            currentAMText = `TBW = ${TBW.toFixed(1)} L\n∆water tot Na→140 = ${deltaWater.toFixed(1)} L\n∆Na = ${deltaNaLInfuus.toFixed(2)} mmol/L per L infuus\nBenodigd volume voor Na→${Math.round(doelNa)}\n= ${infuusVolume.toFixed(2)} L = ${infuusPerUur.toFixed(1)} mL/uur in 24u\nvan ${infuustype}`;
+
+            document.getElementById('amResult').textContent = currentAMText;
+            document.getElementById('amResults').classList.add('show');
+        }
+
+        // Event listeners voor alle AM inputs
+        ['gewicht_AM', 'tbw_AM', 'plasma_na_AM', 'delta_na_AM', 'infuus_na_AM', 'infuus_k_AM'].forEach(id => {
+            document.getElementById(id).addEventListener('input', calculateAM);
+        });
+
+        setupCopy('copyButtonAM', () => currentAMText);
+
+        document.getElementById('resetButtonAM').addEventListener('click', function () {
+            document.getElementById('gewicht_AM').value = '';
+            document.getElementById('plasma_na_AM').value = '';
+            document.getElementById('delta_na_AM').value = '';
+            document.getElementById('infuus_na_AM').value = '0';
+            document.getElementById('infuus_k_AM').value = '0';
+            typeSelect.selectedIndex = 0;
+            tbwSelect.selectedIndex = 0;
+            tbwInput.value = '0.6';
+            calculateAM();
+            showButtonFeedback(this, 'reset-done');
+        });
+
+        calculateAM();
+    </script>
+</body>
+
+</html>
