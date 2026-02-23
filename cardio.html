@@ -24,7 +24,6 @@
         <div class="container">
             <h1>GRACE</h1>
 
-
             <form id="graceForm">
                 <div class="form-group">
                     <label for="age_grace">Leeftijd</label>
@@ -47,25 +46,13 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Hartfalen (Killip)</label>
-                    <div class="radio-group">
-                        <label class="radio-label">
-                            <input type="radio" name="killip_grace" value="0" checked>
-                            I: Geen symptomen
-                        </label>
-                        <label class="radio-label">
-                            <input type="radio" name="killip_grace" value="15">
-                            II: Milde symptomen: crepitaties/S3 gallop/verhoogde CVD
-                        </label>
-                        <label class="radio-label">
-                            <input type="radio" name="killip_grace" value="29">
-                            III: Astma cardiale
-                        </label>
-                        <label class="radio-label">
-                            <input type="radio" name="killip_grace" value="44">
-                            IV: Cardiogene shock
-                        </label>
-                    </div>
+                    <label for="killip_grace">Hartfalen (Killip)</label>
+                    <select id="killip_grace">
+                        <option value="0" selected>I: Geen symptomen</option>
+                        <option value="15">II: Milde symptomen (crepitaties / S3 gallop / verhoogde CVD)</option>
+                        <option value="29">III: Astma cardiale</option>
+                        <option value="44">IV: Cardiogene shock</option>
+                    </select>
                 </div>
 
                 <div class="form-group">
@@ -130,96 +117,50 @@ Mortaliteit (6m) = -%</span>
         <div class="container">
             <h1>HEART</h1>
 
-
             <form id="heartForm">
                 <div class="form-group">
-                    <label>Anamnese</label>
-                    <div class="radio-group">
-                        <label class="radio-label">
-                            <input type="radio" name="ana_heart" value="0" checked>
-                            Mild verdacht (aspecifieke klachten)
-                        </label>
-                        <label class="radio-label">
-                            <input type="radio" name="ana_heart" value="1">
-                            Matig verdacht (atypische pijn)
-                        </label>
-                        <label class="radio-label">
-                            <input type="radio" name="ana_heart" value="2">
-                            Sterk verdacht (typische pijn)
-                        </label>
-                    </div>
+                    <label for="ana_heart">Anamnese</label>
+                    <select id="ana_heart">
+                        <option value="0" selected>Mild verdacht (aspecifieke klachten)</option>
+                        <option value="1">Matig verdacht (atypische pijn)</option>
+                        <option value="2">Sterk verdacht (typische pijn)</option>
+                    </select>
                 </div>
 
                 <div class="form-group">
-                    <label>ECG</label>
-                    <div class="radio-group">
-                        <label class="radio-label">
-                            <input type="radio" name="ecg_heart" value="0" checked>
-                            Normaal
-                        </label>
-                        <label class="radio-label">
-                            <input type="radio" name="ecg_heart" value="1">
-                            Niet-specifieke repolarisatiestoornissen / LBTB / Pacemaker
-                        </label>
-                        <label class="radio-label">
-                            <input type="radio" name="ecg_heart" value="2">
-                            Significante ST-depressie
-                        </label>
-                    </div>
+                    <label for="ecg_heart">ECG</label>
+                    <select id="ecg_heart">
+                        <option value="0" selected>Normaal</option>
+                        <option value="1">Niet-specifieke repolarisatiestoornissen / LBTB / Pacemaker</option>
+                        <option value="2">Significante ST-depressie</option>
+                    </select>
                 </div>
 
                 <div class="form-group">
-                    <label>Leeftijd</label>
-                    <div class="radio-group">
-                        <label class="radio-label">
-                            <input type="radio" name="age_heart" value="0" checked>
-                            &lt;45 jaar
-                        </label>
-                        <label class="radio-label">
-                            <input type="radio" name="age_heart" value="1">
-                            45-65 jaar
-                        </label>
-                        <label class="radio-label">
-                            <input type="radio" name="age_heart" value="2">
-                            ≥65 jaar
-                        </label>
-                    </div>
+                    <label for="age_heart">Leeftijd</label>
+                    <select id="age_heart">
+                        <option value="0" selected>&lt;45 jaar</option>
+                        <option value="1">45–65 jaar</option>
+                        <option value="2">≥65 jaar</option>
+                    </select>
                 </div>
 
                 <div class="form-group">
-                    <label>Risicofactoren*</label>
-                    <div class="radio-group">
-                        <label class="radio-label">
-                            <input type="radio" name="risk_heart" value="0" checked>
-                            Geen risicofactoren
-                        </label>
-                        <label class="radio-label">
-                            <input type="radio" name="risk_heart" value="1">
-                            1 of 2 risicofactoren
-                        </label>
-                        <label class="radio-label">
-                            <input type="radio" name="risk_heart" value="2">
-                            ≥3 risicofactoren of VG van atherosclerotisch event
-                        </label>
-                    </div>
+                    <label for="risk_heart">Risicofactoren*</label>
+                    <select id="risk_heart">
+                        <option value="0" selected>Geen risicofactoren</option>
+                        <option value="1">1 of 2 risicofactoren</option>
+                        <option value="2">≥3 risicofactoren of VG van atherosclerotisch event</option>
+                    </select>
                 </div>
 
                 <div class="form-group">
-                    <label>Troponine</label>
-                    <div class="radio-group">
-                        <label class="radio-label">
-                            <input type="radio" name="trop_heart" value="0" checked>
-                            &lt; normaalwaarde
-                        </label>
-                        <label class="radio-label">
-                            <input type="radio" name="trop_heart" value="1">
-                            1-3x normaalwaarde
-                        </label>
-                        <label class="radio-label">
-                            <input type="radio" name="trop_heart" value="2">
-                            ≥3x normaalwaarde
-                        </label>
-                    </div>
+                    <label for="trop_heart">Troponine</label>
+                    <select id="trop_heart">
+                        <option value="0" selected>&lt; normaalwaarde</option>
+                        <option value="1">1–3× normaalwaarde</option>
+                        <option value="2">≥3× normaalwaarde</option>
+                    </select>
                 </div>
             </form>
 
@@ -242,7 +183,6 @@ Risico MACE (6w) = laag = 1.7%</span>
         <!-- QTc Calculator -->
         <div class="container">
             <h1>Corrected QT interval (QTc)</h1>
-
 
             <form id="qtcForm">
                 <div class="form-group">
@@ -282,38 +222,22 @@ Risico MACE (6w) = laag = 1.7%</span>
         <div class="container">
             <h1>CHA₂DS₂-VA(Sc)</h1>
 
-
             <form id="chadForm">
                 <div class="form-group">
-                    <label>Leeftijd</label>
-                    <div class="radio-group">
-                        <label class="radio-label">
-                            <input type="radio" name="chad_age" value="0" checked>
-                            &lt;65
-                        </label>
-                        <label class="radio-label">
-                            <input type="radio" name="chad_age" value="1">
-                            65-74
-                        </label>
-                        <label class="radio-label">
-                            <input type="radio" name="chad_age" value="2">
-                            ≥75
-                        </label>
-                    </div>
+                    <label for="chad_age">Leeftijd</label>
+                    <select id="chad_age">
+                        <option value="0" selected>&lt;65</option>
+                        <option value="1">65–74</option>
+                        <option value="2">≥75</option>
+                    </select>
                 </div>
 
                 <div class="form-group">
-                    <label>Geslacht</label>
-                    <div class="radio-group">
-                        <label class="radio-label">
-                            <input type="radio" name="chad_sex" value="0" checked>
-                            Man
-                        </label>
-                        <label class="radio-label">
-                            <input type="radio" name="chad_sex" value="1">
-                            Vrouw
-                        </label>
-                    </div>
+                    <label for="chad_sex">Geslacht</label>
+                    <select id="chad_sex">
+                        <option value="0" selected>Man</option>
+                        <option value="1">Vrouw</option>
+                    </select>
                 </div>
 
                 <div class="form-group">
@@ -409,20 +333,13 @@ Risico herseninfarct/TIA/sys. trombo-embolie = 0.3%
         <div class="container">
             <h1>HAS-BLED</h1>
 
-
             <form id="bledForm">
                 <div class="form-group">
-                    <label>Leeftijd</label>
-                    <div class="radio-group">
-                        <label class="radio-label">
-                            <input type="radio" name="bled_age" value="0" checked>
-                            &lt;66
-                        </label>
-                        <label class="radio-label">
-                            <input type="radio" name="bled_age" value="1">
-                            ≥66
-                        </label>
-                    </div>
+                    <label for="bled_age">Leeftijd</label>
+                    <select id="bled_age">
+                        <option value="0" selected>&lt;66</option>
+                        <option value="1">≥66</option>
+                    </select>
                 </div>
 
                 <div class="form-group">
@@ -559,7 +476,6 @@ Risico majeure bloeding = 1.13
         <div class="container">
             <h1>RoPE</h1>
 
-
             <form id="ropeForm">
                 <div class="form-group">
                     <label>Hypertensie</label>
@@ -654,7 +570,6 @@ Risico majeure bloeding = 1.13
         <!-- Duke (endocarditis) -->
         <div class="container">
             <h1>Duke (endocarditis)</h1>
-
 
             <form id="dukeForm">
                 <p><strong>Major</strong></p>
@@ -799,7 +714,7 @@ Risico majeure bloeding = 1.13
             const pulse = parseFloat(document.getElementById('pulse_grace').value);
             const sbp = parseFloat(document.getElementById('sbp_grace').value);
             const creatInput = parseFloat(document.getElementById('creat_grace').value);
-            const killip = parseInt(document.querySelector('input[name="killip_grace"]:checked').value);
+            const killip = parseInt(document.getElementById('killip_grace').value);
             const arrest = parseInt(document.querySelector('input[name="arrest_grace"]:checked').value);
             const st = parseInt(document.querySelector('input[name="st_grace"]:checked').value);
             const trop = parseInt(document.querySelector('input[name="trop_grace"]:checked').value);
@@ -882,10 +797,11 @@ Risico majeure bloeding = 1.13
             document.getElementById('graceScore').textContent = currentGraceText;
         }
 
-        ['age_grace', 'pulse_grace', 'sbp_grace', 'creat_grace'].forEach(id => {
+        ['age_grace', 'pulse_grace', 'sbp_grace', 'creat_grace', 'killip_grace'].forEach(id => {
             document.getElementById(id).addEventListener('input', calculateGRACE);
+            document.getElementById(id).addEventListener('change', calculateGRACE);
         });
-        document.querySelectorAll('input[name="killip_grace"], input[name="arrest_grace"], input[name="st_grace"], input[name="trop_grace"]').forEach(radio => {
+        document.querySelectorAll('input[name="arrest_grace"], input[name="st_grace"], input[name="trop_grace"]').forEach(radio => {
             radio.addEventListener('change', calculateGRACE);
         });
 
@@ -895,7 +811,8 @@ Risico majeure bloeding = 1.13
             ['age_grace', 'pulse_grace', 'sbp_grace', 'creat_grace'].forEach(id => {
                 document.getElementById(id).value = '';
             });
-            ['killip_grace', 'arrest_grace', 'st_grace', 'trop_grace'].forEach(name => {
+            document.getElementById('killip_grace').selectedIndex = 0;
+            ['arrest_grace', 'st_grace', 'trop_grace'].forEach(name => {
                 document.querySelectorAll(`input[name="${name}"]`).forEach(radio => {
                     radio.checked = radio.value === "0";
                 });
@@ -912,11 +829,11 @@ Risico majeure bloeding = 1.13
         let currentHeartText = '';
 
         function calculateHEART() {
-            const ana = parseInt(document.querySelector('input[name="ana_heart"]:checked').value);
-            const ecg = parseInt(document.querySelector('input[name="ecg_heart"]:checked').value);
-            const age = parseInt(document.querySelector('input[name="age_heart"]:checked').value);
-            const risk = parseInt(document.querySelector('input[name="risk_heart"]:checked').value);
-            const trop = parseInt(document.querySelector('input[name="trop_heart"]:checked').value);
+            const ana = parseInt(document.getElementById('ana_heart').value);
+            const ecg = parseInt(document.getElementById('ecg_heart').value);
+            const age = parseInt(document.getElementById('age_heart').value);
+            const risk = parseInt(document.getElementById('risk_heart').value);
+            const trop = parseInt(document.getElementById('trop_heart').value);
 
             const score = ana + ecg + age + risk + trop;
 
@@ -933,17 +850,15 @@ Risico majeure bloeding = 1.13
             document.getElementById('heartScore').textContent = currentHeartText;
         }
 
-        document.querySelectorAll('input[name="ana_heart"], input[name="ecg_heart"], input[name="age_heart"], input[name="risk_heart"], input[name="trop_heart"]').forEach(radio => {
-            radio.addEventListener('change', calculateHEART);
+        ['ana_heart', 'ecg_heart', 'age_heart', 'risk_heart', 'trop_heart'].forEach(id => {
+            document.getElementById(id).addEventListener('change', calculateHEART);
         });
 
         setupCopy('copyButtonHeart', () => currentHeartText);
 
         document.getElementById('resetButtonHeart').addEventListener('click', function () {
-            ['ana_heart', 'ecg_heart', 'age_heart', 'risk_heart', 'trop_heart'].forEach(name => {
-                document.querySelectorAll(`input[name="${name}"]`).forEach(radio => {
-                    radio.checked = radio.value === "0";
-                });
+            ['ana_heart', 'ecg_heart', 'age_heart', 'risk_heart', 'trop_heart'].forEach(id => {
+                document.getElementById(id).selectedIndex = 0;
             });
             calculateHEART();
             showButtonFeedback(this, 'reset-done');
@@ -1007,8 +922,8 @@ Risico majeure bloeding = 1.13
         let currentChadText = '';
 
         function calculateCHAD() {
-            const chadAge = parseInt(document.querySelector('input[name="chad_age"]:checked').value);
-            const chadSex = parseInt(document.querySelector('input[name="chad_sex"]:checked').value);
+            const chadAge = parseInt(document.getElementById('chad_age').value);
+            const chadSex = parseInt(document.getElementById('chad_sex').value);
             const chadChf = parseInt(document.querySelector('input[name="chad_chf"]:checked').value);
             const chadHt = parseInt(document.querySelector('input[name="chad_ht"]:checked').value);
             const chadVte = parseInt(document.querySelector('input[name="chad_vte"]:checked').value);
@@ -1027,14 +942,19 @@ Risico majeure bloeding = 1.13
             document.getElementById('chadScore').textContent = currentChadText;
         }
 
-        document.querySelectorAll('input[name="chad_age"], input[name="chad_sex"], input[name="chad_chf"], input[name="chad_ht"], input[name="chad_vte"], input[name="chad_ate"], input[name="chad_dm"]').forEach(radio => {
+        ['chad_age', 'chad_sex'].forEach(id => {
+            document.getElementById(id).addEventListener('change', calculateCHAD);
+        });
+        document.querySelectorAll('input[name="chad_chf"], input[name="chad_ht"], input[name="chad_vte"], input[name="chad_ate"], input[name="chad_dm"]').forEach(radio => {
             radio.addEventListener('change', calculateCHAD);
         });
 
         setupCopy('copyButtonChad', () => currentChadText);
 
         document.getElementById('resetButtonChad').addEventListener('click', function () {
-            ['chad_age', 'chad_sex', 'chad_chf', 'chad_ht', 'chad_vte', 'chad_ate', 'chad_dm'].forEach(name => {
+            document.getElementById('chad_age').selectedIndex = 0;
+            document.getElementById('chad_sex').selectedIndex = 0;
+            ['chad_chf', 'chad_ht', 'chad_vte', 'chad_ate', 'chad_dm'].forEach(name => {
                 document.querySelectorAll(`input[name="${name}"]`).forEach(radio => {
                     radio.checked = radio.value === "0";
                 });
@@ -1051,7 +971,7 @@ Risico majeure bloeding = 1.13
         let currentBledText = '';
 
         function calculateBLED() {
-            const bledAge = parseInt(document.querySelector('input[name="bled_age"]:checked').value);
+            const bledAge = parseInt(document.getElementById('bled_age').value);
             const bledHt = parseInt(document.querySelector('input[name="bled_ht"]:checked').value);
             const bledKd = parseInt(document.querySelector('input[name="bled_kd"]:checked').value);
             const bledLiver = parseInt(document.querySelector('input[name="bled_liver"]:checked').value);
@@ -1071,14 +991,16 @@ Risico majeure bloeding = 1.13
             document.getElementById('bledScore').textContent = currentBledText;
         }
 
-        document.querySelectorAll('input[name="bled_age"], input[name="bled_ht"], input[name="bled_kd"], input[name="bled_liver"], input[name="bled_stroke"], input[name="bled_bleed"], input[name="bled_inr"], input[name="bled_med"], input[name="bled_alcohol"]').forEach(radio => {
+        document.getElementById('bled_age').addEventListener('change', calculateBLED);
+        document.querySelectorAll('input[name="bled_ht"], input[name="bled_kd"], input[name="bled_liver"], input[name="bled_stroke"], input[name="bled_bleed"], input[name="bled_inr"], input[name="bled_med"], input[name="bled_alcohol"]').forEach(radio => {
             radio.addEventListener('change', calculateBLED);
         });
 
         setupCopy('copyButtonBled', () => currentBledText);
 
         document.getElementById('resetButtonBled').addEventListener('click', function () {
-            ['bled_age', 'bled_ht', 'bled_kd', 'bled_liver', 'bled_stroke', 'bled_bleed', 'bled_inr', 'bled_med', 'bled_alcohol'].forEach(name => {
+            document.getElementById('bled_age').selectedIndex = 0;
+            ['bled_ht', 'bled_kd', 'bled_liver', 'bled_stroke', 'bled_bleed', 'bled_inr', 'bled_med', 'bled_alcohol'].forEach(name => {
                 document.querySelectorAll(`input[name="${name}"]`).forEach(radio => {
                     radio.checked = radio.value === "0";
                 });
