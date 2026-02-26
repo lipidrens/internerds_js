@@ -170,11 +170,11 @@ button:active {
 
 .results {
     margin-top: var(--spacing-md);
-    padding: var(--spacing-md);
+    padding: var(--spacing-sm);
     background: var(--background-soft-blue);
     border-radius: var(--radius-lg);
     display: none;
-    border: 1px solid rgba(var(--border-active-rgb), 0.1);
+    border: 1px solid var(--border-main);
 }
 
 .results.table-result {
@@ -222,8 +222,10 @@ button:active {
 
 .result-value {
     color: var(--text-dark);
-    font-weight: 600;
-    font-size: 1rem;
+    font-weight: 500;
+    font-size: 0.9375rem;
+    font-family: 'Inter', sans-serif;
+    line-height: 1.45;
 }
 
 .result-value span {
@@ -296,10 +298,10 @@ button:active {
     font-weight: 500;
     cursor: pointer;
     padding: 0.1875rem 0.75rem;
-    background: var(--background-page);
+    background: var(--background-white);
     border-radius: var(--radius-sm);
     transition: var(--transition-fast);
-    border: 1.5px solid transparent;
+    border: 1.5px solid var(--border-main);
     color: var(--text-light);
     font-size: 0.8125rem;
 }
@@ -375,7 +377,7 @@ button:active {
 .calc-table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 0.8rem;
+    font-size: 0.875rem;
     font-weight: 400;
     color: var(--text-dark);
 }
