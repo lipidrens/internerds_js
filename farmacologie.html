@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmacologie</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- Dosering op basis van lichaamsgewicht -->
+        <div class="container">
+            <h1>Dosering op lichaamsgewicht</h1>
+            <p class="subtitle">Werkelijk, ideaal en aangepast gewicht</p>
+
+            <form id="doserForm">
+                <div class="form-group">
+                    <label for="gewicht_dosis">Gewicht (kg)</label>
+                    <input type="number" id="gewicht_dosis" min="0" max="200" step="0.1" placeholder="Bijv. 70">
+                </div>
+                <div class="form-group">
+                    <label for="lengte_dosis">Lengte (cm)*</label>
+                    <input type="number" id="lengte_dosis" min="100" max="250" step="1" placeholder="Bijv. 170">
+                </div>
+                <div class="form-group">
+                    <label>Geslacht</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="geslacht_dosis" value="Man" checked>
+                            Man
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="geslacht_dosis" value="Vrouw">
+                            Vrouw
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="dosis_dosis">Dosering (mg/kg)</label>
+                    <input type="number" id="dosis_dosis" min="0" step="0.01" placeholder="Bijv. 10">
+                </div>
+            </form>
+            <p class="note">*Minimale lengte 150 cm</p>
+
+            <div class="results show" id="doserResults">
+                <div class="result-item">
+                    <div class="result-value">
+                        <span id="doserResult">-</span>
+                    </div>
+                </div>
+            </div>
+            <div class="button-container">
+                <button type="button" id="resetButtonDoser" class="reset-button">Reset</button>
+                <button type="button" id="copyButtonDoser" class="copy-button"
+                    title="Kopieer naar klembord">Kopieer</button>
+            </div>
+        </div>
+
+        <!-- Equivalente dosering corticosteroïden -->
+        <div class="container">
+            <h1>Corticosteroïden</h1>
+            <p class="subtitle">Equivalente dosering</p>
+
+            <form id="corticoForm">
+                <div class="form-group">
+                    <label for="dosis_cortico">Dosering (mg)</label>
+                    <input type="number" id="dosis_cortico" min="0" step="0.1" value="20">
+                </div>
+                <div class="form-group">
+                    <label for="med_cortico">Medicament</label>
+                    <select id="med_cortico">
+                        <option value="Hydrocortison">Hydrocortison</option>
+                        <option value="Cortison">Cortison</option>
+                        <option value="Predniso(lo)n">Predniso(lo)n</option>
+                        <option value="Methylprednisolon">Methylprednisolon</option>
+                        <option value="Dexamethason">Dexamethason</option>
+                        <option value="Fludrocortison">Fludrocortison</option>
+                    </select>
+                </div>
+            </form>
+
+            <div class="results table-result show" id="corticoResults">
+                <div class="result-item">
+                    <div class="table-wrapper">
+                        <div id="corticoTable">-</div>
+                    </div>
+                </div>
+            </div>
+            <div class="button-container">
+                <button type="button" id="resetButtonCortico" class="reset-button">Reset</button>
+                <button type="button" id="copyButtonCortico" class="copy-button"
+                    title="Kopieer naar klembord">Kopieer</button>
+            </div>
+        </div>
+
+        <!-- Equivalente dosering opioïden -->
+        <div class="container">
+            <h1>Opioïden</h1>
+            <p class="subtitle">Equivalente dosering</p>
+
+            <form id="opioidForm">
+                <div class="form-group">
+                    <label for="dosis_opioid">Dosering</label>
+                    <input type="number" id="dosis_opioid" min="0" step="0.1" value="10">
+                </div>
+                <div class="form-group">
+                    <label for="med_opioid">Medicament</label>
+                    <select id="med_opioid">
+                        <option value="Morfine po (mg/24 uur)">Morfine po (mg/24 uur)</option>
+                        <option value="Morfine sc/iv (mg/24 uur)" selected>Morfine sc/iv (mg/24 uur)</option>
+                        <option value="Fentanyl pleister (ug/uur)">Fentanyl pleister (ug/uur)</option>
+                        <option value="Fentanyl sl/buc (ug/24 uur)">Fentanyl sl/buc (ug/24 uur)</option>
+                        <option value="Fentanyl iv (ug/24 uur)">Fentanyl iv (ug/24 uur)</option>
+                        <option value="Oxycodon po (mg/24 uur)">Oxycodon po (mg/24 uur)</option>
+                        <option value="Oxycodon sc/iv (mg/24 uur)">Oxycodon sc/iv (mg/24 uur)</option>
+                        <option value="Hydromorfon po (mg/24 uur)">Hydromorfon po (mg/24 uur)</option>
+                        <option value="Hydromorfon sc/iv (mg/24 uur)">Hydromorfon sc/iv (mg/24 uur)</option>
+                        <option value="Tramadol po (mg/24 uur)">Tramadol po (mg/24 uur)</option>
+                        <option value="Buprenorfine pleister (ug/uur)">Buprenorfine pleister (ug/uur)</option>
+                        <option value="Tapentadol po (mg/24 uur)">Tapentadol po (mg/24 uur)</option>
+                        <option value="Piritramide iv (mg/24 uur)">Piritramide iv (mg/24 uur)</option>
+                    </select>
+                </div>
+            </form>
+            <p class="note">nb: niet alle doseringen zijn beschikbaar en per medicament kan maximumdosering verschillen, zie de originele tabel</p>
+
+            <div class="results table-result show" id="opioidResults">
+                <div class="result-item">
+                    <div class="table-wrapper">
+                        <div id="opioidTable">-</div>
+                    </div>
+                </div>
+            </div>
+            <div class="button-container">
+                <button type="button" id="resetButtonOpioid" class="reset-button">Reset</button>
+                <button type="button" id="copyButtonOpioid" class="copy-button"
+                    title="Kopieer naar klembord">Kopieer</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="shared.js"></script>
+    <script>
+        // ============================================================
+        // Dosering op basis van lichaamsgewicht
+        // ============================================================
+        let currentDoserText = '-';
+
+        function calculateDoser() {
+            const gewicht = parseFloat(document.getElementById('gewicht_dosis').value);
+            const lengte = parseFloat(document.getElementById('lengte_dosis').value);
+            const geslacht = document.querySelector('input[name="geslacht_dosis"]:checked').value;
+            const dosering = parseFloat(document.getElementById('dosis_dosis').value);
+
+            const hasGewicht = !isNaN(gewicht);
+            const hasLengte = !isNaN(lengte);
+            const hasDosering = !isNaN(dosering);
+
+            const lines = [];
+
+            if (hasGewicht && hasLengte) {
+                const bmi = gewicht / ((lengte / 100) ** 2);
+                lines.push(`BMI = ${bmi.toFixed(1)} kg/m²`);
+            }
+
+            if (hasGewicht) {
+                lines.push(`Werkelijk lichaamsgewicht = ${gewicht.toFixed(1)} kg`);
+                if (hasDosering) {
+                    lines.push(`${dosering.toFixed(1)} mg/kg = ${(gewicht * dosering).toFixed(1)} mg (werkelijk gewicht)`);
+                }
+            }
+
+            if (hasLengte) {
+                const lengte_eff = Math.max(150, lengte) - 150;
+                const ilg = geslacht === 'Man' ? 50 + 0.9 * lengte_eff : 45 + 0.9 * lengte_eff;
+
+                if (hasGewicht) {
+                    const alg = ilg + 0.4 * (gewicht - ilg);
+                    lines.push(`Aangepast lichaamsgewicht = ${alg.toFixed(1)} kg`);
+                    if (hasDosering) {
+                        lines.push(`${dosering.toFixed(1)} mg/kg = ${(alg * dosering).toFixed(1)} mg (aangepast gewicht)`);
+                    }
+                }
+
+                lines.push(`Ideaal lichaamsgewicht = ${ilg.toFixed(1)} kg`);
+                if (hasDosering) {
+                    lines.push(`${dosering.toFixed(1)} mg/kg = ${(ilg * dosering).toFixed(1)} mg (ideaal gewicht)`);
+                }
+            }
+
+            currentDoserText = lines.length > 0 ? lines.join('\n') : '-';
+            document.getElementById('doserResult').textContent = currentDoserText;
+            document.getElementById('doserResults').classList.add('show');
+        }
+
+        ['gewicht_dosis', 'lengte_dosis', 'dosis_dosis'].forEach(id => {
+            document.getElementById(id).addEventListener('input', calculateDoser);
+        });
+        document.querySelectorAll('input[name="geslacht_dosis"]').forEach(radio => {
+            radio.addEventListener('change', calculateDoser);
+        });
+
+        setupCopy('copyButtonDoser', () => currentDoserText);
+
+        document.getElementById('resetButtonDoser').addEventListener('click', function () {
+            ['gewicht_dosis', 'lengte_dosis', 'dosis_dosis'].forEach(id => {
+                document.getElementById(id).value = '';
+            });
+            document.querySelectorAll('input[name="geslacht_dosis"]').forEach(radio => {
+                if (radio.value === 'Man') radio.checked = true;
+            });
+            calculateDoser();
+            showButtonFeedback(this, 'reset-done');
+        });
+
+        calculateDoser();
+
+        // ============================================================
+        // Equivalente dosering corticosteroïden
+        // ============================================================
+        let currentCorticoText = '';
+
+        // Glucocorticoid potency relative to hydrocortisone (symmetric)
+        const glucoPotency = {
+            'Hydrocortison': 1,
+            'Cortison': 0.8,
+            'Predniso(lo)n': 4,
+            'Methylprednisolon': 5,
+            'Dexamethason': 25,
+            'Fludrocortison': 10
+        };
+
+        // Mineralocorticoid: forward factor (input → dosis.hydroM)
+        const mineraForward = {
+            'Hydrocortison': 1,
+            'Cortison': 0.8,
+            'Predniso(lo)n': 0.8,
+            'Methylprednisolon': 0.5,
+            'Dexamethason': 0,
+            'Fludrocortison': 10
+        };
+
+        // Mineralocorticoid: reverse factor (dosis.hydroM → each med)
+        const mineraReverse = {
+            'Hydrocortison': 1,
+            'Cortison': 0.8,
+            'Predniso(lo)n': 0.8,
+            'Methylprednisolon': 0.5,
+            'Dexamethason': 0,   // always 0
+            'Fludrocortison': 125
+        };
+
+        function calculateCortico() {
+            const dosis = parseFloat(document.getElementById('dosis_cortico').value);
+            const med = document.getElementById('med_cortico').value;
+
+            if (isNaN(dosis) || dosis < 0) {
+                document.getElementById('corticoTable').innerHTML = '-';
+                currentCorticoText = '';
+                return;
+            }
+
+            const dosisHydro = dosis * glucoPotency[med];
+            const dosisHydroM = dosis * mineraForward[med];
+
+            const meds = Object.keys(glucoPotency);
+            let html = '<table class="calc-table"><thead><tr><th>Medicament</th><th>Gluco.</th><th>Minera.</th></tr></thead><tbody>';
+            const copyLines = ['Medicament\tGluco. (mg)\tMinera. (mg)'];
+
+            meds.forEach(m => {
+                const glucoEquiv = dosisHydro / glucoPotency[m];
+                const mineraEquiv = m === 'Dexamethason' ? 0 : dosisHydroM / mineraReverse[m];
+                const rowClass = m === med ? ' class="current-row"' : '';
+                html += `<tr${rowClass}><td>${m}</td><td>${glucoEquiv.toFixed(2)}</td><td>${mineraEquiv.toFixed(2)}</td></tr>`;
+                copyLines.push(`${m}\t${glucoEquiv.toFixed(2)}\t${mineraEquiv.toFixed(2)}`);
+            });
+
+            html += '</tbody></table>';
+            document.getElementById('corticoTable').innerHTML = html;
+            currentCorticoText = copyLines.join('\n');
+            document.getElementById('corticoResults').classList.add('show');
+        }
+
+        document.getElementById('dosis_cortico').addEventListener('input', calculateCortico);
+        document.getElementById('med_cortico').addEventListener('change', calculateCortico);
+
+        setupCopy('copyButtonCortico', () => currentCorticoText);
+
+        document.getElementById('resetButtonCortico').addEventListener('click', function () {
+            document.getElementById('dosis_cortico').value = '20';
+            document.getElementById('med_cortico').selectedIndex = 0;
+            calculateCortico();
+            showButtonFeedback(this, 'reset-done');
+        });
+
+        calculateCortico();
+
+        // ============================================================
+        // Equivalente dosering opioïden
+        // ============================================================
+        let currentOpioidText = '';
+
+        // Factor to convert each opioid TO IV morphine equivalent (mg/24h)
+        const opioids = [
+            { name: 'Morfine po (mg/24 uur)',           factor: 3 },
+            { name: 'Morfine sc/iv (mg/24 uur)',         factor: 1.0 },
+            { name: 'Fentanyl pleister (ug/uur)',        factor: 1.25 },
+            { name: 'Fentanyl sl/buc (ug/24 uur)',       factor: 20 },
+            { name: 'Fentanyl iv (ug/24 uur)',           factor: 10 },
+            { name: 'Oxycodon po (mg/24 uur)',           factor: 2.0 },
+            { name: 'Oxycodon sc/iv (mg/24 uur)',        factor: 1.0 },
+            { name: 'Hydromorfon po (mg/24 uur)',        factor: 0.6 },
+            { name: 'Hydromorfon sc/iv (mg/24 uur)',     factor: 0.2 },
+            { name: 'Tramadol po (mg/24 uur)',           factor: 15.0 },
+            { name: 'Buprenorfine pleister (ug/uur)',    factor: 1.3125 },
+            { name: 'Tapentadol po (mg/24 uur)',         factor: 7.5 },
+            { name: 'Piritramide iv (mg/24 uur)',        factor: 1.5 }
+        ];
+
+        function calculateOpioid() {
+            let dosis = parseFloat(document.getElementById('dosis_opioid').value);
+            const med = document.getElementById('med_opioid').value;
+
+            if (isNaN(dosis) || dosis < 0) {
+                document.getElementById('opioidTable').innerHTML = '-';
+                currentOpioidText = '';
+                return;
+            }
+
+            // Special case: fentanyl pleister minimum 12.5 ug/uur
+            if (med === 'Fentanyl pleister (ug/uur)' && dosis > 0 && dosis <= 12.5) {
+                dosis = 12.5;
+            }
+
+            const inputOpioid = opioids.find(o => o.name === med);
+            const dosisIVMorfine = dosis / inputOpioid.factor;
+
+            let html = '<table class="calc-table"><thead><tr><th>Medicament</th><th>Equiv.</th></tr></thead><tbody>';
+            const copyLines = ['Medicament\tEquiv. dosering'];
+
+            opioids.forEach(o => {
+                const equiv = dosisIVMorfine * o.factor;
+                const rowClass = o.name === med ? ' class="current-row"' : '';
+                html += `<tr${rowClass}><td>${o.name}</td><td>${equiv.toFixed(2)}</td></tr>`;
+                copyLines.push(`${o.name}\t${equiv.toFixed(2)}`);
+            });
+
+            html += '</tbody></table>';
+            document.getElementById('opioidTable').innerHTML = html;
+            currentOpioidText = copyLines.join('\n');
+            document.getElementById('opioidResults').classList.add('show');
+        }
+
+        document.getElementById('dosis_opioid').addEventListener('input', calculateOpioid);
+        document.getElementById('med_opioid').addEventListener('change', calculateOpioid);
+
+        setupCopy('copyButtonOpioid', () => currentOpioidText);
+
+        document.getElementById('resetButtonOpioid').addEventListener('click', function () {
+            document.getElementById('dosis_opioid').value = '10';
+            document.getElementById('med_opioid').value = 'Morfine sc/iv (mg/24 uur)';
+            calculateOpioid();
+            showButtonFeedback(this, 'reset-done');
+        });
+
+        calculateOpioid();
+    </script>
+</body>
+
+</html>
