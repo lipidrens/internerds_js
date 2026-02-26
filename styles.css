@@ -414,6 +414,72 @@ button:active {
     width: 100%;
 }
 
+/* Opioid multi-row styling */
+.opioid-row {
+    position: relative;
+    padding-bottom: var(--spacing-xs);
+    margin-bottom: var(--spacing-xs);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.opioid-row:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.remove-row-button {
+    position: absolute;
+    top: 0;
+    right: -0.25rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    padding: 0;
+    margin: 0;
+    background: none;
+    border: 1.5px solid var(--border-main);
+    border-radius: 50%;
+    color: var(--text-light);
+    font-size: 1rem;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: none;
+    transition: var(--transition-fast);
+}
+
+.remove-row-button:hover {
+    background: #fee2e2;
+    border-color: #fca5a5;
+    color: var(--error-color);
+    transform: none;
+    box-shadow: none;
+}
+
+.add-row-button {
+    background: var(--background-white);
+    border: 1.5px dashed var(--border-main);
+    color: var(--text-light);
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: var(--radius-md);
+    transition: var(--transition-fast);
+    box-shadow: none;
+    margin-top: var(--spacing-xs);
+    margin-bottom: var(--spacing-sm);
+}
+
+.add-row-button:hover {
+    background: #f7fafc;
+    border-color: var(--border-active);
+    color: var(--border-active);
+    transform: none;
+    box-shadow: none;
+}
+
 /* Hidden element for clipboard fallback */
 .clipboard-helper {
     position: fixed;

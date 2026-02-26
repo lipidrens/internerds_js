@@ -72,7 +72,7 @@
             <form id="corticoForm">
                 <div class="form-group">
                     <label for="dosis_cortico">Dosering (mg)</label>
-                    <input type="number" id="dosis_cortico" min="0" step="0.1" value="20">
+                    <input type="number" id="dosis_cortico" min="0" step="0.1" placeholder="Bijv. 20">
                 </div>
                 <div class="form-group">
                     <label for="med_cortico">Medicament</label>
@@ -106,31 +106,61 @@
             <h1>Opioïden</h1>
             <p class="subtitle">Equivalente dosering</p>
 
-            <form id="opioidForm">
-                <div class="form-group">
-                    <label for="dosis_opioid">Dosering</label>
-                    <input type="number" id="dosis_opioid" min="0" step="0.1" value="10">
+            <div id="opioidRows">
+                <div class="opioid-row">
+                    <div class="form-group">
+                        <label>Medicament</label>
+                        <select class="opioid-med">
+                            <option value="Morfine po (mg/24 uur)">Morfine po (mg/24 uur)</option>
+                            <option value="Morfine sc/iv (mg/24 uur)" selected>Morfine sc/iv (mg/24 uur)</option>
+                            <option value="Fentanyl pleister (ug/uur)">Fentanyl pleister (ug/uur)</option>
+                            <option value="Fentanyl sl/buc (ug/24 uur)">Fentanyl sl/buc (ug/24 uur)</option>
+                            <option value="Fentanyl iv (ug/24 uur)">Fentanyl iv (ug/24 uur)</option>
+                            <option value="Oxycodon po (mg/24 uur)">Oxycodon po (mg/24 uur)</option>
+                            <option value="Oxycodon sc/iv (mg/24 uur)">Oxycodon sc/iv (mg/24 uur)</option>
+                            <option value="Hydromorfon po (mg/24 uur)">Hydromorfon po (mg/24 uur)</option>
+                            <option value="Hydromorfon sc/iv (mg/24 uur)">Hydromorfon sc/iv (mg/24 uur)</option>
+                            <option value="Tramadol po (mg/24 uur)">Tramadol po (mg/24 uur)</option>
+                            <option value="Buprenorfine pleister (ug/uur)">Buprenorfine pleister (ug/uur)</option>
+                            <option value="Tapentadol po (mg/24 uur)">Tapentadol po (mg/24 uur)</option>
+                            <option value="Piritramide iv (mg/24 uur)">Piritramide iv (mg/24 uur)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Dosering</label>
+                        <input type="number" class="opioid-dosis" min="0" step="0.1" placeholder="Bijv. 10">
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="med_opioid">Medicament</label>
-                    <select id="med_opioid">
-                        <option value="Morfine po (mg/24 uur)">Morfine po (mg/24 uur)</option>
-                        <option value="Morfine sc/iv (mg/24 uur)" selected>Morfine sc/iv (mg/24 uur)</option>
-                        <option value="Fentanyl pleister (ug/uur)">Fentanyl pleister (ug/uur)</option>
-                        <option value="Fentanyl sl/buc (ug/24 uur)">Fentanyl sl/buc (ug/24 uur)</option>
-                        <option value="Fentanyl iv (ug/24 uur)">Fentanyl iv (ug/24 uur)</option>
-                        <option value="Oxycodon po (mg/24 uur)">Oxycodon po (mg/24 uur)</option>
-                        <option value="Oxycodon sc/iv (mg/24 uur)">Oxycodon sc/iv (mg/24 uur)</option>
-                        <option value="Hydromorfon po (mg/24 uur)">Hydromorfon po (mg/24 uur)</option>
-                        <option value="Hydromorfon sc/iv (mg/24 uur)">Hydromorfon sc/iv (mg/24 uur)</option>
-                        <option value="Tramadol po (mg/24 uur)">Tramadol po (mg/24 uur)</option>
-                        <option value="Buprenorfine pleister (ug/uur)">Buprenorfine pleister (ug/uur)</option>
-                        <option value="Tapentadol po (mg/24 uur)">Tapentadol po (mg/24 uur)</option>
-                        <option value="Piritramide iv (mg/24 uur)">Piritramide iv (mg/24 uur)</option>
-                    </select>
+            </div>
+            <button type="button" id="addOpioidRow" class="add-row-button">+ Opiaat toevoegen</button>
+
+            <div class="form-group">
+                <label>Kruistolerantie reductie</label>
+                <div class="radio-group">
+                    <label class="radio-label">
+                        <input type="radio" name="opioid_reductie" value="0" checked>
+                        0%
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="opioid_reductie" value="25">
+                        25%
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="opioid_reductie" value="50">
+                        50%
+                    </label>
                 </div>
-            </form>
-            <p class="note">nb: niet alle doseringen zijn beschikbaar en per medicament kan maximumdosering verschillen, zie de originele tabel</p>
+            </div>
+
+            <p class="note">nb: niet alle doseringen zijn beschikbaar en per medicament kan maximumdosering verschillen.</p>
+
+            <div class="results show" id="opioidTotaalBox">
+                <div class="result-item">
+                    <div class="result-value">
+                        <span id="opioidTotaal">-</span>
+                    </div>
+                </div>
+            </div>
 
             <div class="results table-result show" id="opioidResults">
                 <div class="result-item">
@@ -261,31 +291,30 @@
         function calculateCortico() {
             const dosis = parseFloat(document.getElementById('dosis_cortico').value);
             const med = document.getElementById('med_cortico').value;
+            const hasValidInput = !isNaN(dosis) && dosis >= 0;
 
-            if (isNaN(dosis) || dosis < 0) {
-                document.getElementById('corticoTable').innerHTML = '-';
-                currentCorticoText = '';
-                return;
-            }
-
-            const dosisHydro = dosis * glucoPotency[med];
-            const dosisHydroM = dosis * mineraForward[med];
+            const dosisHydro = hasValidInput ? dosis * glucoPotency[med] : 0;
+            const dosisHydroM = hasValidInput ? dosis * mineraForward[med] : 0;
 
             const meds = Object.keys(glucoPotency);
             let html = '<table class="calc-table"><thead><tr><th>Medicament</th><th>Gluco.</th><th>Minera.</th></tr></thead><tbody>';
             const copyLines = ['Medicament\tGluco. (mg)\tMinera. (mg)'];
 
             meds.forEach(m => {
-                const glucoEquiv = dosisHydro / glucoPotency[m];
-                const mineraEquiv = m === 'Dexamethason' ? 0 : dosisHydroM / mineraReverse[m];
                 const rowClass = m === med ? ' class="current-row"' : '';
-                html += `<tr${rowClass}><td>${m}</td><td>${glucoEquiv.toFixed(2)}</td><td>${mineraEquiv.toFixed(2)}</td></tr>`;
-                copyLines.push(`${m}\t${glucoEquiv.toFixed(2)}\t${mineraEquiv.toFixed(2)}`);
+                if (hasValidInput) {
+                    const glucoEquiv = dosisHydro / glucoPotency[m];
+                    const mineraEquiv = m === 'Dexamethason' ? 0 : dosisHydroM / mineraReverse[m];
+                    html += `<tr${rowClass}><td>${m}</td><td>${glucoEquiv.toFixed(2)}</td><td>${mineraEquiv.toFixed(2)}</td></tr>`;
+                    copyLines.push(`${m}\t${glucoEquiv.toFixed(2)}\t${mineraEquiv.toFixed(2)}`);
+                } else {
+                    html += `<tr${rowClass}><td>${m}</td><td></td><td></td></tr>`;
+                }
             });
 
             html += '</tbody></table>';
             document.getElementById('corticoTable').innerHTML = html;
-            currentCorticoText = copyLines.join('\n');
+            currentCorticoText = hasValidInput ? copyLines.join('\n') : '';
             document.getElementById('corticoResults').classList.add('show');
         }
 
@@ -295,7 +324,7 @@
         setupCopy('copyButtonCortico', () => currentCorticoText);
 
         document.getElementById('resetButtonCortico').addEventListener('click', function () {
-            document.getElementById('dosis_cortico').value = '20';
+            document.getElementById('dosis_cortico').value = '';
             document.getElementById('med_cortico').selectedIndex = 0;
             calculateCortico();
             showButtonFeedback(this, 'reset-done');
@@ -308,65 +337,162 @@
         // ============================================================
         let currentOpioidText = '';
 
-        // Factor to convert each opioid TO IV morphine equivalent (mg/24h)
+        // Factor relative to PO morphine (mg/24h). PO morphine = 1.0 (reference)
+        // To convert: PO_morfine_equiv = dosis / factor
+        // To get equiv dose: dosis_X = PO_morfine_totaal * factor_X
         const opioids = [
-            { name: 'Morfine po (mg/24 uur)',           factor: 3 },
-            { name: 'Morfine sc/iv (mg/24 uur)',         factor: 1.0 },
-            { name: 'Fentanyl pleister (ug/uur)',        factor: 1.25 },
-            { name: 'Fentanyl sl/buc (ug/24 uur)',       factor: 20 },
-            { name: 'Fentanyl iv (ug/24 uur)',           factor: 10 },
-            { name: 'Oxycodon po (mg/24 uur)',           factor: 2.0 },
-            { name: 'Oxycodon sc/iv (mg/24 uur)',        factor: 1.0 },
-            { name: 'Hydromorfon po (mg/24 uur)',        factor: 0.6 },
-            { name: 'Hydromorfon sc/iv (mg/24 uur)',     factor: 0.2 },
-            { name: 'Tramadol po (mg/24 uur)',           factor: 15.0 },
-            { name: 'Buprenorfine pleister (ug/uur)',    factor: 1.3125 },
-            { name: 'Tapentadol po (mg/24 uur)',         factor: 7.5 },
-            { name: 'Piritramide iv (mg/24 uur)',        factor: 1.5 }
+            { name: 'Morfine po (mg/24 uur)',           factor: 1.0 },
+            { name: 'Morfine sc/iv (mg/24 uur)',         factor: 1 / 3 },
+            { name: 'Fentanyl pleister (ug/uur)',        factor: 1.25 / 3 },
+            { name: 'Fentanyl sl/buc (ug/24 uur)',       factor: 20 / 3 },
+            { name: 'Fentanyl iv (ug/24 uur)',           factor: 10 / 3 },
+            { name: 'Oxycodon po (mg/24 uur)',           factor: 2 / 3 },
+            { name: 'Oxycodon sc/iv (mg/24 uur)',        factor: 1 / 3 },
+            { name: 'Hydromorfon po (mg/24 uur)',        factor: 0.6 / 3 },
+            { name: 'Hydromorfon sc/iv (mg/24 uur)',     factor: 0.2 / 3 },
+            { name: 'Tramadol po (mg/24 uur)',           factor: 5.0 },
+            { name: 'Buprenorfine pleister (ug/uur)',    factor: 1.3125 / 3 },
+            { name: 'Tapentadol po (mg/24 uur)',         factor: 2.5 },
+            { name: 'Piritramide iv (mg/24 uur)',        factor: 0.5 }
         ];
 
+        const opioidSelectHTML = opioids.map(o =>
+            `<option value="${o.name}">${o.name}</option>`
+        ).join('');
+
+        function createOpioidRow() {
+            const row = document.createElement('div');
+            row.className = 'opioid-row';
+            row.innerHTML = `
+                <div class="form-group">
+                    <label>Medicament</label>
+                    <select class="opioid-med">${opioidSelectHTML}</select>
+                </div>
+                <div class="form-group">
+                    <label>Dosering</label>
+                    <input type="number" class="opioid-dosis" min="0" step="0.1" placeholder="Bijv. 10">
+                </div>
+                <button type="button" class="remove-row-button" title="Verwijder">&times;</button>
+            `;
+            return row;
+        }
+
         function calculateOpioid() {
-            let dosis = parseFloat(document.getElementById('dosis_opioid').value);
-            const med = document.getElementById('med_opioid').value;
+            const rows = document.querySelectorAll('#opioidRows .opioid-row');
+            let totaalPOMorfine = 0;
+            let hasValidInput = false;
 
-            if (isNaN(dosis) || dosis < 0) {
-                document.getElementById('opioidTable').innerHTML = '-';
-                currentOpioidText = '';
-                return;
-            }
+            rows.forEach(row => {
+                let dosis = parseFloat(row.querySelector('.opioid-dosis').value);
+                const med = row.querySelector('.opioid-med').value;
 
-            // Special case: fentanyl pleister minimum 12.5 ug/uur
-            if (med === 'Fentanyl pleister (ug/uur)' && dosis > 0 && dosis <= 12.5) {
-                dosis = 12.5;
-            }
+                if (isNaN(dosis) || dosis <= 0) return;
 
-            const inputOpioid = opioids.find(o => o.name === med);
-            const dosisIVMorfine = dosis / inputOpioid.factor;
+                // Special case: fentanyl pleister minimum 12.5 ug/uur
+                if (med === 'Fentanyl pleister (ug/uur)' && dosis > 0 && dosis <= 12.5) {
+                    dosis = 12.5;
+                }
 
-            let html = '<table class="calc-table"><thead><tr><th>Medicament</th><th>Equiv.</th></tr></thead><tbody>';
-            const copyLines = ['Medicament\tEquiv. dosering'];
-
-            opioids.forEach(o => {
-                const equiv = dosisIVMorfine * o.factor;
-                const rowClass = o.name === med ? ' class="current-row"' : '';
-                html += `<tr${rowClass}><td>${o.name}</td><td>${equiv.toFixed(2)}</td></tr>`;
-                copyLines.push(`${o.name}\t${equiv.toFixed(2)}`);
+                const opioid = opioids.find(o => o.name === med);
+                totaalPOMorfine += dosis / opioid.factor;
+                hasValidInput = true;
             });
 
-            html += '</tbody></table>';
+            // Reductie voor incomplete kruistolerantie
+            const reductie = parseInt(document.querySelector('input[name="opioid_reductie"]:checked').value);
+            const reductieFactor = 1 - reductie / 100;
+            const totaalNaReductie = totaalPOMorfine * reductieFactor;
+
+            // Tussenresultaat in paarse box
+            if (hasValidInput) {
+                let totaalTekst = `Totaal morfine PO equivalent: ${totaalPOMorfine.toFixed(1)} mg/24 uur`;
+                if (reductie > 0) {
+                    totaalTekst += `\nNa ${reductie}% reductie: ${totaalNaReductie.toFixed(1)} mg/24 uur`;
+                }
+                document.getElementById('opioidTotaal').textContent = totaalTekst;
+            } else {
+                document.getElementById('opioidTotaal').textContent = '-';
+            }
+
+            // Equivalentietabel
+            let html = '<table class="calc-table"><thead><tr><th>Medicament</th><th>Equiv.</th></tr></thead><tbody>';
+            const copyLines = hasValidInput
+                ? [document.getElementById('opioidTotaal').textContent, '', 'Medicament\tEquiv. dosering']
+                : ['Medicament\tEquiv. dosering'];
+
+            opioids.forEach(o => {
+                const equiv = hasValidInput ? totaalNaReductie * o.factor : null;
+                const equivStr = equiv !== null ? equiv.toFixed(2) : '';
+                const rowClass = o.name === 'Morfine po (mg/24 uur)' ? ' class="current-row"' : '';
+                html += `<tr${rowClass}><td>${o.name}</td><td>${equivStr}</td></tr>`;
+                if (hasValidInput) copyLines.push(`${o.name}\t${equivStr}`);
+            });
+
+            // Methadon rij
+            if (hasValidInput) {
+                // Methadon conversie (ratio morfine:methadon)
+                function methadonRatio(morfinePO) {
+                    if (morfinePO <= 90) return 4;
+                    if (morfinePO <= 300) return 8;
+                    return 12;
+                }
+                const methadonRatioWaarde = methadonRatio(totaalNaReductie);
+                const methadonDosis = totaalNaReductie / methadonRatioWaarde;
+                html += `<tr><td>Methadon po (mg/24 uur)</td><td>${methadonDosis.toFixed(2)}</td></tr>`;
+                copyLines.push(`Methadon po (mg/24 uur)\t${methadonDosis.toFixed(2)}`);
+                copyLines.push(`(ratio morfine:methadon = ${methadonRatioWaarde}:1)`);
+                html += '</tbody></table>';
+                html += `<p class="note">Methadon ratio ${methadonRatioWaarde}:1 (morfine:methadon) o.b.v. morfine PO equivalent ${totaalNaReductie.toFixed(0)} mg/24u</p>`;
+            } else {
+                html += `<tr><td>Methadon po (mg/24 uur)</td><td></td></tr>`;
+                html += '</tbody></table>';
+            }
+
             document.getElementById('opioidTable').innerHTML = html;
-            currentOpioidText = copyLines.join('\n');
+            currentOpioidText = hasValidInput ? copyLines.join('\n') : '';
             document.getElementById('opioidResults').classList.add('show');
         }
 
-        document.getElementById('dosis_opioid').addEventListener('input', calculateOpioid);
-        document.getElementById('med_opioid').addEventListener('change', calculateOpioid);
+        // Event delegation for dynamic rows
+        document.getElementById('opioidRows').addEventListener('input', calculateOpioid);
+        document.getElementById('opioidRows').addEventListener('change', calculateOpioid);
+
+        // Reductie radio buttons
+        document.querySelectorAll('input[name="opioid_reductie"]').forEach(radio => {
+            radio.addEventListener('change', calculateOpioid);
+        });
+
+        // Add row button
+        document.getElementById('addOpioidRow').addEventListener('click', function () {
+            const row = createOpioidRow();
+            document.getElementById('opioidRows').appendChild(row);
+            calculateOpioid();
+        });
+
+        // Remove row button (event delegation)
+        document.getElementById('opioidRows').addEventListener('click', function (e) {
+            if (e.target.classList.contains('remove-row-button')) {
+                const rows = document.querySelectorAll('#opioidRows .opioid-row');
+                if (rows.length > 1) {
+                    e.target.closest('.opioid-row').remove();
+                    calculateOpioid();
+                }
+            }
+        });
 
         setupCopy('copyButtonOpioid', () => currentOpioidText);
 
         document.getElementById('resetButtonOpioid').addEventListener('click', function () {
-            document.getElementById('dosis_opioid').value = '10';
-            document.getElementById('med_opioid').value = 'Morfine sc/iv (mg/24 uur)';
+            const rowsContainer = document.getElementById('opioidRows');
+            // Remove all rows except the first
+            while (rowsContainer.children.length > 1) {
+                rowsContainer.removeChild(rowsContainer.lastChild);
+            }
+            // Reset the first row
+            const firstRow = rowsContainer.children[0];
+            firstRow.querySelector('.opioid-med').value = 'Morfine sc/iv (mg/24 uur)';
+            firstRow.querySelector('.opioid-dosis').value = '';
+            document.querySelector('input[name="opioid_reductie"][value="0"]').checked = true;
             calculateOpioid();
             showButtonFeedback(this, 'reset-done');
         });
