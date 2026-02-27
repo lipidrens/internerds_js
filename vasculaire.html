@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vasculaire geneeskunde</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- simplified PESI (sPESI) -->
+        <div class="container">
+            <h1>simplified PESI (sPESI)</h1>
+
+            <form id="spesiForm">
+                <div class="form-group">
+                    <label>Leeftijd</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="age_spesi" value="0" checked>
+                            &le;80
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="age_spesi" value="1">
+                            &gt;80
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Maligniteit in voorgeschiedenis</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="cancer_spesi" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="cancer_spesi" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Chronische hart of longziekten in de voorgeschiedenis</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="chron_pulm_spesi" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="chron_pulm_spesi" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Hartfrequentie</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="pr_spesi" value="0" checked>
+                            &lt;110
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="pr_spesi" value="1">
+                            &ge;110
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Systolische bloeddruk</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="sbp_spesi" value="0" checked>
+                            &ge;100
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="sbp_spesi" value="1">
+                            &lt;100
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>O&#x2082; saturatie (%)</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="spo2_spesi" value="0" checked>
+                            &ge;90
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="spo2_spesi" value="1">
+                            &lt;90
+                        </label>
+                    </div>
+                </div>
+            </form>
+
+            <div class="results show" id="spesiResults">
+                <div class="result-item">
+                    <div class="result-value">
+                        <span id="spesiScore">sPESI score = 0 = laag risico</span>
+                    </div>
+                </div>
+            </div>
+            <div class="button-container">
+                <button type="button" id="resetButtonSpesi" class="reset-button">Reset</button>
+                <button type="button" id="copyButtonSpesi" class="copy-button"
+                    title="Kopieer naar klembord">Kopieer</button>
+            </div>
+        </div>
+
+        <!-- HESTIA score -->
+        <div class="container">
+            <h1>HESTIA score</h1>
+
+            <form id="hestiaForm">
+                <div class="form-group">
+                    <label>Hemodynamische instabiliteit (syst. RR &lt;100 mmHg en pols &gt;100/min)?</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="HD_hestia" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="HD_hestia" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Noodzaak tot trombolyse of embolectomie?</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="lysis_hestia" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="lysis_hestia" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Heeft de pati&euml;nt ernstige pijn waarvoor intraveneuze pijnmedicatie nodig is?</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="pain_hestia" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="pain_hestia" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Zuurstofsuppletie nodig om saturatie &gt;90% te behouden?</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="o2_hestia" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="o2_hestia" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Is longembolie gediagnosticeerd onder therapeutische antistollingsbehandeling?</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="LE_hestia" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="LE_hestia" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Is er actieve bloeding of hoog risico op bloeding?*</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="bleed_hestia" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="bleed_hestia" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Is er een medische of sociale reden voor ziekenhuisopname voor meer dan 24 uur?</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="opname_hestia" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="opname_hestia" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Is de creatinineklaring minder dan 30 ml/min?</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="gfr_hestia" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="gfr_hestia" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Heeft de pati&euml;nt ernstig leverfalen?</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="liver_hestia" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="liver_hestia" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Is de pati&euml;nte zwanger?</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="pregnancy_hestia" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="pregnancy_hestia" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Heeft de pati&euml;nt HIT in de voorgeschiedenis?</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="HIT_hestia" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="HIT_hestia" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <p class="note">*Gastro-intestinale bloeding &lt;14 dagen; herseninfarct &lt;4 weken; operatie &lt;2 weken; stollingstoornis of trombopenie (trombocyten &lt;75*10&#x2079;/L); ongecontroleerde hypertensie (SBP &gt;180 mmHg, DBP &gt;110 mmHg)</p>
+            </form>
+
+            <div class="results show" id="hestiaResults">
+                <div class="result-item">
+                    <div class="result-value">
+                        <span id="hestiaScore">HESTIA score = 0 = laag risico</span>
+                    </div>
+                </div>
+            </div>
+            <div class="button-container">
+                <button type="button" id="resetButtonHestia" class="reset-button">Reset</button>
+                <button type="button" id="copyButtonHestia" class="copy-button"
+                    title="Kopieer naar klembord">Kopieer</button>
+            </div>
+        </div>
+
+        <!-- YEARS algoritme -->
+        <div class="container">
+            <h1>YEARS algoritme</h1>
+
+            <form id="yearsForm">
+                <div class="form-group">
+                    <label>Klinische tekenen van DVT</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="dvt_years" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="dvt_years" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Hemoptoë</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="hemoptoe_years" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="hemoptoe_years" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Longembolie meest waarschijnlijke diagnose</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="likelydiag_years" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="likelydiag_years" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+            </form>
+
+            <div class="results show" id="yearsResults">
+                <div class="result-item">
+                    <div class="result-value">
+                        <span id="yearsScore">YEARS = D-dimeer cut-off &ge;1 ng/L</span>
+                    </div>
+                </div>
+            </div>
+            <div class="button-container">
+                <button type="button" id="resetButtonYears" class="reset-button">Reset</button>
+                <button type="button" id="copyButtonYears" class="copy-button"
+                    title="Kopieer naar klembord">Kopieer</button>
+            </div>
+        </div>
+
+        <!-- Wells score voor DVT -->
+        <div class="container">
+            <h1>Wells score voor DVT</h1>
+
+            <form id="wellsForm">
+                <div class="form-group">
+                    <label>Maligniteit (tot 6 mnd na laatste behandeling, of tijdens palliatie)</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="wells_maligniteit" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="wells_maligniteit" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Zwelling kuit &gt;3cm t.o.v. andere been (10cm onder tuberositas tibiae)?</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="wells_zwelling_kuit" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="wells_zwelling_kuit" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Collaterale oppervlakkige venen?</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="wells_varices" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="wells_varices" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Pitting oedeem?</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="wells_oedeem" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="wells_oedeem" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Zwelling van het gehele been?</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="wells_zwelling_been" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="wells_zwelling_been" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Pijn in het gebied van DVT?</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="wells_pijn" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="wells_pijn" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Immobilisatie (paralyse, parese, recent gipsverband)?</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="wells_immobilisatie" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="wells_immobilisatie" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Bedrust &gt;3 dagen of grote operatie &lt;4 weken?</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="wells_operatie" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="wells_operatie" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Alternatieve diagnose?</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="wells_alternatief" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="wells_alternatief" value="-2">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+            </form>
+
+            <div class="results show" id="wellsResults">
+                <div class="result-item">
+                    <div class="result-value">
+                        <span id="wellsScore">Wells score = 0
+= DVT minder waarschijnlijk</span>
+                    </div>
+                </div>
+            </div>
+            <div class="button-container">
+                <button type="button" id="resetButtonWells" class="reset-button">Reset</button>
+                <button type="button" id="copyButtonWells" class="copy-button"
+                    title="Kopieer naar klembord">Kopieer</button>
+            </div>
+        </div>
+
+        <!-- PADUA score -->
+        <div class="container">
+            <h1>PADUA score</h1>
+
+            <form id="paduaForm">
+                <div class="form-group">
+                    <label>Actieve maligniteit</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="maligniteit_padua" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="maligniteit_padua" value="3">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Eerdere trombose (excl. oppervlakkige vene trombose)</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="vte_hist_padua" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="vte_hist_padua" value="3">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Verminderde mobiliteit (&ge;3 dagen tijdens opname)*</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="mobiliteit_padua" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="mobiliteit_padua" value="3">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Trombofilie**</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="trombofilie_padua" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="trombofilie_padua" value="3">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Recente (&lt;1 maand) trauma en/of chirurgie</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="operatie_padua" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="operatie_padua" value="2">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Leeftijd &gt;70 jaar</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="age_padua" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="age_padua" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Hart- en of respiratoirfalen</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="cardio_pulm_padua" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="cardio_pulm_padua" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Myocard- of herseninfarct</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="cvd_padua" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="cvd_padua" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Acute infectie en/of reumatologische afwijking</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="inflam_padua" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="inflam_padua" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Obesitas (BMI &ge;30)</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="obesitas_padua" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="obesitas_padua" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Hormonale anticonceptie of suppletietherapie</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="hormone_padua" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="hormone_padua" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <p class="note">*Geanticipeerde bedrust met toilet/doucheprivileges</p>
+                <p class="note">**Drager van deficiënties van antitrombine, proteïne C of S, of factor V Leiden, G20210A protrombine mutatie, antifosfolipiden syndroom</p>
+            </form>
+
+            <div class="results show" id="paduaResults">
+                <div class="result-item">
+                    <div class="result-value">
+                        <span id="paduaScore">PADUA score = 0
+= laag tromboserisico</span>
+                    </div>
+                </div>
+            </div>
+            <div class="button-container">
+                <button type="button" id="resetButtonPadua" class="reset-button">Reset</button>
+                <button type="button" id="copyButtonPadua" class="copy-button"
+                    title="Kopieer naar klembord">Kopieer</button>
+            </div>
+        </div>
+
+        <!-- DIS score -->
+        <div class="container">
+            <h1>DIS score</h1>
+
+            <form id="disForm">
+                <div class="form-group">
+                    <label>Trombocyten (*10&#x2079;/L)</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="trombo_dis" value="0" checked>
+                            &ge;100
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="trombo_dis" value="1">
+                            50-100
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="trombo_dis" value="2">
+                            &lt;50
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>D-dimeer (mg/L)</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="ddimeer_dis" value="0" checked>
+                            &lt;0.5
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="ddimeer_dis" value="2">
+                            0.5-2.5
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="ddimeer_dis" value="3">
+                            &ge;2.5
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Protrombine tijd verlenging (s)</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="pt_dis" value="0" checked>
+                            &lt;3s
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="pt_dis" value="1">
+                            3-6s
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="pt_dis" value="2">
+                            &ge;6s
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Fibrinogeen (g/L)</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="fib_dis" value="0" checked>
+                            &gt;1.0
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="fib_dis" value="1">
+                            &le;1.0
+                        </label>
+                    </div>
+                </div>
+            </form>
+
+            <div class="results show" id="disResults">
+                <div class="result-item">
+                    <div class="result-value">
+                        <span id="disScore">DIS score = 0/8
+= DIS minder waarschijnlijk</span>
+                    </div>
+                </div>
+            </div>
+            <div class="button-container">
+                <button type="button" id="resetButtonDis" class="reset-button">Reset</button>
+                <button type="button" id="copyButtonDis" class="copy-button"
+                    title="Kopieer naar klembord">Kopieer</button>
+            </div>
+        </div>
+
+        <!-- 4T-score (HIT) -->
+        <div class="container">
+            <h1>4T-score (HIT)</h1>
+
+            <form id="hitForm">
+                <div class="form-group">
+                    <label for="trombo_hit">Trombocyten (% en 10&#x2079;/L)</label>
+                    <select id="trombo_hit">
+                        <option value="0" selected>&lt;30% daling of laagste waarde &lt;10</option>
+                        <option value="1">30-50% daling of laagste waarde 10-19</option>
+                        <option value="2">&gt;50% daling en laagste waarde &ge;20</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="tijd_hit">Tijdstip trombocytendaling na heparineblootstelling</label>
+                    <select id="tijd_hit">
+                        <option value="0" selected>&le;4 dagen na start zonder eerdere blootstelling</option>
+                        <option value="1">&gt;10 dagen na start, of tijdstip onduidelijk</option>
+                        <option value="2">5-10 dagen na start, of &le;1 dag bij recente (&lt;30d) blootstelling</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="trombose_hit">Trombose</label>
+                    <select id="trombose_hit">
+                        <option value="0" selected>Geen</option>
+                        <option value="1">Progressief/recidief, erythemateuze huidafwijking, of verdenking</option>
+                        <option value="2">Nieuwe trombose, huidnecrose, of acute reactie op IV heparine</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="oorzaak_hit">Andere oorzaak trombocytopenie</label>
+                    <select id="oorzaak_hit">
+                        <option value="0" selected>Zeker</option>
+                        <option value="1">Mogelijk</option>
+                        <option value="2">Geen</option>
+                    </select>
+                </div>
+            </form>
+
+            <div class="results show" id="hitResults">
+                <div class="result-item">
+                    <div class="result-value">
+                        <span id="hitScore">4T score = 0/8
+= lage kans HIT</span>
+                    </div>
+                </div>
+            </div>
+            <div class="button-container">
+                <button type="button" id="resetButtonHit" class="reset-button">Reset</button>
+                <button type="button" id="copyButtonHit" class="copy-button"
+                    title="Kopieer naar klembord">Kopieer</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="shared.js"></script>
+    <script>
+        // ============================================================
+        // simplified PESI (sPESI) Calculator
+        // ============================================================
+        let currentSpesiText = '';
+
+        function calculateSPESI() {
+            const age = parseInt(document.querySelector('input[name="age_spesi"]:checked').value);
+            const cancer = parseInt(document.querySelector('input[name="cancer_spesi"]:checked').value);
+            const chronPulm = parseInt(document.querySelector('input[name="chron_pulm_spesi"]:checked').value);
+            const pr = parseInt(document.querySelector('input[name="pr_spesi"]:checked').value);
+            const sbp = parseInt(document.querySelector('input[name="sbp_spesi"]:checked').value);
+            const spo2 = parseInt(document.querySelector('input[name="spo2_spesi"]:checked').value);
+
+            const score = age + cancer + chronPulm + pr + sbp + spo2;
+            const risk = score === 0 ? 'laag risico' : 'hoog risico';
+
+            currentSpesiText = `sPESI score = ${score} = ${risk}`;
+            document.getElementById('spesiScore').textContent = currentSpesiText;
+        }
+
+        const spesiRadios = 'input[name="age_spesi"], input[name="cancer_spesi"], input[name="chron_pulm_spesi"], input[name="pr_spesi"], input[name="sbp_spesi"], input[name="spo2_spesi"]';
+
+        document.querySelectorAll(spesiRadios).forEach(radio => {
+            radio.addEventListener('change', calculateSPESI);
+        });
+
+        setupCopy('copyButtonSpesi', () => currentSpesiText);
+
+        document.getElementById('resetButtonSpesi').addEventListener('click', function () {
+            document.querySelectorAll(spesiRadios).forEach(radio => {
+                if (radio.value === "0") radio.checked = true;
+            });
+            calculateSPESI();
+            showButtonFeedback(this, 'reset-done');
+        });
+
+        calculateSPESI();
+
+        // ============================================================
+        // HESTIA score Calculator
+        // ============================================================
+        let currentHestiaText = '';
+
+        function calculateHESTIA() {
+            const hd = parseInt(document.querySelector('input[name="HD_hestia"]:checked').value);
+            const lysis = parseInt(document.querySelector('input[name="lysis_hestia"]:checked').value);
+            const pain = parseInt(document.querySelector('input[name="pain_hestia"]:checked').value);
+            const o2 = parseInt(document.querySelector('input[name="o2_hestia"]:checked').value);
+            const le = parseInt(document.querySelector('input[name="LE_hestia"]:checked').value);
+            const bleed = parseInt(document.querySelector('input[name="bleed_hestia"]:checked').value);
+            const opname = parseInt(document.querySelector('input[name="opname_hestia"]:checked').value);
+            const gfr = parseInt(document.querySelector('input[name="gfr_hestia"]:checked').value);
+            const liver = parseInt(document.querySelector('input[name="liver_hestia"]:checked').value);
+            const pregnancy = parseInt(document.querySelector('input[name="pregnancy_hestia"]:checked').value);
+            const hit = parseInt(document.querySelector('input[name="HIT_hestia"]:checked').value);
+
+            const score = hd + lysis + pain + o2 + le + bleed + opname + gfr + liver + pregnancy + hit;
+            const risk = score === 0 ? 'laag risico' : 'hoog risico';
+
+            currentHestiaText = `HESTIA score = ${score} = ${risk}`;
+            document.getElementById('hestiaScore').textContent = currentHestiaText;
+        }
+
+        const hestiaRadios = 'input[name="HD_hestia"], input[name="lysis_hestia"], input[name="pain_hestia"], input[name="o2_hestia"], input[name="LE_hestia"], input[name="bleed_hestia"], input[name="opname_hestia"], input[name="gfr_hestia"], input[name="liver_hestia"], input[name="pregnancy_hestia"], input[name="HIT_hestia"]';
+
+        document.querySelectorAll(hestiaRadios).forEach(radio => {
+            radio.addEventListener('change', calculateHESTIA);
+        });
+
+        setupCopy('copyButtonHestia', () => currentHestiaText);
+
+        document.getElementById('resetButtonHestia').addEventListener('click', function () {
+            document.querySelectorAll(hestiaRadios).forEach(radio => {
+                if (radio.value === "0") radio.checked = true;
+            });
+            calculateHESTIA();
+            showButtonFeedback(this, 'reset-done');
+        });
+
+        calculateHESTIA();
+
+        // ============================================================
+        // YEARS algoritme Calculator
+        // ============================================================
+        let currentYearsText = '';
+
+        function calculateYEARS() {
+            const dvt = parseInt(document.querySelector('input[name="dvt_years"]:checked').value);
+            const hemoptoe = parseInt(document.querySelector('input[name="hemoptoe_years"]:checked').value);
+            const likelydiag = parseInt(document.querySelector('input[name="likelydiag_years"]:checked').value);
+
+            let cutoff;
+            if (dvt === 1 || hemoptoe === 1 || likelydiag === 1) {
+                cutoff = 'D-dimeer cut-off \u22650.5 ng/L';
+            } else {
+                cutoff = 'D-dimeer cut-off \u22651 ng/L';
+            }
+
+            currentYearsText = `YEARS = ${cutoff}`;
+            document.getElementById('yearsScore').textContent = currentYearsText;
+        }
+
+        const yearsRadios = 'input[name="dvt_years"], input[name="hemoptoe_years"], input[name="likelydiag_years"]';
+
+        document.querySelectorAll(yearsRadios).forEach(radio => {
+            radio.addEventListener('change', calculateYEARS);
+        });
+
+        setupCopy('copyButtonYears', () => currentYearsText);
+
+        document.getElementById('resetButtonYears').addEventListener('click', function () {
+            document.querySelectorAll(yearsRadios).forEach(radio => {
+                if (radio.value === "0") radio.checked = true;
+            });
+            calculateYEARS();
+            showButtonFeedback(this, 'reset-done');
+        });
+
+        calculateYEARS();
+
+        // ============================================================
+        // Wells score voor DVT Calculator
+        // ============================================================
+        let currentWellsText = '';
+
+        function calculateWells() {
+            const maligniteit = parseInt(document.querySelector('input[name="wells_maligniteit"]:checked').value);
+            const zwellingKuit = parseInt(document.querySelector('input[name="wells_zwelling_kuit"]:checked').value);
+            const varices = parseInt(document.querySelector('input[name="wells_varices"]:checked').value);
+            const oedeem = parseInt(document.querySelector('input[name="wells_oedeem"]:checked').value);
+            const zwellingBeen = parseInt(document.querySelector('input[name="wells_zwelling_been"]:checked').value);
+            const pijn = parseInt(document.querySelector('input[name="wells_pijn"]:checked').value);
+            const immobilisatie = parseInt(document.querySelector('input[name="wells_immobilisatie"]:checked').value);
+            const operatie = parseInt(document.querySelector('input[name="wells_operatie"]:checked').value);
+            const alternatief = parseInt(document.querySelector('input[name="wells_alternatief"]:checked').value);
+
+            const score = maligniteit + zwellingKuit + varices + oedeem + zwellingBeen + pijn + immobilisatie + operatie + alternatief;
+            const risk = score >= 2 ? 'DVT waarschijnlijker' : 'DVT minder waarschijnlijk';
+
+            currentWellsText = `Wells score = ${score}\n= ${risk}`;
+            document.getElementById('wellsScore').textContent = currentWellsText;
+        }
+
+        const wellsRadios = 'input[name="wells_maligniteit"], input[name="wells_zwelling_kuit"], input[name="wells_varices"], input[name="wells_oedeem"], input[name="wells_zwelling_been"], input[name="wells_pijn"], input[name="wells_immobilisatie"], input[name="wells_operatie"], input[name="wells_alternatief"]';
+
+        document.querySelectorAll(wellsRadios).forEach(radio => {
+            radio.addEventListener('change', calculateWells);
+        });
+
+        setupCopy('copyButtonWells', () => currentWellsText);
+
+        document.getElementById('resetButtonWells').addEventListener('click', function () {
+            document.querySelectorAll(wellsRadios).forEach(radio => {
+                if (radio.value === "0") radio.checked = true;
+            });
+            calculateWells();
+            showButtonFeedback(this, 'reset-done');
+        });
+
+        calculateWells();
+
+        // ============================================================
+        // PADUA score Calculator
+        // ============================================================
+        let currentPaduaText = '';
+
+        function calculatePADUA() {
+            const maligniteit = parseInt(document.querySelector('input[name="maligniteit_padua"]:checked').value);
+            const vteHist = parseInt(document.querySelector('input[name="vte_hist_padua"]:checked').value);
+            const mobiliteit = parseInt(document.querySelector('input[name="mobiliteit_padua"]:checked').value);
+            const trombofilie = parseInt(document.querySelector('input[name="trombofilie_padua"]:checked').value);
+            const operatie = parseInt(document.querySelector('input[name="operatie_padua"]:checked').value);
+            const age = parseInt(document.querySelector('input[name="age_padua"]:checked').value);
+            const cardioPulm = parseInt(document.querySelector('input[name="cardio_pulm_padua"]:checked').value);
+            const cvd = parseInt(document.querySelector('input[name="cvd_padua"]:checked').value);
+            const inflam = parseInt(document.querySelector('input[name="inflam_padua"]:checked').value);
+            const obesitas = parseInt(document.querySelector('input[name="obesitas_padua"]:checked').value);
+            const hormone = parseInt(document.querySelector('input[name="hormone_padua"]:checked').value);
+
+            const score = maligniteit + vteHist + mobiliteit + trombofilie + operatie + age + cardioPulm + cvd + inflam + obesitas + hormone;
+            const risk = score < 4 ? 'laag tromboserisico' : 'hoog tromboserisico';
+
+            currentPaduaText = `PADUA score = ${score}\n= ${risk}`;
+            document.getElementById('paduaScore').textContent = currentPaduaText;
+        }
+
+        const paduaRadios = 'input[name="maligniteit_padua"], input[name="vte_hist_padua"], input[name="mobiliteit_padua"], input[name="trombofilie_padua"], input[name="operatie_padua"], input[name="age_padua"], input[name="cardio_pulm_padua"], input[name="cvd_padua"], input[name="inflam_padua"], input[name="obesitas_padua"], input[name="hormone_padua"]';
+
+        document.querySelectorAll(paduaRadios).forEach(radio => {
+            radio.addEventListener('change', calculatePADUA);
+        });
+
+        setupCopy('copyButtonPadua', () => currentPaduaText);
+
+        document.getElementById('resetButtonPadua').addEventListener('click', function () {
+            document.querySelectorAll(paduaRadios).forEach(radio => {
+                if (radio.value === "0") radio.checked = true;
+            });
+            calculatePADUA();
+            showButtonFeedback(this, 'reset-done');
+        });
+
+        calculatePADUA();
+
+        // ============================================================
+        // DIS score Calculator
+        // ============================================================
+        let currentDisText = '';
+
+        function calculateDIS() {
+            const trombo = parseInt(document.querySelector('input[name="trombo_dis"]:checked').value);
+            const ddimeer = parseInt(document.querySelector('input[name="ddimeer_dis"]:checked').value);
+            const pt = parseInt(document.querySelector('input[name="pt_dis"]:checked').value);
+            const fib = parseInt(document.querySelector('input[name="fib_dis"]:checked').value);
+
+            const score = trombo + ddimeer + pt + fib;
+            const risk = score >= 5 ? 'DIS waarschijnlijk' : 'DIS minder waarschijnlijk';
+
+            currentDisText = `DIS score = ${score}/8\n= ${risk}`;
+            document.getElementById('disScore').textContent = currentDisText;
+        }
+
+        const disRadios = 'input[name="trombo_dis"], input[name="ddimeer_dis"], input[name="pt_dis"], input[name="fib_dis"]';
+
+        document.querySelectorAll(disRadios).forEach(radio => {
+            radio.addEventListener('change', calculateDIS);
+        });
+
+        setupCopy('copyButtonDis', () => currentDisText);
+
+        document.getElementById('resetButtonDis').addEventListener('click', function () {
+            document.querySelectorAll(disRadios).forEach(radio => {
+                if (radio.value === "0") radio.checked = true;
+            });
+            calculateDIS();
+            showButtonFeedback(this, 'reset-done');
+        });
+
+        calculateDIS();
+
+        // ============================================================
+        // 4T-score (HIT) Calculator
+        // ============================================================
+        let currentHitText = '';
+
+        function calculateHIT() {
+            const trombo = parseInt(document.getElementById('trombo_hit').value);
+            const tijd = parseInt(document.getElementById('tijd_hit').value);
+            const trombose = parseInt(document.getElementById('trombose_hit').value);
+            const oorzaak = parseInt(document.getElementById('oorzaak_hit').value);
+
+            const score = trombo + tijd + trombose + oorzaak;
+
+            let risk;
+            if (score <= 3) risk = 'lage kans HIT';
+            else if (score <= 5) risk = 'intermediate kans HIT';
+            else risk = 'hoge kans HIT';
+
+            currentHitText = `4T score = ${score}/8\n= ${risk}`;
+            document.getElementById('hitScore').textContent = currentHitText;
+        }
+
+        document.getElementById('trombo_hit').addEventListener('change', calculateHIT);
+        document.getElementById('tijd_hit').addEventListener('change', calculateHIT);
+        document.getElementById('trombose_hit').addEventListener('change', calculateHIT);
+        document.getElementById('oorzaak_hit').addEventListener('change', calculateHIT);
+
+        setupCopy('copyButtonHit', () => currentHitText);
+
+        document.getElementById('resetButtonHit').addEventListener('click', function () {
+            document.getElementById('trombo_hit').selectedIndex = 0;
+            document.getElementById('tijd_hit').selectedIndex = 0;
+            document.getElementById('trombose_hit').selectedIndex = 0;
+            document.getElementById('oorzaak_hit').selectedIndex = 0;
+            calculateHIT();
+            showButtonFeedback(this, 'reset-done');
+        });
+
+        calculateHIT();
+    </script>
+</body>
+
+</html>
