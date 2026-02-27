@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POCUS Verslag</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="wrapper">
+
+        <!-- Echografist -->
+        <div class="container">
+            <h1>Echografist</h1>
+            <form id="echoForm">
+                <div class="form-group">
+                    <label for="naam_echo">Echografist</label>
+                    <input type="text" id="naam_echo" placeholder="Naam">
+                </div>
+                <div class="inline-fields">
+                    <div class="form-group">
+                        <label for="supervisor_echo">Supervisor</label>
+                        <input type="text" id="supervisor_echo" placeholder="Naam">
+                    </div>
+                    <div class="form-group form-group-narrow">
+                        <label for="suptype_echo">Supervisie</label>
+                        <select id="suptype_echo">
+                            <option value="indirecte" selected>Indirect</option>
+                            <option value="directe">Direct</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Vraagstelling</label>
+                    <div class="radio-group">
+                        <label class="radio-label"><input type="checkbox" name="vraag_echo" value="vullingsstatus?">vullingsstatus?</label>
+                        <label class="radio-label"><input type="checkbox" name="vraag_echo" value="oorzaak shock?">oorzaak shock?</label>
+                        <label class="radio-label"><input type="checkbox" name="vraag_echo" value="oorzaak dyspneu?">oorzaak dyspneu?</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="conclusie_echo">Conclusie</label>
+                    <textarea id="conclusie_echo" placeholder="Conclusie..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="opm_echo">Opmerkingen</label>
+                    <textarea id="opm_echo" placeholder="Opmerkingen..."></textarea>
+                </div>
+            </form>
+            <div class="button-container">
+                <button type="button" id="resetButtonEcho" class="reset-button">Reset</button>
+            </div>
+        </div>
+
+        <!-- Hart -->
+        <div class="container">
+            <h1>Hart</h1>
+            <form id="corForm">
+                <div class="form-group">
+                    <label>Vraagstelling</label>
+                    <div class="radio-group">
+                        <label class="radio-label"><input type="checkbox" name="vraag_cor" value="linkerventrikelfunctie?">linkerventrikelfunctie?</label>
+                        <label class="radio-label"><input type="checkbox" name="vraag_cor" value="rechtsoverbelasting?">rechtsoverbelasting?</label>
+                        <label class="radio-label"><input type="checkbox" name="vraag_cor" value="pericardvocht?">pericardvocht?</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="quality_cor">Beeldkwaliteit</label>
+                    <select id="quality_cor">
+                        <option value="onvoldoende">Onvoldoende</option>
+                        <option value="matig">Matig</option>
+                        <option value="voldoende" selected>Voldoende</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Verkregen beelden</label>
+                    <div class="radio-group">
+                        <label class="radio-label"><input type="checkbox" name="beelden_cor" value="PSAX" checked>PSAX</label>
+                        <label class="radio-label"><input type="checkbox" name="beelden_cor" value="PLAX" checked>PLAX</label>
+                        <label class="radio-label"><input type="checkbox" name="beelden_cor" value="A4CH" checked>A4CH</label>
+                        <label class="radio-label"><input type="checkbox" name="beelden_cor" value="A3CH">A3CH</label>
+                        <label class="radio-label"><input type="checkbox" name="beelden_cor" value="A2CH">A2CH</label>
+                        <label class="radio-label"><input type="checkbox" name="beelden_cor" value="S4CH" checked>S4CH</label>
+                        <label class="radio-label"><input type="checkbox" name="beelden_cor" value="SSAX">SSAX</label>
+                        <label class="radio-label"><input type="checkbox" name="beelden_cor" value="SIVC">SIVC</label>
+                    </div>
+                </div>
+                <div class="inline-fields">
+                    <div class="form-group">
+                        <label for="lvf_cor">Linkerventrikelfunctie</label>
+                        <select id="lvf_cor">
+                            <option value="">-</option>
+                            <option value="hyperdynamisch">hyperdynamisch</option>
+                            <option value="goed">goed</option>
+                            <option value="verminderd">verminderd</option>
+                            <option value="slecht">slecht</option>
+                        </select>
+                    </div>
+                    <div class="form-group form-group-narrow">
+                        <label for="epss_cor">EPSS (mm)</label>
+                        <input type="number" id="epss_cor" min="0" max="50" step="0.1" placeholder="-">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Rechtsbelasting</label>
+                    <div class="radio-group">
+                        <span class="radio-group-sep">PLAX</span>
+                        <label class="radio-label"><input type="radio" name="rvot_cor" value="RVOT vergroot: nee">RVOT vergroot: nee</label>
+                        <label class="radio-label"><input type="radio" name="rvot_cor" value="RVOT vergroot: ja">RVOT vergroot: ja</label>
+                        <span class="radio-group-sep">PSAX</span>
+                        <label class="radio-label"><input type="radio" name="dsign_cor" value="D-sign: nee">D-sign: nee</label>
+                        <label class="radio-label"><input type="radio" name="dsign_cor" value="D-sign: ja">D-sign: ja</label>
+                        <span class="radio-group-sep">A4CH</span>
+                        <label class="radio-label"><input type="radio" name="rv_groter_cor" value="RV groter dan LV: nee">RV &gt; LV: nee</label>
+                        <label class="radio-label"><input type="radio" name="rv_groter_cor" value="RV groter dan LV: ja">RV &gt; LV: ja</label>
+                        <label class="radio-label"><input type="radio" name="mcconnel_cor" value="McConnel sign: nee">McConnel: nee</label>
+                        <label class="radio-label"><input type="radio" name="mcconnel_cor" value="McConnel sign: ja">McConnel: ja</label>
+                        <label class="radio-label"><input type="radio" name="bulging_cor" value="Bulging septum in A4CH: nee">Bulging septum: nee</label>
+                        <label class="radio-label"><input type="radio" name="bulging_cor" value="Bulging septum in A4CH: ja">Bulging septum: ja</label>
+                    </div>
+                </div>
+                <div class="inline-fields">
+                    <div class="form-group">
+                        <label>Rechterventrikelfunctie</label>
+                        <div class="radio-group">
+                            <label class="radio-label"><input type="radio" name="rvf_cor" value="goed">goed</label>
+                            <label class="radio-label"><input type="radio" name="rvf_cor" value="verminderd">verminderd</label>
+                        </div>
+                    </div>
+                    <div class="form-group form-group-narrow">
+                        <label for="tapse_cor">TAPSE (mm)</label>
+                        <input type="number" id="tapse_cor" min="0" max="50" step="0.1" placeholder="-">
+                    </div>
+                </div>
+                <div class="inline-fields">
+                    <div class="form-group">
+                        <label for="pericardvocht_cor">Pericardvocht</label>
+                        <select id="pericardvocht_cor">
+                            <option value="">-</option>
+                            <option value="Pericardvocht: ja">Pericardvocht: ja</option>
+                            <option value="Pericardvocht: nee">Pericardvocht: nee</option>
+                            <option value="Pericardvet">Pericardvet</option>
+                        </select>
+                    </div>
+                    <div class="form-group form-group-narrow">
+                        <label for="pericardschil_cor">Dikte schil (cm)</label>
+                        <input type="number" id="pericardschil_cor" min="0" max="10" step="0.1" placeholder="-">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="overig_cor">Overige bevindingen</label>
+                    <input type="text" id="overig_cor" placeholder="...">
+                </div>
+                <div class="form-group">
+                    <label>Conclusie</label>
+                    <div class="radio-group">
+                        <span class="radio-group-sep">LVF</span>
+                        <select id="conclusie_lvf_cor">
+                            <option value="">-</option>
+                            <option value="Linkerventrikelfunctie hyperdynamisch">LVF hyperdynamisch</option>
+                            <option value="Linkerventrikelfunctie niet evident afwijkend">LVF niet afwijkend</option>
+                            <option value="Linkerventrikelfunctie verminderd">LVF verminderd</option>
+                        </select>
+                        <span class="radio-group-sep">Rechtsbelasting</span>
+                        <label class="radio-label"><input type="radio" name="conclusie_rechts_cor" value="Geen tekenen van rechtsbelasting">Geen rechtsbelasting</label>
+                        <label class="radio-label"><input type="radio" name="conclusie_rechts_cor" value="Tekenen van rechtsbelasting">Rechtsbelasting</label>
+                        <span class="radio-group-sep">Pericardvocht</span>
+                        <label class="radio-label"><input type="radio" name="conclusie_peri_cor" value="Geen significant pericardvocht">Geen sign. pericardvocht</label>
+                        <label class="radio-label"><input type="radio" name="conclusie_peri_cor" value="Significant pericardvocht">Significant pericardvocht</label>
+                    </div>
+                </div>
+            </form>
+            <div class="button-container">
+                <button type="button" id="resetButtonCor" class="reset-button">Reset</button>
+            </div>
+        </div>
+
+        <!-- VCI -->
+        <div class="container">
+            <h1>VCI</h1>
+            <form id="vciForm">
+                <div class="form-group">
+                    <label>Vraagstelling</label>
+                    <div class="radio-group">
+                        <label class="radio-label"><input type="checkbox" name="vraag_vci" value="diameter en collaps VCI?">diameter en collaps VCI?</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="quality_vci">Beeldkwaliteit</label>
+                    <select id="quality_vci">
+                        <option value="onvoldoende">Onvoldoende</option>
+                        <option value="matig">Matig</option>
+                        <option value="voldoende" selected>Voldoende</option>
+                    </select>
+                </div>
+                <div class="inline-fields">
+                    <div class="form-group">
+                        <label for="max_vci">Max diameter (cm)</label>
+                        <input type="number" id="max_vci" min="0" max="5" step="0.1" placeholder="-">
+                    </div>
+                    <div class="form-group">
+                        <label for="min_vci">Min diameter (cm)</label>
+                        <input type="number" id="min_vci" min="0" max="5" step="0.1" placeholder="-">
+                    </div>
+                </div>
+                <div class="inline-fields">
+                    <div class="form-group">
+                        <label for="sniff_vci">Sniff diameter (cm)</label>
+                        <input type="number" id="sniff_vci" min="0" max="5" step="0.1" placeholder="-">
+                    </div>
+                    <div class="form-group">
+                        <label for="sniffmethode_vci">Op basis van</label>
+                        <select id="sniffmethode_vci">
+                            <option value="gemeten" selected>meting</option>
+                            <option value="<50%">visueel &lt;50% collaps</option>
+                            <option value=">50%">visueel &gt;50% collaps</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Conclusie</label>
+                    <div class="radio-group">
+                        <label class="radio-label"><input type="checkbox" name="conclusie_vci" value="!cvd" checked>CVD (auto)</label>
+                        <label class="radio-label"><input type="checkbox" name="conclusie_vci" value="!RA">RA druk (auto)</label>
+                    </div>
+                </div>
+            </form>
+            <div class="button-container">
+                <button type="button" id="resetButtonVci" class="reset-button">Reset</button>
+            </div>
+        </div>
+
+        <!-- Longen -->
+        <div class="container container-wide">
+            <h1>Longen</h1>
+            <form id="longForm">
+                <div class="form-group">
+                    <label>Vraagstelling</label>
+                    <div class="radio-group">
+                        <label class="radio-label"><input type="checkbox" name="vraag_long" value="oorzaak dyspneu?">oorzaak dyspneu?</label>
+                        <label class="radio-label"><input type="checkbox" name="vraag_long" value="overvulling?">overvulling?</label>
+                        <label class="radio-label"><input type="checkbox" name="vraag_long" value="pneumothorax?">pneumothorax?</label>
+                        <label class="radio-label"><input type="checkbox" name="vraag_long" value="pleuravocht?">pleuravocht?</label>
+                        <label class="radio-label"><input type="checkbox" name="vraag_long" value="consolidatie?">consolidatie?</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="quality_long">Beeldkwaliteit</label>
+                    <select id="quality_long">
+                        <option value="onvoldoende">Onvoldoende</option>
+                        <option value="matig">Matig</option>
+                        <option value="voldoende" selected>Voldoende</option>
+                    </select>
+                </div>
+
+                <span class="section-em">Rechts</span>
+                <div id="zonesRechts"></div>
+                <span class="section-em">Links</span>
+                <div id="zonesLinks"></div>
+
+                <div class="form-group">
+                    <label>Conclusie</label>
+                    <div class="radio-group">
+                        <span class="radio-group-sep">BLUE-protocol</span>
+                        <select id="conclusie_blue_long">
+                            <option value="">-</option>
+                            <option value="A-profiel met normale PLAPS">A + normale PLAPS</option>
+                            <option value="A-profiel met afwijkende PLAPS">A + afwijkende PLAPS</option>
+                            <option value="B-profiel">B-profiel</option>
+                            <option value="B'-profiel">B'-profiel</option>
+                            <option value="A/B-profiel">A/B-profiel</option>
+                            <option value="C-profiel">C-profiel</option>
+                            <option value="A'-profiel met lung point">A' + lung point</option>
+                        </select>
+                        <span class="radio-group-sep">Diagnose</span>
+                        <label class="radio-label"><input type="checkbox" name="conclusie_long" value="Bij longechografie geen afwijkende bevindingen">Geen afwijkingen</label>
+                        <label class="radio-label"><input type="checkbox" name="conclusie_long" value="Longechografie passend bij longoedeem">longoedeem</label>
+                        <label class="radio-label"><input type="checkbox" name="conclusie_long" value="Longechografie passend bij pneumonie">pneumonie</label>
+                        <label class="radio-label"><input type="checkbox" name="conclusie_long" value="Longechografie passend bij pneumothorax">pneumothorax</label>
+                        <label class="radio-label"><input type="checkbox" name="conclusie_long" value="Longechografie passend bij astma/COPD">astma/COPD</label>
+                        <label class="radio-label"><input type="checkbox" name="conclusie_long" value="Longechografie passend bij atelectase">atelectase</label>
+                        <label class="radio-label"><input type="checkbox" name="conclusie_long" value="Longechografie passend bij pleuravocht">pleuravocht</label>
+                        <label class="radio-label"><input type="checkbox" name="conclusie_long" value="Longechografie passend bij empyeem">empyeem</label>
+                    </div>
+                </div>
+            </form>
+            <div class="button-container">
+                <button type="button" id="resetButtonLong" class="reset-button">Reset</button>
+            </div>
+        </div>
+
+        <!-- Nieren en blaas -->
+        <div class="container">
+            <h1>Nieren en blaas</h1>
+            <form id="nierForm">
+                <div class="form-group">
+                    <label>Vraagstelling</label>
+                    <div class="radio-group">
+                        <label class="radio-label"><input type="checkbox" name="vraag_nier" value="hydronefrose?">hydronefrose?</label>
+                        <label class="radio-label"><input type="checkbox" name="vraag_nier" value="niergrootte?">niergrootte?</label>
+                        <label class="radio-label"><input type="checkbox" name="vraag_nier" value="blaasretentie?">blaasretentie?</label>
+                        <label class="radio-label"><input type="checkbox" name="vraag_nier" value="post-renale obstructie?">post-renale obstructie?</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="quality_nier">Beeldkwaliteit</label>
+                    <select id="quality_nier">
+                        <option value="onvoldoende">Onvoldoende</option>
+                        <option value="matig">Matig</option>
+                        <option value="voldoende" selected>Voldoende</option>
+                    </select>
+                </div>
+                <div class="inline-fields">
+                    <div class="form-group">
+                        <label>Rechter nier</label>
+                        <div class="radio-group">
+                            <span class="radio-group-sep">Hydronefrose</span>
+                            <select id="hrechts_hydro_nier">
+                                <option value="">-</option>
+                                <option value="Geen hydronefrose">Geen</option>
+                                <option value="Wel hydronefrose, mild (graad 1)">Graad 1</option>
+                                <option value="Wel hydronefrose, matig (graad 2)">Graad 2</option>
+                                <option value="Wel hydronefrose, matig (graad 3)">Graad 3</option>
+                                <option value="Wel hydronefrose, ernstig (graad 4)">Graad 4</option>
+                            </select>
+                            <span class="radio-group-sep">Overig</span>
+                            <label class="radio-label"><input type="checkbox" name="hrechts_nier" value="Nefrolithiasis">Nefrolithiasis</label>
+                            <label class="radio-label"><input type="checkbox" name="hrechts_nier" value="Niercysten">Niercysten</label>
+                            <label class="radio-label"><input type="checkbox" name="hrechts_nier" value="Schrompelnier">Schrompelnier</label>
+                            <label class="radio-label"><input type="checkbox" name="hrechts_nier" value="Niertumor">Niertumor</label>
+                        </div>
+                    </div>
+                    <div class="form-group form-group-narrow">
+                        <label for="grechts_nier">Grootte (cm)</label>
+                        <input type="number" id="grechts_nier" min="0" max="20" step="0.1" placeholder="-">
+                    </div>
+                </div>
+                <div class="inline-fields">
+                    <div class="form-group">
+                        <label>Linker nier</label>
+                        <div class="radio-group">
+                            <span class="radio-group-sep">Hydronefrose</span>
+                            <select id="hlinks_hydro_nier">
+                                <option value="">-</option>
+                                <option value="Geen hydronefrose">Geen</option>
+                                <option value="Wel hydronefrose, mild (graad 1)">Graad 1</option>
+                                <option value="Wel hydronefrose, matig (graad 2)">Graad 2</option>
+                                <option value="Wel hydronefrose, matig (graad 3)">Graad 3</option>
+                                <option value="Wel hydronefrose, ernstig (graad 4)">Graad 4</option>
+                            </select>
+                            <span class="radio-group-sep">Overig</span>
+                            <label class="radio-label"><input type="checkbox" name="hlinks_nier" value="Nefrolithiasis">Nefrolithiasis</label>
+                            <label class="radio-label"><input type="checkbox" name="hlinks_nier" value="Niercysten">Niercysten</label>
+                            <label class="radio-label"><input type="checkbox" name="hlinks_nier" value="Schrompelnier">Schrompelnier</label>
+                            <label class="radio-label"><input type="checkbox" name="hlinks_nier" value="Niertumor">Niertumor</label>
+                        </div>
+                    </div>
+                    <div class="form-group form-group-narrow">
+                        <label for="glinks_nier">Grootte (cm)</label>
+                        <input type="number" id="glinks_nier" min="0" max="20" step="0.1" placeholder="-">
+                    </div>
+                </div>
+                <div class="inline-fields">
+                    <div class="form-group">
+                        <label>Transplantaat</label>
+                        <div class="radio-group">
+                            <span class="radio-group-sep">Hydronefrose</span>
+                            <select id="htrans_hydro_nier">
+                                <option value="">-</option>
+                                <option value="Geen hydronefrose">Geen</option>
+                                <option value="Wel hydronefrose, mild (graad 1)">Graad 1</option>
+                                <option value="Wel hydronefrose, matig (graad 2)">Graad 2</option>
+                                <option value="Wel hydronefrose, matig (graad 3)">Graad 3</option>
+                                <option value="Wel hydronefrose, ernstig (graad 4)">Graad 4</option>
+                            </select>
+                            <span class="radio-group-sep">Overig</span>
+                            <label class="radio-label"><input type="checkbox" name="htrans_nier" value="Nefrolithiasis">Nefrolithiasis</label>
+                            <label class="radio-label"><input type="checkbox" name="htrans_nier" value="Niercysten">Niercysten</label>
+                            <label class="radio-label"><input type="checkbox" name="htrans_nier" value="Schrompelnier">Schrompelnier</label>
+                            <label class="radio-label"><input type="checkbox" name="htrans_nier" value="Niertumor">Niertumor</label>
+                        </div>
+                    </div>
+                    <div class="form-group form-group-narrow">
+                        <label for="gtrans_nier">Grootte (cm)</label>
+                        <input type="number" id="gtrans_nier" min="0" max="20" step="0.1" placeholder="-">
+                    </div>
+                </div>
+                <div class="inline-fields">
+                    <div class="form-group">
+                        <label for="vorm_blaas">Blaas: vorm</label>
+                        <select id="vorm_blaas">
+                            <option value="bolvormig" selected>bolvormig</option>
+                            <option value="onbekend">onbekend</option>
+                            <option value="handmatig">handmatig</option>
+                        </select>
+                    </div>
+                    <div class="form-group form-group-narrow">
+                        <label for="cor_blaas">Correctiefactor</label>
+                        <input type="number" id="cor_blaas" min="0" max="1" step="0.01" value="0.52">
+                    </div>
+                </div>
+                <div class="inline-fields">
+                    <div class="form-group">
+                        <label for="hoogte_blaas">Hoogte cc (cm)</label>
+                        <input type="number" id="hoogte_blaas" min="0" max="20" step="0.1" placeholder="-">
+                    </div>
+                    <div class="form-group">
+                        <label for="diepte_blaas">Diepte ap (cm)</label>
+                        <input type="number" id="diepte_blaas" min="0" max="20" step="0.1" placeholder="-">
+                    </div>
+                    <div class="form-group">
+                        <label for="breedte_blaas">Breedte ll (cm)</label>
+                        <input type="number" id="breedte_blaas" min="0" max="20" step="0.1" placeholder="-">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="overig_nier">Overige bevindingen</label>
+                    <input type="text" id="overig_nier" placeholder="...">
+                </div>
+                <div class="form-group">
+                    <label>Conclusie</label>
+                    <div class="radio-group">
+                        <span class="radio-group-sep">Hydronefrose</span>
+                        <select id="conclusie_hydro_nier">
+                            <option value="">-</option>
+                            <option value="Geen hydronefrose">Geen hydronefrose</option>
+                            <option value="Hydronefrose rechts">Hydronefrose rechts</option>
+                            <option value="Hydronefrose links">Hydronefrose links</option>
+                            <option value="Hydronefrose bilateraal">Hydronefrose bilateraal</option>
+                        </select>
+                        <span class="radio-group-sep">Blaas</span>
+                        <label class="radio-label"><input type="checkbox" name="conclusie_nier" value="!volume" checked>Geschat blaasvolume (auto)</label>
+                    </div>
+                </div>
+            </form>
+            <div class="button-container">
+                <button type="button" id="resetButtonNier" class="reset-button">Reset</button>
+            </div>
+        </div>
+
+        <!-- Verslag -->
+        <div class="container container-full">
+            <h1>Verslag</h1>
+            <div class="results show" id="verslagResults">
+                <div class="result-item">
+                    <div class="result-value" style="width:100%">
+                        <textarea id="verslagOutput" class="report-output" readonly placeholder="Vul velden in om het verslag te genereren..."></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="button-container">
+                <button type="button" id="copyButtonVerslag" class="copy-button" title="Kopieer naar klembord">Kopieer</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="shared.js"></script>
+    <script>
+        // ── Lung zone option data ─────────────────────────────────────────────
+        const LONG1 = [
+            ["Lung sliding: ja",                    "Lung sliding: ja"],
+            ["Lung sliding: nee",                   "Lung sliding: nee"],
+            ["Lung pulse: ja",                      "Lung pulse: ja"],
+            ["Lung pulse: nee",                     "Lung pulse: nee"],
+            ["Lung point: ja",                      "Lung point: ja"],
+            ["Lung sliding: niet te beoordelen",    "ntb"]
+        ];
+        const LONG2 = [
+            ["A-lijnen",                    "A-lijnen"],
+            ["1-2 B-lijnen",                "1-2 B-lijnen"],
+            ["3-4 B-lijnen",                "3-4 B-lijnen"],
+            [">4 B-lijnen, afzonderlijk",   ">4 B-lijnen"],
+            ["B-lijnen, confluerend",        "confluerend"],
+            ["Z-lijnen",                    "Z-lijnen"]
+        ];
+        const LONG3 = [
+            ["Pleura: regulair",                                "Pleura: regulair"],
+            ["Pleura: irregulair",                              "Pleura: irregulair"],
+            ["Subpleurale consolidatie",                        "Subpleuraal"],
+            ["Shred-sign",                                      "Shred-sign"],
+            ["Consolidatie",                                    "Consolidatie"],
+            ["Consolidatie met luchtbroncogram",                "+ luchtbroncogram"],
+            ["Consolidatie met statisch luchtbronchogram",      "+ statisch LBG"],
+            ["Consolidatie met dynamisch luchtbrongram",        "+ dynamisch LBG"],
+            ["Spine sign: nee",                                 "Spine sign: nee"],
+            ["Spine sign: ja",                                  "Spine sign: ja"],
+            ["Mirror sign: ja",                                 "Mirror sign: ja"],
+            ["Mirror sign: nee",                                "Mirror sign: nee"],
+            ["Curtain sign: ja",                                "Curtain sign: ja"],
+            ["Curtain sign: nee",                               "Curtain sign: nee"],
+            ["Pleuravocht: afwezig",                            "Pleuravocht: -"],
+            ["Pleuravocht: spoor",                              "Pleuravocht: spoor"],
+            ["Pleuravocht: ja",                                 "Pleuravocht: +"],
+            ["Pleuravocht: ja, met plankton sign",              "+ plankton sign"],
+            ["Jellyfish sign: nee",                             "Jellyfish sign: nee"],
+            ["Jellyfish sign: ja",                              "Jellyfish sign: ja"],
+            ["Geconsolideerde long",                            "Geconsol. long"]
+        ];
+
+        // idem reference per zone
+        const IDEM_MAP = {
+            R2: 'R1', R3: 'R2', R5: 'R1', R6: 'R5',
+            L1: 'R1', L2: 'L1', L3: 'L2', L4: 'R4', L5: 'L1', L6: 'L5'
+        };
+
+        function buildCheckGroup(name, options) {
+            const div = document.createElement('div');
+            div.className = 'radio-group compact';
+            options.forEach(([val, label]) => {
+                const lbl = document.createElement('label');
+                lbl.className = 'radio-label';
+                const inp = document.createElement('input');
+                inp.type = 'checkbox';
+                inp.name = name;
+                inp.value = val;
+                lbl.appendChild(inp);
+                lbl.appendChild(document.createTextNode(label));
+                div.appendChild(lbl);
+            });
+            return div;
+        }
+
+        function buildLungZone(zone) {
+            const row = document.createElement('div');
+            row.className = 'lung-zone';
+
+            // Status select
+            const sel = document.createElement('select');
+            sel.id = zone + '_status';
+            const statusOptions = [[zone + ':', 'adequaat'], [zone + ': ntb', 'ntb']];
+            if (IDEM_MAP[zone]) {
+                statusOptions.splice(1, 0, [`${zone}: zie ${IDEM_MAP[zone]}`, `idem_${IDEM_MAP[zone]}`]);
+            }
+            statusOptions.forEach(([label, val]) => {
+                const opt = document.createElement('option');
+                opt.value = val;
+                opt.textContent = label;
+                sel.appendChild(opt);
+            });
+            row.appendChild(sel);
+            row.appendChild(buildCheckGroup(zone + '_long1', LONG1));
+            row.appendChild(buildCheckGroup(zone + '_long2', LONG2));
+            row.appendChild(buildCheckGroup(zone + '_long3', LONG3));
+            return row;
+        }
+
+        // Build all lung zones
+        ['R1','R2','R3','R4','R5','R6'].forEach(z =>
+            document.getElementById('zonesRechts').appendChild(buildLungZone(z)));
+        ['L1','L2','L3','L4','L5','L6'].forEach(z =>
+            document.getElementById('zonesLinks').appendChild(buildLungZone(z)));
+
+        // ── Helpers ───────────────────────────────────────────────────────────
+        function getChecked(name) {
+            return Array.from(document.querySelectorAll(`input[name="${name}"]:checked`)).map(i => i.value);
+        }
+
+        function clearChecked(name) {
+            document.querySelectorAll(`input[name="${name}"]`).forEach(i => i.checked = false);
+        }
+
+        function getSelectVal(id) {
+            const el = document.getElementById(id);
+            return el && el.value ? [el.value] : [];
+        }
+
+        // ── Lung zone text (handles idem) ─────────────────────────────────────
+        function getLongText(zone) {
+            const statusEl = document.getElementById(zone + '_status');
+            if (!statusEl) return '';
+            const status = statusEl.value;
+
+            if (status === 'ntb') return zone + ': niet te beoordelen';
+
+            if (status.startsWith('idem_')) {
+                const ref = status.replace('idem_', '');
+                const refText = getLongText(ref);
+                if (!refText) return '';
+                const content = refText.replace(/^[A-Z]\d: /, '').replace(/\.$/, '');
+                return zone + ': ' + content + '.';
+            }
+
+            const all = [
+                ...getChecked(zone + '_long1'),
+                ...getChecked(zone + '_long2'),
+                ...getChecked(zone + '_long3')
+            ];
+            return all.length ? zone + ': ' + all.join('; ') + '.' : '';
+        }
+
+        // ── Report generation ─────────────────────────────────────────────────
+        function generateReport() {
+            // Echografist
+            const naam = document.getElementById('naam_echo').value.trim();
+            let algemeen = '';
+            if (naam) {
+                const supervisor = document.getElementById('supervisor_echo').value.trim();
+                const suptype = document.getElementById('suptype_echo').value;
+                const supervisie = supervisor ? ` (onder ${suptype} supervisie van ${supervisor})` : '';
+                algemeen = `POCUS verricht door ${naam}${supervisie}`;
+            }
+
+            // Hart
+            let cor = '', conclusie_cor = '';
+            const lvf = getSelectVal('lvf_cor');
+            const rvf = getChecked('rvf_cor');
+            const epss = document.getElementById('epss_cor').value;
+            const tapse = document.getElementById('tapse_cor').value;
+            const rechtsbelasting = [...getChecked('rvot_cor'), ...getChecked('dsign_cor'), ...getChecked('rv_groter_cor'), ...getChecked('mcconnel_cor'), ...getChecked('bulging_cor')];
+            const pericardvocht = getSelectVal('pericardvocht_cor');
+            const pericardschil = document.getElementById('pericardschil_cor').value;
+            const overig_cor = document.getElementById('overig_cor').value.trim();
+            const conclusies_cor = [...getSelectVal('conclusie_lvf_cor'), ...getChecked('conclusie_rechts_cor'), ...getChecked('conclusie_peri_cor')];
+            const quality_cor = document.getElementById('quality_cor').value;
+            const beelden = getChecked('beelden_cor');
+            const vraagCor = getChecked('vraag_cor');
+
+            const corHasData = lvf.length || epss || rvf.length || rechtsbelasting.length || tapse ||
+                pericardvocht.length || pericardschil || overig_cor || conclusies_cor.length || vraagCor.length;
+
+            if (corHasData) {
+                const lines = [`Hart: Beeldkwaliteit: ${quality_cor}. Verkregen beelden: ${beelden.join('; ')}.`];
+                let lvfText = lvf.length ? 'Linkerventrikelfunctie: ' + lvf.join('; ') + '.' : '';
+                if (epss) lvfText += (lvfText ? ' ' : '') + `EPSS: ${epss} mm.`;
+                if (lvfText) lines.push(lvfText);
+                if (rechtsbelasting.length) lines.push('Rechterventrikel: ' + rechtsbelasting.join('; ') + '.');
+                let rvfText = rvf.length ? 'Rechterventrikelfunctie: ' + rvf.join('; ') + '.' : '';
+                if (tapse) rvfText += (rvfText ? ' ' : '') + `TAPSE: ${tapse} mm.`;
+                if (rvfText) lines.push(rvfText);
+                if (pericardvocht.length) {
+                    let pt = pericardvocht.join('. ') + '.';
+                    if (pericardschil) pt += ` Dikte van schil: ${pericardschil} cm.`;
+                    lines.push(pt);
+                }
+                if (overig_cor) lines.push('Overige bevindingen: ' + overig_cor + '.');
+                cor = lines.join('\n');
+                conclusie_cor = conclusies_cor.join('. ');
+                if (quality_cor === 'onvoldoende' && conclusie_cor)
+                    conclusie_cor += ' (echter beelden van onvoldoende kwaliteit voor zekere uitspraak)';
+            }
+
+            // VCI
+            let vci = '', conclusie_vci = '';
+            const max_vci = parseFloat(document.getElementById('max_vci').value);
+            const min_vci = parseFloat(document.getElementById('min_vci').value);
+            const sniff_vci = parseFloat(document.getElementById('sniff_vci').value);
+            const sniffmethode = document.getElementById('sniffmethode_vci').value;
+            const conclusies_vci = getChecked('conclusie_vci');
+            const quality_vci = document.getElementById('quality_vci').value;
+
+            if (!isNaN(max_vci) || conclusies_vci.filter(v => v !== '!cvd').length) {
+                const lines = [`VCI: Beeldkwaliteit: ${quality_vci}.`];
+                let meting = [];
+                if (!isNaN(max_vci)) meting.push(`maximale diameter: ${max_vci} cm`);
+                if (!isNaN(min_vci)) {
+                    meting.push(`minimale diameter bij respiratie: ${min_vci} cm (collaps ${Math.round(100 - min_vci / max_vci * 100)}%)`);
+                }
+                if (sniffmethode === 'gemeten' && !isNaN(sniff_vci)) {
+                    meting.push(`bij sniffen: ${sniff_vci} cm (collaps ${Math.round(100 - sniff_vci / max_vci * 100)}%)`);
+                } else if (sniffmethode !== 'gemeten') {
+                    meting.push(`bij sniffen collaps ${sniffmethode}`);
+                }
+                if (meting.length) {
+                    let m = meting.join('; ');
+                    lines.push(m.charAt(0).toUpperCase() + m.slice(1) + '.');
+                }
+                vci = lines.join('\n');
+
+                let concVci = [...conclusies_vci];
+                const cvdIdx = concVci.indexOf('!cvd');
+                if (cvdIdx >= 0) {
+                    let auto = '';
+                    if (!isNaN(max_vci) && !isNaN(min_vci)) {
+                        const c = 100 - (min_vci / max_vci) * 100;
+                        if (max_vci <= 1.5 || (max_vci <= 2 && c >= 50)) auto = 'VCI passend bij lage CVD';
+                        else if (max_vci >= 2.5 || (max_vci >= 2 && c < 50)) auto = 'VCI passend bij hoge CVD';
+                        else auto = 'VCI passend bij intermediaire CVD';
+                    }
+                    concVci[cvdIdx] = auto;
+                }
+                const raIdx = concVci.indexOf('!RA');
+                if (raIdx >= 0) {
+                    let collaps = null;
+                    if (sniffmethode === 'gemeten' && !isNaN(sniff_vci) && !isNaN(max_vci))
+                        collaps = (100 - sniff_vci / max_vci * 100) >= 50;
+                    else if (sniffmethode === 'gemeten' && !isNaN(min_vci) && !isNaN(max_vci))
+                        collaps = (100 - min_vci / max_vci * 100) >= 50;
+                    else if (sniffmethode === '<50%') collaps = false;
+                    else if (sniffmethode === '>50%') collaps = true;
+                    let auto = '';
+                    if (!isNaN(max_vci) && collaps !== null) {
+                        if (max_vci <= 2.1 && collaps) auto = 'Geschatte RA druk: normaal (3 mmHg, range 0-5)';
+                        else if (max_vci > 2.1 && !collaps) auto = 'Geschatte RA druk: verhoogd (15 mmHg, range 10-20)';
+                        else auto = 'Geschatte RA druk: intermediair (8 mmHg, range 5-10)';
+                    }
+                    concVci[raIdx] = auto;
+                }
+                conclusie_vci = concVci.filter(Boolean).join('. ');
+                if (quality_vci === 'onvoldoende' && conclusie_vci)
+                    conclusie_vci += ' (echter beelden van onvoldoende kwaliteit voor zekere uitspraak)';
+            }
+
+            // Longen
+            let long = '', conclusie_long = '';
+            const zones = ['R1','R2','R3','R4','R5','R6','L1','L2','L3','L4','L5','L6'];
+            const quality_long = document.getElementById('quality_long').value;
+            const conclusies_long = [...getSelectVal('conclusie_blue_long'), ...getChecked('conclusie_long')];
+            const zoneTexts = zones.map(getLongText).filter(Boolean);
+            if (zoneTexts.length || conclusies_long.length) {
+                long = [`Longen: Beeldkwaliteit: ${quality_long}.`, ...zoneTexts].join('\n');
+                conclusie_long = conclusies_long.join('. ');
+                if (quality_long === 'onvoldoende' && conclusie_long)
+                    conclusie_long += ' (echter beelden van onvoldoende kwaliteit voor zekere uitspraak)';
+            }
+
+            // Nieren en blaas
+            let nier = '', conclusie_nier = '';
+            const hrechts = [...getSelectVal('hrechts_hydro_nier'), ...getChecked('hrechts_nier')];
+            const hlinks = [...getSelectVal('hlinks_hydro_nier'), ...getChecked('hlinks_nier')];
+            const htrans = [...getSelectVal('htrans_hydro_nier'), ...getChecked('htrans_nier')];
+            const grechts = document.getElementById('grechts_nier').value;
+            const glinks = document.getElementById('glinks_nier').value;
+            const gtrans = document.getElementById('gtrans_nier').value;
+            const hoogte = document.getElementById('hoogte_blaas').value;
+            const diepte = document.getElementById('diepte_blaas').value;
+            const breedte = document.getElementById('breedte_blaas').value;
+            const cor_blaas = parseFloat(document.getElementById('cor_blaas').value);
+            const overig_nier = document.getElementById('overig_nier').value.trim();
+            const conclusies_nier = [...getSelectVal('conclusie_hydro_nier'), ...getChecked('conclusie_nier')];
+            const quality_nier = document.getElementById('quality_nier').value;
+
+            const nierHasData = hrechts.length || hlinks.length || htrans.length || grechts || glinks || gtrans ||
+                hoogte || diepte || breedte || overig_nier || conclusies_nier.filter(v => v !== '!volume').length;
+
+            if (nierHasData) {
+                const lines = [`Nieren en blaas: Beeldkwaliteit: ${quality_nier}.`];
+                const rArr = [...hrechts]; if (grechts) rArr.push(`Grootte: ${grechts} cm`);
+                if (rArr.length) lines.push('Rechter nier: ' + rArr.join('; ') + '.');
+                const lArr = [...hlinks]; if (glinks) lArr.push(`Grootte: ${glinks} cm`);
+                if (lArr.length) lines.push('Linker nier: ' + lArr.join('; ') + '.');
+                const tArr = [...htrans]; if (gtrans) tArr.push(`Grootte: ${gtrans} cm`);
+                if (tArr.length) lines.push('Transplantaat: ' + tArr.join('; ') + '.');
+                if (hoogte && diepte && breedte) {
+                    let b = `Blaas: Hoogte (cran-caud): ${hoogte} cm; Diepte (ant-post): ${diepte} cm; Breedte (lat-lat): ${breedte} cm`;
+                    if (!isNaN(cor_blaas)) b += `; Correctiefactor: ${cor_blaas}`;
+                    lines.push(b + '.');
+                }
+                if (overig_nier) lines.push('Overige bevindingen: ' + overig_nier + '.');
+                nier = lines.join('\n');
+
+                let concNier = [...conclusies_nier];
+                const volIdx = concNier.indexOf('!volume');
+                if (volIdx >= 0) {
+                    let auto = '';
+                    if (hoogte && diepte && breedte && !isNaN(cor_blaas))
+                        auto = `Geschat blaasvolume: ${Math.round(parseFloat(hoogte) * parseFloat(diepte) * parseFloat(breedte) * cor_blaas)} ml`;
+                    concNier[volIdx] = auto;
+                }
+                conclusie_nier = concNier.filter(Boolean).join('. ');
+                if (quality_nier === 'onvoldoende' && conclusie_nier)
+                    conclusie_nier += ' (echter beelden van onvoldoende kwaliteit voor zekere uitspraak)';
+            }
+
+            // Vraagstelling samenstellen
+            const vraagParts = [
+                ...getChecked('vraag_echo'),
+                ...(cor ? getChecked('vraag_cor') : []),
+                ...(vci ? getChecked('vraag_vci') : []),
+                ...(long ? getChecked('vraag_long') : []),
+                ...(nier ? getChecked('vraag_nier') : [])
+            ].filter(Boolean);
+            if (vraagParts.length && (algemeen || cor || vci || long || nier))
+                algemeen = (algemeen ? algemeen + '\n' : '') + 'Vraagstelling: ' + vraagParts.join(' ');
+
+            // Afsluiting
+            const conclusie_echo = document.getElementById('conclusie_echo').value.trim();
+            const opm_echo = document.getElementById('opm_echo').value.trim();
+            const allConclusies = [conclusie_cor, conclusie_vci, conclusie_long, conclusie_nier, conclusie_echo].filter(Boolean).join('. ');
+            let afsluiting = allConclusies ? 'Conclusie: ' + allConclusies + '.' : '';
+            if (opm_echo) afsluiting += (afsluiting ? '\n' : '') + 'Opmerkingen: ' + opm_echo;
+
+            // Verslag
+            document.getElementById('verslagOutput').value =
+                [algemeen, cor, vci, long, nier, afsluiting].filter(Boolean).join('\n\n');
+        }
+
+        // ── Event listeners ───────────────────────────────────────────────────
+        document.querySelector('.wrapper').addEventListener('input', generateReport);
+        document.querySelector('.wrapper').addEventListener('change', generateReport);
+
+        setupCopy('copyButtonVerslag', () => document.getElementById('verslagOutput').value);
+
+        document.getElementById('resetButtonEcho').addEventListener('click', function () {
+            document.getElementById('naam_echo').value = '';
+            document.getElementById('supervisor_echo').value = '';
+            document.getElementById('suptype_echo').value = 'indirecte';
+            clearChecked('vraag_echo');
+            document.getElementById('conclusie_echo').value = '';
+            document.getElementById('opm_echo').value = '';
+            generateReport(); showButtonFeedback(this, 'reset-done');
+        });
+
+        document.getElementById('resetButtonCor').addEventListener('click', function () {
+            clearChecked('vraag_cor');
+            document.getElementById('quality_cor').value = 'voldoende';
+            ['PSAX','PLAX','A4CH','S4CH'].forEach(v => {
+                document.querySelector(`input[name="beelden_cor"][value="${v}"]`).checked = true;
+            });
+            ['A3CH','A2CH','SSAX','SIVC'].forEach(v => {
+                document.querySelector(`input[name="beelden_cor"][value="${v}"]`).checked = false;
+            });
+            document.getElementById('lvf_cor').value = '';
+            document.getElementById('epss_cor').value = '';
+            clearChecked('rvot_cor');
+            clearChecked('dsign_cor');
+            clearChecked('rv_groter_cor');
+            clearChecked('mcconnel_cor');
+            clearChecked('bulging_cor');
+            clearChecked('rvf_cor');
+            document.getElementById('tapse_cor').value = '';
+            document.getElementById('pericardvocht_cor').value = '';
+            document.getElementById('pericardschil_cor').value = '';
+            document.getElementById('overig_cor').value = '';
+            document.getElementById('conclusie_lvf_cor').value = '';
+            clearChecked('conclusie_rechts_cor');
+            clearChecked('conclusie_peri_cor');
+            generateReport(); showButtonFeedback(this, 'reset-done');
+        });
+
+        document.getElementById('resetButtonVci').addEventListener('click', function () {
+            clearChecked('vraag_vci');
+            document.getElementById('quality_vci').value = 'voldoende';
+            document.getElementById('max_vci').value = '';
+            document.getElementById('min_vci').value = '';
+            document.getElementById('sniff_vci').value = '';
+            document.getElementById('sniffmethode_vci').value = 'gemeten';
+            clearChecked('conclusie_vci');
+            document.querySelector('input[name="conclusie_vci"][value="!cvd"]').checked = true;
+            generateReport(); showButtonFeedback(this, 'reset-done');
+        });
+
+        document.getElementById('resetButtonLong').addEventListener('click', function () {
+            clearChecked('vraag_long');
+            document.getElementById('quality_long').value = 'voldoende';
+            ['R1','R2','R3','R4','R5','R6','L1','L2','L3','L4','L5','L6'].forEach(z => {
+                document.getElementById(z + '_status').value = 'adequaat';
+                clearChecked(z + '_long1');
+                clearChecked(z + '_long2');
+                clearChecked(z + '_long3');
+            });
+            document.getElementById('conclusie_blue_long').value = '';
+            clearChecked('conclusie_long');
+            generateReport(); showButtonFeedback(this, 'reset-done');
+        });
+
+        document.getElementById('resetButtonNier').addEventListener('click', function () {
+            clearChecked('vraag_nier');
+            document.getElementById('quality_nier').value = 'voldoende';
+            document.getElementById('hrechts_hydro_nier').value = ''; clearChecked('hrechts_nier');
+            document.getElementById('hlinks_hydro_nier').value = ''; clearChecked('hlinks_nier');
+            document.getElementById('htrans_hydro_nier').value = ''; clearChecked('htrans_nier');
+            document.getElementById('grechts_nier').value = '';
+            document.getElementById('glinks_nier').value = '';
+            document.getElementById('gtrans_nier').value = '';
+            document.getElementById('vorm_blaas').value = 'bolvormig';
+            document.getElementById('cor_blaas').value = '0.52';
+            document.getElementById('hoogte_blaas').value = '';
+            document.getElementById('diepte_blaas').value = '';
+            document.getElementById('breedte_blaas').value = '';
+            document.getElementById('overig_nier').value = '';
+            document.getElementById('conclusie_hydro_nier').value = '';
+            clearChecked('conclusie_nier');
+            document.querySelector('input[name="conclusie_nier"][value="!volume"]').checked = true;
+            generateReport(); showButtonFeedback(this, 'reset-done');
+        });
+
+        document.getElementById('vorm_blaas').addEventListener('change', function () {
+            if (this.value === 'bolvormig') document.getElementById('cor_blaas').value = '0.52';
+            else if (this.value === 'onbekend') document.getElementById('cor_blaas').value = '0.72';
+        });
+
+        generateReport();
+    </script>
+</body>
+
+</html>
