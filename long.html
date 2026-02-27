@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Longgeneeskunde</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- A-a gradiënt -->
+        <div class="container">
+            <h1>A-a gradiënt</h1>
+
+            <form id="aaForm">
+                <div class="form-group">
+                    <label for="pco2_aa">PaCO2</label>
+                    <input type="number" id="pco2_aa" min="0" max="100" step="1" placeholder="PaCO2">
+                </div>
+
+                <div class="form-group">
+                    <label for="po2_aa">PaO2</label>
+                    <input type="number" id="po2_aa" min="0" max="200" step="1" placeholder="PaO2">
+                </div>
+
+                <div class="form-group">
+                    <label for="press_aa">Luchtdruk eenheid</label>
+                    <select id="press_aa">
+                        <option value="mmHg" selected>mmHg</option>
+                        <option value="kPa">kPa</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="masker_aa">Zuurstoftherapie</label>
+                    <select id="masker_aa">
+                        <option value="0" selected>Kamerlucht</option>
+                        <option value="1">Neusbril (1-6L)</option>
+                        <option value="2">Masker (5-10L)</option>
+                        <option value="3">NRM (15L)</option>
+                        <option value="4">Handmatige invoer</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="maskerLGroup" style="display:none;">
+                    <label for="masker_L_aa">O2 (L/min)</label>
+                    <input type="number" id="masker_L_aa" min="1" max="10" step="0.5" placeholder="L/min">
+                </div>
+
+                <div class="form-group">
+                    <label for="fio2_aa">FiO2 (%)</label>
+                    <input type="number" id="fio2_aa" min="0" max="100" step="1" value="21">
+                </div>
+
+                <div class="form-group">
+                    <label for="age_aa">Leeftijd</label>
+                    <input type="number" id="age_aa" min="0" max="120" step="1" placeholder="Leeftijd">
+                </div>
+            </form>
+
+            <div class="results show" id="aaResults">
+                <div class="result-item">
+                    <div class="result-value">
+                        <span id="aaScore">A-a gradiënt = -</span>
+                    </div>
+                </div>
+            </div>
+            <div class="button-container">
+                <button type="button" id="resetButtonAa" class="reset-button">Reset</button>
+                <button type="button" id="copyButtonAa" class="copy-button"
+                    title="Kopieer naar klembord">Kopieer</button>
+            </div>
+        </div>
+
+        <!-- AMBU-65 score -->
+        <div class="container">
+            <h1>AMBU-65 score</h1>
+
+            <form id="ambuForm">
+                <div class="form-group">
+                    <label>Ademfrequentie</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="af_ambu" value="0" checked>
+                            &lt;30
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="af_ambu" value="1">
+                            ≥30
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Acute verwardheid</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="confusion_ambu" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="confusion_ambu" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Systolische bloeddruk</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="sbp_ambu" value="0" checked>
+                            ≥90 mmHg
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="sbp_ambu" value="1">
+                            &lt;90 mmHg
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Diastolische bloeddruk</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="dbp_ambu" value="0" checked>
+                            &gt;60 mmHg
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="dbp_ambu" value="1">
+                            ≤60 mmHg
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Leeftijd</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="age_ambu" value="0" checked>
+                            &lt;65 jaar
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="age_ambu" value="1">
+                            ≥65 jaar
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Ureum</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="ureum_ambu" value="0" checked>
+                            ≤7 mmol/L
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="ureum_ambu" value="1">
+                            &gt;7 mmol/L
+                        </label>
+                    </div>
+                </div>
+            </form>
+
+            <div class="results show" id="ambuResults">
+                <div class="result-item">
+                    <div class="result-value">
+                        <span id="ambuScore">AMBU-65 = 0/5 (mild)
+= 0.7% mortaliteit (30 dagen)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="button-container">
+                <button type="button" id="resetButtonAmbu" class="reset-button">Reset</button>
+                <button type="button" id="copyButtonAmbu" class="copy-button"
+                    title="Kopieer naar klembord">Kopieer</button>
+            </div>
+        </div>
+
+        <!-- Pneumonia Severity Index -->
+        <div class="container">
+            <h1>Pneumonia Severity Index</h1>
+
+            <form id="psiForm">
+                <div class="form-group">
+                    <label for="age_psi">Leeftijd</label>
+                    <input type="number" id="age_psi" min="18" max="120" step="1" placeholder="Leeftijd">
+                </div>
+
+                <div class="form-group">
+                    <label>Geslacht</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="geslacht_psi" value="0" checked>
+                            Man
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="geslacht_psi" value="-10">
+                            Vrouw
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Inwoner verpleeghuis</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="verpleeghuis_psi" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="verpleeghuis_psi" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <p class="note">Comorbiditeiten</p>
+
+                <div class="form-group">
+                    <label>Maligniteit</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="maligniteit_psi" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="maligniteit_psi" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Leverziekten</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="leverziekten_psi" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="leverziekten_psi" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Hartfalen</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="hartfalen_psi" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="hartfalen_psi" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Cerebrovasculaire ziekten</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="cerebrovasculair_psi" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="cerebrovasculair_psi" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Nierziekten</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="nierziekten_psi" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="nierziekten_psi" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <p class="note">Lichamelijk onderzoek</p>
+
+                <div class="form-group">
+                    <label>Verandering mentale status</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="mentaal_psi" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="mentaal_psi" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Ademhalingsfrequentie ≥ 30/min</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="af_psi" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="af_psi" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Systolische bloeddruk ≤ 90mmHg</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="sbp_psi" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="sbp_psi" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Temperatuur &lt; 35°C of ≥ 40°C</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="temp_psi" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="temp_psi" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Pols ≥ 125/min</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="pols_psi" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="pols_psi" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <p class="note">Laboratorium / radiologie</p>
+
+                <div class="form-group">
+                    <label>pH &lt; 7.35</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="pH_psi" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="pH_psi" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Ureum ≥ 11mmol/l</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="ureum_psi" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="ureum_psi" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Natrium &lt; 130mmol/l</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="natrium_psi" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="natrium_psi" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Glucose ≥ 14mmol/l</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="glucose_psi" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="glucose_psi" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Haematocriet &lt; 30%</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="haematocriet_psi" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="haematocriet_psi" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>pO2 &lt;60mmHg of SaO2 &lt;90%</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="pO2_psi" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="pO2_psi" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Pleurale effusie</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="pleuraeffusie_psi" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="pleuraeffusie_psi" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+            </form>
+
+            <div class="results show" id="psiResults">
+                <div class="result-item">
+                    <div class="result-value">
+                        <span id="psiScore">PSI = -</span>
+                    </div>
+                </div>
+            </div>
+            <div class="button-container">
+                <button type="button" id="resetButtonPsi" class="reset-button">Reset</button>
+                <button type="button" id="copyButtonPsi" class="copy-button"
+                    title="Kopieer naar klembord">Kopieer</button>
+            </div>
+        </div>
+
+        <!-- Light criteria -->
+        <div class="container">
+            <h1>Light criteria</h1>
+            <p class="subtitle">Pleuravocht</p>
+
+            <form id="lightForm">
+                <div class="form-group">
+                    <label for="pleuravocht_eiwit_light">Pleuravocht totaal eiwit (g/L)</label>
+                    <input type="number" id="pleuravocht_eiwit_light" min="0" max="300" step="0.1" placeholder="g/L">
+                </div>
+
+                <div class="form-group">
+                    <label for="pleuravocht_ldh_light">Pleuravocht LDH (IU/L)</label>
+                    <input type="number" id="pleuravocht_ldh_light" min="0" max="2000" step="1" placeholder="IU/L">
+                </div>
+
+                <div class="form-group">
+                    <label for="serum_eiwit_light">Serum totaal eiwit (g/L)</label>
+                    <input type="number" id="serum_eiwit_light" min="0" max="300" step="0.1" placeholder="g/L">
+                </div>
+
+                <div class="form-group">
+                    <label for="serum_ldh_light">Serum LDH (IU/L)</label>
+                    <input type="number" id="serum_ldh_light" min="0" max="2000" step="1" placeholder="IU/L">
+                </div>
+
+                <div class="form-group">
+                    <label for="ldhgrens_light">Bovengrens LDH (IU/L)</label>
+                    <input type="number" id="ldhgrens_light" min="0" max="500" step="1" value="248">
+                </div>
+            </form>
+
+            <div class="results show" id="lightResults">
+                <div class="result-item">
+                    <div class="result-value">
+                        <span id="lightScore">Light criteria = -</span>
+                    </div>
+                </div>
+            </div>
+            <div class="button-container">
+                <button type="button" id="resetButtonLight" class="reset-button">Reset</button>
+                <button type="button" id="copyButtonLight" class="copy-button"
+                    title="Kopieer naar klembord">Kopieer</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="shared.js"></script>
+    <script>
+        // ============================================================
+        // A-a gradiënt Calculator
+        // ============================================================
+        let currentAaText = '';
+
+        function calculateAA() {
+            const pco2 = parseFloat(document.getElementById('pco2_aa').value);
+            const po2 = parseFloat(document.getElementById('po2_aa').value);
+            const fio2 = parseFloat(document.getElementById('fio2_aa').value);
+            const age = parseFloat(document.getElementById('age_aa').value);
+            const press = document.getElementById('press_aa').value;
+
+            if (isNaN(pco2) || isNaN(po2) || isNaN(fio2)) {
+                currentAaText = 'A-a gradiënt = -';
+                document.getElementById('aaScore').textContent = currentAaText;
+                return;
+            }
+
+            if (press === 'mmHg') {
+                const aa = (((fio2 / 100) * (760 - 47)) - (pco2 / 0.8)) - po2;
+                currentAaText = `A-a gradiënt = ${aa.toFixed(1)} mmHg`;
+                if (!isNaN(age)) {
+                    const ageExpMmhg = 2.5 + (0.21 * age);
+                    currentAaText += `\nLeeftijd gecorrigeerde\nmax A-a gradiënt = ${ageExpMmhg.toFixed(1)} mmHg`;
+                }
+            } else {
+                const aa = (((fio2 / 100) * (101.325 - 6.266151)) - (pco2 / 0.8)) - po2;
+                currentAaText = `A-a gradiënt = ${aa.toFixed(1)} kPa`;
+                if (!isNaN(age)) {
+                    const ageExpKpa = (2.5 + (0.21 * age)) * 0.133322368;
+                    currentAaText += `\nLeeftijd gecorrigeerde\nmax A-a gradiënt = ${ageExpKpa.toFixed(1)} kPa`;
+                }
+            }
+
+            document.getElementById('aaScore').textContent = currentAaText;
+        }
+
+        // Masker/FiO2 logic
+        const maskerSelect = document.getElementById('masker_aa');
+        const maskerLGroup = document.getElementById('maskerLGroup');
+        const maskerLInput = document.getElementById('masker_L_aa');
+        const fio2Input = document.getElementById('fio2_aa');
+
+        maskerSelect.addEventListener('change', function () {
+            const val = this.value;
+            if (val === '1' || val === '2') {
+                maskerLGroup.style.display = '';
+            } else {
+                maskerLGroup.style.display = 'none';
+            }
+
+            if (val === '0') {
+                fio2Input.value = 21;
+            } else if (val === '3') {
+                fio2Input.value = 90;
+            }
+            calculateAA();
+        });
+
+        maskerLInput.addEventListener('input', function () {
+            const maskerVal = maskerSelect.value;
+            let L = parseFloat(this.value);
+            if (isNaN(L)) return;
+
+            if (maskerVal === '1') {
+                L = Math.min(L, 6);
+                L = Math.max(L, 1);
+                const fio2 = Math.round(((L - 1) / 5) * (50 - 24) + 24);
+                fio2Input.value = fio2;
+            } else if (maskerVal === '2') {
+                L = Math.min(L, 10);
+                L = Math.max(L, 5);
+                const fio2 = Math.round(((L - 5) / 5) * (60 - 40) + 40);
+                fio2Input.value = fio2;
+            }
+            calculateAA();
+        });
+
+        const pco2Input = document.getElementById('pco2_aa');
+        const po2Input = document.getElementById('po2_aa');
+
+        document.getElementById('press_aa').addEventListener('change', function () {
+            const step = this.value === 'kPa' ? '0.1' : '1';
+            pco2Input.step = step;
+            po2Input.step = step;
+            calculateAA();
+        });
+
+        pco2Input.addEventListener('input', calculateAA);
+        po2Input.addEventListener('input', calculateAA);
+        document.getElementById('fio2_aa').addEventListener('input', calculateAA);
+        document.getElementById('age_aa').addEventListener('input', calculateAA);
+
+        setupCopy('copyButtonAa', () => currentAaText);
+
+        document.getElementById('resetButtonAa').addEventListener('click', function () {
+            document.getElementById('pco2_aa').value = '';
+            document.getElementById('po2_aa').value = '';
+            document.getElementById('masker_L_aa').value = '';
+            document.getElementById('masker_aa').selectedIndex = 0;
+            document.getElementById('fio2_aa').value = 21;
+            document.getElementById('age_aa').value = '';
+            document.getElementById('press_aa').selectedIndex = 0;
+            maskerLGroup.style.display = 'none';
+            calculateAA();
+            showButtonFeedback(this, 'reset-done');
+        });
+
+        calculateAA();
+
+        // ============================================================
+        // AMBU-65 score Calculator
+        // ============================================================
+        let currentAmbuText = '';
+
+        function calculateAMBU() {
+            const af = parseInt(document.querySelector('input[name="af_ambu"]:checked').value);
+            const confusion = parseInt(document.querySelector('input[name="confusion_ambu"]:checked').value);
+            const sbp = parseInt(document.querySelector('input[name="sbp_ambu"]:checked').value);
+            const dbpRaw = parseInt(document.querySelector('input[name="dbp_ambu"]:checked').value);
+            const age = parseInt(document.querySelector('input[name="age_ambu"]:checked').value);
+            const ureum = parseInt(document.querySelector('input[name="ureum_ambu"]:checked').value);
+
+            // Als SBP <90 (=1), dan telt DBP niet mee
+            const dbp = sbp === 1 ? 0 : dbpRaw;
+
+            const score = af + confusion + sbp + dbp + age + ureum;
+
+            let risk;
+            if (score <= 1) risk = '(mild)';
+            else if (score === 2) risk = '(matig-ernstig)';
+            else risk = '(ernstig)';
+
+            let mort;
+            if (score === 0) mort = 0.7;
+            else if (score === 1) mort = 3.2;
+            else if (score === 2) mort = 3;
+            else if (score === 3) mort = 17;
+            else if (score === 4) mort = 41.5;
+            else mort = 57;
+
+            currentAmbuText = `AMBU-65 = ${score}/5 ${risk}\n= ${mort}% mortaliteit (30 dagen)`;
+            document.getElementById('ambuScore').textContent = currentAmbuText;
+        }
+
+        const ambuRadios = 'input[name="af_ambu"], input[name="confusion_ambu"], input[name="sbp_ambu"], input[name="dbp_ambu"], input[name="age_ambu"], input[name="ureum_ambu"]';
+        document.querySelectorAll(ambuRadios).forEach(radio => {
+            radio.addEventListener('change', calculateAMBU);
+        });
+
+        setupCopy('copyButtonAmbu', () => currentAmbuText);
+
+        document.getElementById('resetButtonAmbu').addEventListener('click', function () {
+            document.querySelectorAll(ambuRadios).forEach(radio => {
+                if (radio.value === "0") radio.checked = true;
+            });
+            calculateAMBU();
+            showButtonFeedback(this, 'reset-done');
+        });
+
+        calculateAMBU();
+
+        // ============================================================
+        // Pneumonia Severity Index (PSI) Calculator
+        // ============================================================
+        let currentPsiText = '';
+
+        function calculatePSI() {
+            const age = parseFloat(document.getElementById('age_psi').value);
+            const geslacht = parseInt(document.querySelector('input[name="geslacht_psi"]:checked').value);
+            const verpleeghuis = parseInt(document.querySelector('input[name="verpleeghuis_psi"]:checked').value);
+
+            const maligniteit = parseInt(document.querySelector('input[name="maligniteit_psi"]:checked').value);
+            const leverziekten = parseInt(document.querySelector('input[name="leverziekten_psi"]:checked').value);
+            const hartfalen = parseInt(document.querySelector('input[name="hartfalen_psi"]:checked').value);
+            const cerebrovasculair = parseInt(document.querySelector('input[name="cerebrovasculair_psi"]:checked').value);
+            const nierziekten = parseInt(document.querySelector('input[name="nierziekten_psi"]:checked').value);
+
+            const mentaal = parseInt(document.querySelector('input[name="mentaal_psi"]:checked').value);
+            const af = parseInt(document.querySelector('input[name="af_psi"]:checked').value);
+            const sbp = parseInt(document.querySelector('input[name="sbp_psi"]:checked').value);
+            const temp = parseInt(document.querySelector('input[name="temp_psi"]:checked').value);
+            const pols = parseInt(document.querySelector('input[name="pols_psi"]:checked').value);
+
+            const pH = parseInt(document.querySelector('input[name="pH_psi"]:checked').value);
+            const ureum = parseInt(document.querySelector('input[name="ureum_psi"]:checked').value);
+            const natrium = parseInt(document.querySelector('input[name="natrium_psi"]:checked').value);
+            const glucose = parseInt(document.querySelector('input[name="glucose_psi"]:checked').value);
+            const haematocriet = parseInt(document.querySelector('input[name="haematocriet_psi"]:checked').value);
+            const pO2 = parseInt(document.querySelector('input[name="pO2_psi"]:checked').value);
+            const pleuraeffusie = parseInt(document.querySelector('input[name="pleuraeffusie_psi"]:checked').value);
+
+            if (isNaN(age)) {
+                currentPsiText = 'PSI = -\nVoer een leeftijd in';
+                document.getElementById('psiScore').textContent = currentPsiText;
+                return;
+            }
+
+            const scoreDemografie = age + geslacht + 10 * verpleeghuis;
+            const scoreComorb = 30 * maligniteit + 20 * leverziekten + 10 * hartfalen + 10 * cerebrovasculair + 10 * nierziekten;
+            const scoreLO = 20 * mentaal + 20 * af + 20 * sbp + 15 * temp + 10 * pols;
+            const scoreLab = 30 * pH + 20 * ureum + 20 * natrium + 10 * glucose + 10 * haematocriet + 10 * pO2 + 10 * pleuraeffusie;
+
+            const score = scoreDemografie + scoreComorb + scoreLO + scoreLab;
+
+            let klasse, mort;
+            if (scoreComorb === 0 && scoreLO === 0 && age <= 50) {
+                klasse = 'I (mild)';
+                mort = 0.1;
+            } else if (score <= 70) {
+                klasse = 'II (mild)';
+                mort = 0.6;
+            } else if (score <= 90) {
+                klasse = 'III (matig-ernstig)';
+                mort = 0.9;
+            } else if (score <= 130) {
+                klasse = 'IV (matig-ernstig)';
+                mort = 9.3;
+            } else {
+                klasse = 'V (ernstig)';
+                mort = 27.0;
+            }
+
+            currentPsiText = `PSI = ${score} = klasse ${klasse}\n= ${mort.toFixed(1)}% mortaliteit (30 dagen)`;
+            document.getElementById('psiScore').textContent = currentPsiText;
+        }
+
+        const psiRadios = 'input[name="geslacht_psi"], input[name="verpleeghuis_psi"], input[name="maligniteit_psi"], input[name="leverziekten_psi"], input[name="hartfalen_psi"], input[name="cerebrovasculair_psi"], input[name="nierziekten_psi"], input[name="mentaal_psi"], input[name="af_psi"], input[name="sbp_psi"], input[name="temp_psi"], input[name="pols_psi"], input[name="pH_psi"], input[name="ureum_psi"], input[name="natrium_psi"], input[name="glucose_psi"], input[name="haematocriet_psi"], input[name="pO2_psi"], input[name="pleuraeffusie_psi"]';
+
+        document.querySelectorAll(psiRadios).forEach(radio => {
+            radio.addEventListener('change', calculatePSI);
+        });
+        document.getElementById('age_psi').addEventListener('input', calculatePSI);
+
+        setupCopy('copyButtonPsi', () => currentPsiText);
+
+        document.getElementById('resetButtonPsi').addEventListener('click', function () {
+            document.getElementById('age_psi').value = '';
+            document.querySelectorAll(psiRadios).forEach(radio => {
+                if (radio.value === "0") radio.checked = true;
+            });
+            calculatePSI();
+            showButtonFeedback(this, 'reset-done');
+        });
+
+        calculatePSI();
+
+        // ============================================================
+        // Light criteria Calculator
+        // ============================================================
+        let currentLightText = '';
+
+        function calculateLight() {
+            const pleuravocht_eiwit = parseFloat(document.getElementById('pleuravocht_eiwit_light').value);
+            const pleuravocht_ldh = parseFloat(document.getElementById('pleuravocht_ldh_light').value);
+            const serum_eiwit = parseFloat(document.getElementById('serum_eiwit_light').value);
+            const serum_ldh = parseFloat(document.getElementById('serum_ldh_light').value);
+            const ldhgrens = parseFloat(document.getElementById('ldhgrens_light').value);
+
+            if (isNaN(pleuravocht_eiwit) || isNaN(pleuravocht_ldh) || isNaN(serum_eiwit) || isNaN(serum_ldh) || isNaN(ldhgrens)) {
+                currentLightText = 'Light criteria = -';
+                document.getElementById('lightScore').textContent = currentLightText;
+                return;
+            }
+
+            const light1 = (pleuravocht_eiwit / serum_eiwit) > 0.5;
+            const light2 = (pleuravocht_ldh / serum_ldh) > 0.6;
+            const light3 = pleuravocht_ldh > (2 / 3 * ldhgrens);
+
+            const lightScore = (light1 ? 1 : 0) + (light2 ? 1 : 0) + (light3 ? 1 : 0);
+            const conclusie = lightScore > 0 ? 'passende bij exsudaat' : 'passende bij transudaat';
+
+            let details = '';
+            if (light1) details += '\n+Totaal eiwit pleuravocht > 0.5 totaal eiwit serum';
+            if (light2) details += '\n+LDH pleuravocht > 0.6 LDH serum';
+            if (light3) details += '\n+LDH pleuravocht > 2/3 bovengrens serum LDH';
+
+            currentLightText = `Light criteria = ${lightScore}/3\n= ${conclusie}${details}`;
+            document.getElementById('lightScore').textContent = currentLightText;
+        }
+
+        document.getElementById('pleuravocht_eiwit_light').addEventListener('input', calculateLight);
+        document.getElementById('pleuravocht_ldh_light').addEventListener('input', calculateLight);
+        document.getElementById('serum_eiwit_light').addEventListener('input', calculateLight);
+        document.getElementById('serum_ldh_light').addEventListener('input', calculateLight);
+        document.getElementById('ldhgrens_light').addEventListener('input', calculateLight);
+
+        setupCopy('copyButtonLight', () => currentLightText);
+
+        document.getElementById('resetButtonLight').addEventListener('click', function () {
+            document.getElementById('pleuravocht_eiwit_light').value = '';
+            document.getElementById('pleuravocht_ldh_light').value = '';
+            document.getElementById('serum_eiwit_light').value = '';
+            document.getElementById('serum_ldh_light').value = '';
+            document.getElementById('ldhgrens_light').value = 248;
+            calculateLight();
+            showButtonFeedback(this, 'reset-done');
+        });
+
+        calculateLight();
+    </script>
+</body>
+
+</html>
