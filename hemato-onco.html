@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hemato-oncologie</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- MASCC Calculator -->
+        <div class="container">
+            <h1>MASCC</h1>
+            <p class="subtitle">Neutropene koorts</p>
+
+            <form id="masccForm">
+                <div class="form-group">
+                    <label>Mate van ziek zijn</label>
+                    <div class="radio-group vertical">
+                        <label class="radio-label">
+                            <input type="radio" name="ziek_mascc" value="5" checked>
+                            Geen of milde symptomen
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="ziek_mascc" value="3">
+                            Matige symptomen
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="ziek_mascc" value="0">
+                            Ernstige symptomen
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Systolische bloeddruk</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="sbp_mascc" value="5" checked>
+                            >90 mmHg
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="sbp_mascc" value="0">
+                            ≤90 mmHg
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>COPD in VG</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="copd_mascc" value="4" checked>
+                            Geen
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="copd_mascc" value="0">
+                            Wel
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Schimmelinfectie in VG</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="schimmel_mascc" value="4" checked>
+                            Geen
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="schimmel_mascc" value="0">
+                            Wel
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Dehydratie</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="dehydratie_mascc" value="3" checked>
+                            Geen
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="dehydratie_mascc" value="0">
+                            Wel
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Setting</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="poli_mascc" value="3" checked>
+                            Poliklinisch
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="poli_mascc" value="0">
+                            Klinisch
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Leeftijd</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="age_mascc" value="2" checked>
+                            <60 jaar
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="age_mascc" value="0">
+                            ≥60 jaar
+                        </label>
+                    </div>
+                </div>
+            </form>
+
+            <div class="results show" id="masccResults">
+                <div class="result-item">
+                    <div class="result-value">
+                        <span id="masccScore">MASCC = 26/26 = laag risico</span>
+                    </div>
+                </div>
+            </div>
+            <div class="button-container">
+                <button type="button" id="resetButtonMascc" class="reset-button">Reset</button>
+                <button type="button" id="copyButtonMascc" class="copy-button"
+                    title="Kopieer naar klembord">Kopieer</button>
+            </div>
+        </div>
+
+        <!-- HLH Calculator -->
+        <div class="container">
+            <h1>HLH</h1>
+            <p class="subtitle">Hemofagocytair syndroom</p>
+
+            <form id="hlhForm">
+                <div class="form-group">
+                    <label>Temperatuur >38.5°C</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="koorts_hlh" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="koorts_hlh" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Splenomegalie</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="splenomegalie_hlh" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="splenomegalie_hlh" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Hb <5.6 mmol/L</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="hb_hlh" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="hb_hlh" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Trombocyten <100 x10⁹</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="trombo_hlh" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="trombo_hlh" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Neutrofielen <1 x10⁹</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="neutro_hlh" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="neutro_hlh" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Nuchter triglyceriden >3 mmol/L</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="tg_hlh" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="tg_hlh" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Fibrinogeen <1.5 g/L</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="fibrinogeen_hlh" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="fibrinogeen_hlh" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Hemofagocytose in beenmerg/milt/lever/<br>lymfeklier</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="fagocytose_hlh" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="fagocytose_hlh" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Verlaagde of afwezige NK-cel activiteit</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="nkcell_hlh" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="nkcell_hlh" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Ferritine >500 µg/L</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="ferritine_hlh" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="ferritine_hlh" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Soluable IL-2 / CD25 >2400 U/ml</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="sil2_hlh" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="sil2_hlh" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+            </form>
+
+            <div class="results show" id="hlhResults">
+                <div class="result-item">
+                    <div class="result-value">
+                        <span id="hlhScore">HLH criteria = 0/8
+= Diagnose niet bevestigd</span>
+                    </div>
+                </div>
+            </div>
+            <div class="button-container">
+                <button type="button" id="resetButtonHlh" class="reset-button">Reset</button>
+                <button type="button" id="copyButtonHlh" class="copy-button"
+                    title="Kopieer naar klembord">Kopieer</button>
+            </div>
+        </div>
+
+        <!-- WHO Performance Status -->
+        <div class="container">
+            <h1>WHO Performance Status</h1>
+            <p class="subtitle">Performance score</p>
+
+            <form id="whoForm">
+                <div class="form-group">
+                    <label>Performance</label>
+                    <div class="radio-group vertical">
+                        <label class="radio-label">
+                            <input type="radio" name="who_score" value="0" checked>
+                            Zonder beperking in staat alle normale activiteiten uit te voeren
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="who_score" value="1">
+                            Beperkt in zware lichamelijke activiteit, maar ambulant en tot lichte arbeid in staat
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="who_score" value="2">
+                            In staat voor zichzelf te zorgen, maar niet in staat tot enig werk, >50% van de dag op de been
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="who_score" value="3">
+                            Slechts tot beperkte zelfverzorging in staat, >50% van de dag in bed of op stoel
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="who_score" value="4">
+                            Volledig hulpbehoevend, gehele dag in bed of op stoel
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="who_score" value="5">
+                            Overleden
+                        </label>
+                    </div>
+                </div>
+            </form>
+
+            <div class="results show" id="whoResults">
+                <div class="result-item">
+                    <div class="result-value">
+                        <span id="whoScore">WHO performance status = 0</span>
+                    </div>
+                </div>
+            </div>
+            <div class="button-container">
+                <button type="button" id="resetButtonWho" class="reset-button">Reset</button>
+                <button type="button" id="copyButtonWho" class="copy-button"
+                    title="Kopieer naar klembord">Kopieer</button>
+            </div>
+        </div>
+
+        <!-- Surprise Question -->
+        <div class="container">
+            <h1>Surprise Question</h1>
+            <p class="subtitle">Prognostische inschatting</p>
+
+            <form id="surpriseForm">
+                <div class="form-group">
+                    <label>Zou het je verbazen als deze patiënt over een jaar overleden is?</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="surprise_q" value="Ja" checked>
+                            Ja
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="surprise_q" value="Nee">
+                            Nee
+                        </label>
+                    </div>
+                </div>
+            </form>
+
+            <div class="results show" id="surpriseResults">
+                <div class="result-item">
+                    <div class="result-value">
+                        <span id="surpriseScore">-</span>
+                    </div>
+                </div>
+            </div>
+            <div class="button-container">
+                <button type="button" id="resetButtonSurprise" class="reset-button">Reset</button>
+                <button type="button" id="copyButtonSurprise" class="copy-button"
+                    title="Kopieer naar klembord">Kopieer</button>
+            </div>
+        </div>
+
+        <!-- IJzersaturatie Calculator -->
+        <div class="container">
+            <h1>IJzersaturatie</h1>
+            <p class="subtitle">TIJBC en ijzerverzadiging</p>
+
+            <form id="feForm">
+                <div class="form-group">
+                    <label for="ijzer_fe">Serum ijzer (µmol/L)</label>
+                    <input type="number" id="ijzer_fe" min="0" max="200" step="1" placeholder="µmol/L">
+                </div>
+
+                <div class="form-group">
+                    <label for="trans_fe">Transferrine</label>
+                    <input type="number" id="trans_fe" min="0" max="200" step="0.01" placeholder="Waarde">
+                </div>
+
+                <div class="form-group">
+                    <label for="transunit_fe">Eenheid transferrine</label>
+                    <select id="transunit_fe">
+                        <option value="g/L">g/L</option>
+                        <option value="umol/L">µmol/L</option>
+                    </select>
+                </div>
+            </form>
+
+            <div class="results show" id="feResults">
+                <div class="result-item">
+                    <div class="result-value">
+                        <span id="feScore">TIJBC = -
+IJzerverzadiging = -</span>
+                    </div>
+                </div>
+            </div>
+            <div class="button-container">
+                <button type="button" id="resetButtonFe" class="reset-button">Reset</button>
+                <button type="button" id="copyButtonFe" class="copy-button"
+                    title="Kopieer naar klembord">Kopieer</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="shared.js"></script>
+    <script>
+        // ============================================================
+        // MASCC Calculator
+        // ============================================================
+        let currentMasccText = '';
+
+        function calculateMASCC() {
+            const ziek = parseInt(document.querySelector('input[name="ziek_mascc"]:checked').value);
+            const sbp = parseInt(document.querySelector('input[name="sbp_mascc"]:checked').value);
+            const copd = parseInt(document.querySelector('input[name="copd_mascc"]:checked').value);
+            const schimmel = parseInt(document.querySelector('input[name="schimmel_mascc"]:checked').value);
+            const dehydratie = parseInt(document.querySelector('input[name="dehydratie_mascc"]:checked').value);
+            const poli = parseInt(document.querySelector('input[name="poli_mascc"]:checked').value);
+            const age = parseInt(document.querySelector('input[name="age_mascc"]:checked').value);
+
+            const score = ziek + sbp + copd + schimmel + dehydratie + poli + age;
+            const interp = score < 21 ? 'hoog risico' : 'laag risico';
+            currentMasccText = `MASCC = ${score}/26 = ${interp}`;
+
+            document.getElementById('masccScore').textContent = currentMasccText;
+            document.getElementById('masccResults').classList.add('show');
+        }
+
+        const masccRadios = 'input[name="ziek_mascc"], input[name="sbp_mascc"], input[name="copd_mascc"], input[name="schimmel_mascc"], input[name="dehydratie_mascc"], input[name="poli_mascc"], input[name="age_mascc"]';
+        document.querySelectorAll(masccRadios).forEach(radio => {
+            radio.addEventListener('change', calculateMASCC);
+        });
+
+        setupCopy('copyButtonMascc', () => currentMasccText);
+
+        document.getElementById('resetButtonMascc').addEventListener('click', function () {
+            document.querySelectorAll(masccRadios).forEach(radio => {
+                const defaults = { ziek_mascc: '5', sbp_mascc: '5', copd_mascc: '4', schimmel_mascc: '4', dehydratie_mascc: '3', poli_mascc: '3', age_mascc: '2' };
+                if (radio.value === defaults[radio.name]) radio.checked = true;
+            });
+            calculateMASCC();
+            showButtonFeedback(this, 'reset-done');
+        });
+
+        calculateMASCC();
+
+        // ============================================================
+        // HLH Calculator
+        // ============================================================
+        let currentHlhText = '';
+
+        function calculateHLH() {
+            const koorts = parseInt(document.querySelector('input[name="koorts_hlh"]:checked').value);
+            const splenomegalie = parseInt(document.querySelector('input[name="splenomegalie_hlh"]:checked').value);
+            const hb = parseInt(document.querySelector('input[name="hb_hlh"]:checked').value);
+            const trombo = parseInt(document.querySelector('input[name="trombo_hlh"]:checked').value);
+            const neutro = parseInt(document.querySelector('input[name="neutro_hlh"]:checked').value);
+            const tg = parseInt(document.querySelector('input[name="tg_hlh"]:checked').value);
+            const fibrinogeen = parseInt(document.querySelector('input[name="fibrinogeen_hlh"]:checked').value);
+            const fagocytose = parseInt(document.querySelector('input[name="fagocytose_hlh"]:checked').value);
+            const nkcell = parseInt(document.querySelector('input[name="nkcell_hlh"]:checked').value);
+            const ferritine = parseInt(document.querySelector('input[name="ferritine_hlh"]:checked').value);
+            const sil2 = parseInt(document.querySelector('input[name="sil2_hlh"]:checked').value);
+
+            // Cytopenie: ≥2 van hb, trombo, neutro
+            const cytopenie = (hb + trombo + neutro >= 2) ? 1 : 0;
+            // Lipiden/fibrinogeen: tg OF fibrinogeen
+            const lpl = (tg === 1 || fibrinogeen === 1) ? 1 : 0;
+
+            const score = koorts + cytopenie + splenomegalie + lpl + fagocytose + nkcell + ferritine + sil2;
+            const interp = score >= 5 ? 'Diagnose HLH bevestigd' : 'Diagnose niet bevestigd';
+            currentHlhText = `HLH criteria = ${score}/8\n= ${interp}`;
+
+            document.getElementById('hlhScore').textContent = currentHlhText;
+            document.getElementById('hlhResults').classList.add('show');
+        }
+
+        const hlhRadios = 'input[name="koorts_hlh"], input[name="splenomegalie_hlh"], input[name="hb_hlh"], input[name="trombo_hlh"], input[name="neutro_hlh"], input[name="tg_hlh"], input[name="fibrinogeen_hlh"], input[name="fagocytose_hlh"], input[name="nkcell_hlh"], input[name="ferritine_hlh"], input[name="sil2_hlh"]';
+        document.querySelectorAll(hlhRadios).forEach(radio => {
+            radio.addEventListener('change', calculateHLH);
+        });
+
+        setupCopy('copyButtonHlh', () => currentHlhText);
+
+        document.getElementById('resetButtonHlh').addEventListener('click', function () {
+            document.querySelectorAll(hlhRadios).forEach(radio => {
+                if (radio.value === "0") radio.checked = true;
+            });
+            calculateHLH();
+            showButtonFeedback(this, 'reset-done');
+        });
+
+        calculateHLH();
+
+        // ============================================================
+        // WHO Performance Status
+        // ============================================================
+        let currentWhoText = '';
+
+        function calculateWHO() {
+            const who = document.querySelector('input[name="who_score"]:checked').value;
+            currentWhoText = `WHO performance status = ${who}`;
+
+            document.getElementById('whoScore').textContent = currentWhoText;
+            document.getElementById('whoResults').classList.add('show');
+        }
+
+        document.querySelectorAll('input[name="who_score"]').forEach(radio => {
+            radio.addEventListener('change', calculateWHO);
+        });
+
+        setupCopy('copyButtonWho', () => currentWhoText);
+
+        document.getElementById('resetButtonWho').addEventListener('click', function () {
+            document.querySelectorAll('input[name="who_score"]').forEach(radio => {
+                if (radio.value === "0") radio.checked = true;
+            });
+            calculateWHO();
+            showButtonFeedback(this, 'reset-done');
+        });
+
+        calculateWHO();
+
+        // ============================================================
+        // Surprise Question
+        // ============================================================
+        let currentSurpriseText = '';
+
+        function calculateSurprise() {
+            const answer = document.querySelector('input[name="surprise_q"]:checked').value;
+            if (answer === 'Ja') {
+                currentSurpriseText = '-';
+            } else {
+                currentSurpriseText = 'Patiënt heeft 7.8x hogere kans om te overlijden\nbinnen 1 jaar';
+            }
+
+            document.getElementById('surpriseScore').textContent = currentSurpriseText;
+            document.getElementById('surpriseResults').classList.add('show');
+        }
+
+        document.querySelectorAll('input[name="surprise_q"]').forEach(radio => {
+            radio.addEventListener('change', calculateSurprise);
+        });
+
+        setupCopy('copyButtonSurprise', () => currentSurpriseText);
+
+        document.getElementById('resetButtonSurprise').addEventListener('click', function () {
+            document.querySelectorAll('input[name="surprise_q"]').forEach(radio => {
+                if (radio.value === "Ja") radio.checked = true;
+            });
+            calculateSurprise();
+            showButtonFeedback(this, 'reset-done');
+        });
+
+        calculateSurprise();
+
+        // ============================================================
+        // IJzersaturatie Calculator
+        // ============================================================
+        let currentFeText = '';
+
+        function calculateFe() {
+            const ijzer = parseFloat(document.getElementById('ijzer_fe').value);
+            const transValue = parseFloat(document.getElementById('trans_fe').value);
+            const transUnit = document.getElementById('transunit_fe').value;
+
+            if (isNaN(ijzer) || isNaN(transValue)) {
+                currentFeText = 'TIJBC = -\nIJzerverzadiging = -';
+            } else {
+                const trans = transUnit === 'umol/L' ? transValue * 0.0796 : transValue;
+                const tijbc = trans * 25;
+                const transsat = (ijzer / (trans * 25)) * 100;
+                currentFeText = `TIJBC = ${tijbc.toFixed(1)} µmol/L\nIJzerverzadiging = ${transsat.toFixed(1)}%`;
+            }
+
+            document.getElementById('feScore').textContent = currentFeText;
+            document.getElementById('feResults').classList.add('show');
+        }
+
+        document.getElementById('ijzer_fe').addEventListener('input', calculateFe);
+        document.getElementById('trans_fe').addEventListener('input', calculateFe);
+        document.getElementById('transunit_fe').addEventListener('change', calculateFe);
+
+        setupCopy('copyButtonFe', () => currentFeText);
+
+        document.getElementById('resetButtonFe').addEventListener('click', function () {
+            document.getElementById('ijzer_fe').value = '';
+            document.getElementById('trans_fe').value = '';
+            document.getElementById('transunit_fe').selectedIndex = 0;
+            calculateFe();
+            showButtonFeedback(this, 'reset-done');
+        });
+
+        calculateFe();
+    </script>
+</body>
+
+</html>

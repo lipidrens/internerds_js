@@ -120,6 +120,7 @@
                             <option value="Oxycodon sc/iv (mg/24 uur)">Oxycodon sc/iv (mg/24 uur)</option>
                             <option value="Hydromorfon po (mg/24 uur)">Hydromorfon po (mg/24 uur)</option>
                             <option value="Hydromorfon sc/iv (mg/24 uur)">Hydromorfon sc/iv (mg/24 uur)</option>
+                            <option value="Methadon po (mg/24 uur)">Methadon po (mg/24 uur)</option>
                             <option value="Tramadol po (mg/24 uur)">Tramadol po (mg/24 uur)</option>
                             <option value="Buprenorfine pleister (ug/uur)">Buprenorfine pleister (ug/uur)</option>
                             <option value="Tapentadol po (mg/24 uur)">Tapentadol po (mg/24 uur)</option>
@@ -356,9 +357,13 @@
             { name: 'Piritramide iv (mg/24 uur)',        factor: 0.5 }
         ];
 
-        const opioidSelectHTML = opioids.map(o =>
-            `<option value="${o.name}">${o.name}</option>`
-        ).join('');
+        const methadonName = 'Methadon po (mg/24 uur)';
+
+        const opioidSelectHTML = [
+            ...opioids.slice(0, 9).map(o => `<option value="${o.name}">${o.name}</option>`),
+            `<option value="${methadonName}">${methadonName}</option>`,
+            ...opioids.slice(9).map(o => `<option value="${o.name}">${o.name}</option>`)
+        ].join('');
 
         function createOpioidRow() {
             const row = document.createElement('div');
@@ -377,6 +382,24 @@
             return row;
         }
 
+        // Methadon conversie: morfine PO → ratio
+        function methadonRatio(morfinePO) {
+            if (morfinePO <= 90) return 4;
+            if (morfinePO <= 300) return 8;
+            return 12;
+        }
+
+        // Methadon input → morfine PO equivalent
+        // Bepaal de juiste ratio door te checken in welk bereik het resultaat valt
+        function methadonNaarMorfine(methadonDosis) {
+            // Probeer ratio 4: resultaat zou ≤ 90 moeten zijn
+            if (methadonDosis * 4 <= 90) return methadonDosis * 4;
+            // Probeer ratio 8: resultaat zou 91-300 moeten zijn
+            if (methadonDosis * 8 <= 300) return methadonDosis * 8;
+            // Ratio 12
+            return methadonDosis * 12;
+        }
+
         function calculateOpioid() {
             const rows = document.querySelectorAll('#opioidRows .opioid-row');
             let totaalPOMorfine = 0;
@@ -393,8 +416,12 @@
                     dosis = 12.5;
                 }
 
-                const opioid = opioids.find(o => o.name === med);
-                totaalPOMorfine += dosis / opioid.factor;
+                if (med === methadonName) {
+                    totaalPOMorfine += methadonNaarMorfine(dosis);
+                } else {
+                    const opioid = opioids.find(o => o.name === med);
+                    totaalPOMorfine += dosis / opioid.factor;
+                }
                 hasValidInput = true;
             });
 
@@ -430,12 +457,6 @@
 
             // Methadon rij
             if (hasValidInput) {
-                // Methadon conversie (ratio morfine:methadon)
-                function methadonRatio(morfinePO) {
-                    if (morfinePO <= 90) return 4;
-                    if (morfinePO <= 300) return 8;
-                    return 12;
-                }
                 const methadonRatioWaarde = methadonRatio(totaalNaReductie);
                 const methadonDosis = totaalNaReductie / methadonRatioWaarde;
                 html += `<tr><td>Methadon po (mg/24 uur)</td><td>${methadonDosis.toFixed(2)}</td></tr>`;
