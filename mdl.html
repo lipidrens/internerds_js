@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MDL</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- Blatchford score -->
+        <div class="container">
+            <h1>Blatchford score</h1>
+            <p class="subtitle">GE bloeding</p>
+
+            <form id="bfForm">
+                <div class="form-group">
+                    <label for="hb_bf">Hemoglobine (mmol/L)</label>
+                    <input type="number" id="hb_bf" min="2" max="15" step="0.1" placeholder="mmol/L">
+                </div>
+
+                <div class="form-group">
+                    <label for="ureum_bf">Ureum (mmol/L)</label>
+                    <input type="number" id="ureum_bf" min="0" max="50" step="0.1" placeholder="mmol/L">
+                </div>
+
+                <div class="form-group">
+                    <label for="sbp_bf">Systolische bloeddruk (mmHg)</label>
+                    <input type="number" id="sbp_bf" min="20" max="250" step="1" placeholder="mmHg">
+                </div>
+
+                <div class="form-group">
+                    <label>Geslacht</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="sex_bf" value="Man" checked>
+                            Man
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="sex_bf" value="Vrouw">
+                            Vrouw
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Hartfrequentie</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="hr_bf" value="0" checked>
+                            &le;100
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="hr_bf" value="1">
+                            &gt;100
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Melena</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="melena_bf" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="melena_bf" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Collaps</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="collaps_bf" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="collaps_bf" value="2">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Leverziekte</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="liver_bf" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="liver_bf" value="2">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Hartfalen</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="hf_bf" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="hf_bf" value="2">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+            </form>
+
+            <div class="results show" id="bfResults">
+                <div class="result-item">
+                    <div class="result-value">
+                        <span id="bfScore">Blatchford score = -</span>
+                    </div>
+                </div>
+            </div>
+            <div class="button-container">
+                <button type="button" id="resetButtonBf" class="reset-button">Reset</button>
+                <button type="button" id="copyButtonBf" class="copy-button"
+                    title="Kopieer naar klembord">Kopieer</button>
+            </div>
+        </div>
+
+        <!-- Glasgow-Imrie criteria -->
+        <div class="container">
+            <h1>Glasgow-Imrie criteria</h1>
+            <p class="subtitle">Acute pancreatitis</p>
+
+            <form id="imrieForm">
+                <div class="form-group">
+                    <label>Leeftijd &gt;55 jaar</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="age_imrie" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="age_imrie" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Leukocyten &gt;15x10&#x2079;/L</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="wbc_imrie" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="wbc_imrie" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Glucose &gt;10 mmol/L</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="glucose_imrie" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="glucose_imrie" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>LDH &gt;600 IU/L of ASAT &gt;200 U/L</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="ldh_imrie" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="ldh_imrie" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Calcium &lt;2 mmol/L</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="calcium_imrie" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="calcium_imrie" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Albumine &lt;32 g/L</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="albumin_imrie" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="albumin_imrie" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Ureum &gt;16 mmol/L</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="ureum_imrie" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="ureum_imrie" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>PaO&#x2082; &lt;59.3 mmHg (7.9 kPa)</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="po2_imrie" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="po2_imrie" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+            </form>
+
+            <div class="results show" id="imrieResults">
+                <div class="result-item">
+                    <div class="result-value">
+                        <span id="imrieScore">Glasgow-Imrie score = 0
+= passend bij milde pancreatitis</span>
+                    </div>
+                </div>
+            </div>
+            <div class="button-container">
+                <button type="button" id="resetButtonImrie" class="reset-button">Reset</button>
+                <button type="button" id="copyButtonImrie" class="copy-button"
+                    title="Kopieer naar klembord">Kopieer</button>
+            </div>
+        </div>
+
+        <!-- SAAG -->
+        <div class="container">
+            <h1>SAAG</h1>
+
+            <form id="saagForm">
+                <div class="form-group">
+                    <label for="alb_serum">Serum albumine concentratie (g/L)</label>
+                    <input type="number" id="alb_serum" min="0" step="0.1" placeholder="g/L">
+                </div>
+
+                <div class="form-group">
+                    <label for="alb_ascites">Ascites albumine concentratie (g/L)</label>
+                    <input type="number" id="alb_ascites" min="0" step="0.1" placeholder="g/L">
+                </div>
+            </form>
+
+            <div class="results show" id="saagResults">
+                <div class="result-item">
+                    <div class="result-value">
+                        <span id="saagScore">SAAG = -</span>
+                    </div>
+                </div>
+            </div>
+            <div class="button-container">
+                <button type="button" id="resetButtonSaag" class="reset-button">Reset</button>
+                <button type="button" id="copyButtonSaag" class="copy-button"
+                    title="Kopieer naar klembord">Kopieer</button>
+            </div>
+        </div>
+
+        <!-- Child-Pugh Score -->
+        <div class="container">
+            <h1>Child-Pugh Score</h1>
+
+            <form id="cpForm">
+                <div class="form-group">
+                    <label>Plasma bilirubine (umol/L)</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="bili_cp" value="1" checked>
+                            &lt;34.2
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="bili_cp" value="2">
+                            34.2 - 51.3
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="bili_cp" value="3">
+                            &gt;51.3
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Plasma albumine (g/L)</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="albumine_cp" value="1" checked>
+                            &gt;35
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="albumine_cp" value="2">
+                            28 - 35
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="albumine_cp" value="3">
+                            &lt;28
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>INR</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="inr_cp" value="1" checked>
+                            &lt;1.7
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="inr_cp" value="2">
+                            1.7 - 2.3
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="inr_cp" value="3">
+                            &gt;2.3
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Ascites</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="ascites_cp" value="1" checked>
+                            Afwezig
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="ascites_cp" value="2">
+                            Beetje
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="ascites_cp" value="3">
+                            Gemiddeld
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Encefalopathie</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="encefa_cp" value="1" checked>
+                            Afwezig
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="encefa_cp" value="2">
+                            Graad 1-2
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="encefa_cp" value="3">
+                            Graad 3-4
+                        </label>
+                    </div>
+                </div>
+            </form>
+
+            <div class="results show" id="cpResults">
+                <div class="result-item">
+                    <div class="result-value">
+                        <span id="cpScore">Child-Pugh score = -</span>
+                    </div>
+                </div>
+            </div>
+            <div class="button-container">
+                <button type="button" id="resetButtonCp" class="reset-button">Reset</button>
+                <button type="button" id="copyButtonCp" class="copy-button"
+                    title="Kopieer naar klembord">Kopieer</button>
+            </div>
+        </div>
+
+        <!-- MELD score -->
+        <div class="container">
+            <h1>MELD score</h1>
+
+            <form id="meldForm">
+                <div class="form-group">
+                    <label>&ge;2x Dialyse in afgelopen week of &gt;24h CVVH?</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="dialyse_meld" value="0" checked>
+                            Nee
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="dialyse_meld" value="1">
+                            Ja
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="kreat_meld">Kreatinine (umol/L)</label>
+                    <input type="number" id="kreat_meld" min="0" step="1" placeholder="umol/L">
+                </div>
+
+                <div class="form-group">
+                    <label for="bili_meld">Bilirubine (umol/L)</label>
+                    <input type="number" id="bili_meld" min="0" step="1" placeholder="umol/L">
+                </div>
+
+                <div class="form-group">
+                    <label for="inr_meld">INR</label>
+                    <input type="number" id="inr_meld" min="0" step="0.1" placeholder="INR">
+                </div>
+            </form>
+
+            <div class="results show" id="meldResults">
+                <div class="result-item">
+                    <div class="result-value">
+                        <span id="meldScore">MELD score = -</span>
+                    </div>
+                </div>
+            </div>
+            <div class="button-container">
+                <button type="button" id="resetButtonMeld" class="reset-button">Reset</button>
+                <button type="button" id="copyButtonMeld" class="copy-button"
+                    title="Kopieer naar klembord">Kopieer</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="shared.js"></script>
+    <script>
+        // ============================================================
+        // Blatchford score Calculator
+        // ============================================================
+        let currentBfText = '';
+
+        function calculateBF() {
+            const hb = parseFloat(document.getElementById('hb_bf').value);
+            const ureum = parseFloat(document.getElementById('ureum_bf').value);
+            const sbp = parseFloat(document.getElementById('sbp_bf').value);
+            const sex = document.querySelector('input[name="sex_bf"]:checked').value;
+            const hr = parseInt(document.querySelector('input[name="hr_bf"]:checked').value);
+            const melena = parseInt(document.querySelector('input[name="melena_bf"]:checked').value);
+            const collaps = parseInt(document.querySelector('input[name="collaps_bf"]:checked').value);
+            const liver = parseInt(document.querySelector('input[name="liver_bf"]:checked').value);
+            const hf = parseInt(document.querySelector('input[name="hf_bf"]:checked').value);
+
+            if (isNaN(hb) || isNaN(ureum) || isNaN(sbp)) {
+                currentBfText = 'Blatchford score = -';
+                document.getElementById('bfScore').textContent = currentBfText;
+                return;
+            }
+
+            // Ureum score
+            let ureumScore;
+            if (ureum >= 25) ureumScore = 6;
+            else if (ureum >= 10) ureumScore = 4;
+            else if (ureum >= 8) ureumScore = 3;
+            else if (ureum >= 6.5) ureumScore = 2;
+            else ureumScore = 0;
+
+            // Hb score
+            let hbScore;
+            if (sex === 'Man') {
+                if (hb < 6.2) hbScore = 6;
+                else if (hb < 7.5) hbScore = 3;
+                else if (hb >= 7.5 && hb <= 8) hbScore = 1;
+                else hbScore = 0;
+            } else {
+                if (hb < 6.2) hbScore = 6;
+                else if (hb < 7.5) hbScore = 1;
+                else hbScore = 0;
+            }
+
+            // SBP score
+            let sbpScore;
+            if (sbp < 90) sbpScore = 3;
+            else if (sbp < 100) sbpScore = 2;
+            else if (sbp < 110) sbpScore = 1;
+            else sbpScore = 0;
+
+            const score = ureumScore + hbScore + sbpScore + hr + melena + collaps + liver + hf;
+            const risk = score < 2 ? 'laag risico' : 'hoog risico';
+
+            currentBfText = `Blatchford score = ${score}\n= ${risk}`;
+            document.getElementById('bfScore').textContent = currentBfText;
+        }
+
+        const bfRadios = 'input[name="sex_bf"], input[name="hr_bf"], input[name="melena_bf"], input[name="collaps_bf"], input[name="liver_bf"], input[name="hf_bf"]';
+
+        document.getElementById('hb_bf').addEventListener('input', calculateBF);
+        document.getElementById('ureum_bf').addEventListener('input', calculateBF);
+        document.getElementById('sbp_bf').addEventListener('input', calculateBF);
+        document.querySelectorAll(bfRadios).forEach(radio => {
+            radio.addEventListener('change', calculateBF);
+        });
+
+        setupCopy('copyButtonBf', () => currentBfText);
+
+        document.getElementById('resetButtonBf').addEventListener('click', function () {
+            document.getElementById('hb_bf').value = '';
+            document.getElementById('ureum_bf').value = '';
+            document.getElementById('sbp_bf').value = '';
+            document.querySelectorAll(bfRadios).forEach(radio => {
+                if (radio.value === "0" || radio.value === "Man") radio.checked = true;
+            });
+            calculateBF();
+            showButtonFeedback(this, 'reset-done');
+        });
+
+        calculateBF();
+
+        // ============================================================
+        // Glasgow-Imrie criteria Calculator
+        // ============================================================
+        let currentImrieText = '';
+
+        function calculateImrie() {
+            const age = parseInt(document.querySelector('input[name="age_imrie"]:checked').value);
+            const wbc = parseInt(document.querySelector('input[name="wbc_imrie"]:checked').value);
+            const glucose = parseInt(document.querySelector('input[name="glucose_imrie"]:checked').value);
+            const ldh = parseInt(document.querySelector('input[name="ldh_imrie"]:checked').value);
+            const calcium = parseInt(document.querySelector('input[name="calcium_imrie"]:checked').value);
+            const albumin = parseInt(document.querySelector('input[name="albumin_imrie"]:checked').value);
+            const ureum = parseInt(document.querySelector('input[name="ureum_imrie"]:checked').value);
+            const po2 = parseInt(document.querySelector('input[name="po2_imrie"]:checked').value);
+
+            const score = age + wbc + glucose + ldh + calcium + albumin + ureum + po2;
+            const risk = score > 2 ? 'passend bij ernstige pancreatitis' : 'passend bij milde pancreatitis';
+
+            currentImrieText = `Glasgow-Imrie score = ${score}\n= ${risk}`;
+            document.getElementById('imrieScore').textContent = currentImrieText;
+        }
+
+        const imrieRadios = 'input[name="age_imrie"], input[name="wbc_imrie"], input[name="glucose_imrie"], input[name="ldh_imrie"], input[name="calcium_imrie"], input[name="albumin_imrie"], input[name="ureum_imrie"], input[name="po2_imrie"]';
+
+        document.querySelectorAll(imrieRadios).forEach(radio => {
+            radio.addEventListener('change', calculateImrie);
+        });
+
+        setupCopy('copyButtonImrie', () => currentImrieText);
+
+        document.getElementById('resetButtonImrie').addEventListener('click', function () {
+            document.querySelectorAll(imrieRadios).forEach(radio => {
+                if (radio.value === "0") radio.checked = true;
+            });
+            calculateImrie();
+            showButtonFeedback(this, 'reset-done');
+        });
+
+        calculateImrie();
+
+        // ============================================================
+        // SAAG Calculator
+        // ============================================================
+        let currentSaagText = '';
+
+        function calculateSAAG() {
+            const albSerum = parseFloat(document.getElementById('alb_serum').value);
+            const albAscites = parseFloat(document.getElementById('alb_ascites').value);
+
+            if (isNaN(albSerum) || isNaN(albAscites)) {
+                currentSaagText = 'SAAG = -';
+                document.getElementById('saagScore').textContent = currentSaagText;
+                return;
+            }
+
+            const saag = albSerum - albAscites;
+            const conclusie = saag >= 11 ? 'passend bij transudaat' : 'passend bij exsudaat';
+
+            currentSaagText = `SAAG = ${saag.toFixed(1)} g/L\n= ${conclusie}`;
+            document.getElementById('saagScore').textContent = currentSaagText;
+        }
+
+        document.getElementById('alb_serum').addEventListener('input', calculateSAAG);
+        document.getElementById('alb_ascites').addEventListener('input', calculateSAAG);
+
+        setupCopy('copyButtonSaag', () => currentSaagText);
+
+        document.getElementById('resetButtonSaag').addEventListener('click', function () {
+            document.getElementById('alb_serum').value = '';
+            document.getElementById('alb_ascites').value = '';
+            calculateSAAG();
+            showButtonFeedback(this, 'reset-done');
+        });
+
+        calculateSAAG();
+
+        // ============================================================
+        // Child-Pugh Score Calculator
+        // ============================================================
+        let currentCpText = '';
+
+        function calculateCP() {
+            const bili = parseInt(document.querySelector('input[name="bili_cp"]:checked').value);
+            const albumine = parseInt(document.querySelector('input[name="albumine_cp"]:checked').value);
+            const inr = parseInt(document.querySelector('input[name="inr_cp"]:checked').value);
+            const ascites = parseInt(document.querySelector('input[name="ascites_cp"]:checked').value);
+            const encefa = parseInt(document.querySelector('input[name="encefa_cp"]:checked').value);
+
+            const score = bili + albumine + inr + ascites + encefa;
+
+            let cp;
+            if (score <= 6) cp = 'A';
+            else if (score <= 9) cp = 'B';
+            else cp = 'C';
+
+            let surv1;
+            if (score <= 6) surv1 = 100;
+            else if (score <= 9) surv1 = 80;
+            else surv1 = 45;
+
+            let surv2;
+            if (score <= 6) surv2 = 85;
+            else if (score <= 9) surv2 = 60;
+            else surv2 = 35;
+
+            currentCpText = `Child-Pugh score = ${score} = klasse ${cp}\n1-jaars overleving = ${surv1}%\n2-jaars overleving = ${surv2}%`;
+            document.getElementById('cpScore').textContent = currentCpText;
+        }
+
+        const cpRadios = 'input[name="bili_cp"], input[name="albumine_cp"], input[name="inr_cp"], input[name="ascites_cp"], input[name="encefa_cp"]';
+
+        document.querySelectorAll(cpRadios).forEach(radio => {
+            radio.addEventListener('change', calculateCP);
+        });
+
+        setupCopy('copyButtonCp', () => currentCpText);
+
+        document.getElementById('resetButtonCp').addEventListener('click', function () {
+            document.querySelectorAll(cpRadios).forEach(radio => {
+                if (radio.value === "1") radio.checked = true;
+            });
+            calculateCP();
+            showButtonFeedback(this, 'reset-done');
+        });
+
+        calculateCP();
+
+        // ============================================================
+        // MELD score Calculator
+        // ============================================================
+        let currentMeldText = '';
+
+        function calculateMELD() {
+            const dialyse = parseInt(document.querySelector('input[name="dialyse_meld"]:checked').value);
+            const kreatRaw = parseFloat(document.getElementById('kreat_meld').value);
+            const biliRaw = parseFloat(document.getElementById('bili_meld').value);
+            const inrRaw = parseFloat(document.getElementById('inr_meld').value);
+
+            if (isNaN(kreatRaw) || isNaN(biliRaw) || isNaN(inrRaw)) {
+                currentMeldText = 'MELD score = -';
+                document.getElementById('meldScore').textContent = currentMeldText;
+                return;
+            }
+
+            // Kreatinine: umol/L naar mg/dL (delen door 88.42), cap at 4, floor at 1, dialyse = 4
+            let kreat;
+            if (dialyse === 1) {
+                kreat = 4.0;
+            } else {
+                kreat = kreatRaw / 88.42;
+                if (kreat > 4) kreat = 4.0;
+                if (kreat < 1) kreat = 1.0;
+            }
+
+            // Bilirubine: umol/L naar mg/dL (delen door 17.1), floor at 1
+            let bili = biliRaw / 17.1;
+            if (bili < 1.0) bili = 1.0;
+
+            // INR: floor at 1
+            let inr = inrRaw;
+            if (inr < 1.0) inr = 1.0;
+
+            const meld = Math.round(((0.957 * Math.log(kreat)) + (0.378 * Math.log(bili)) + (1.120 * Math.log(inr)) + 0.643) * 10);
+
+            let mort;
+            if (meld <= 9) mort = 1.9;
+            else if (meld <= 19) mort = 6.0;
+            else if (meld <= 29) mort = 19.6;
+            else if (meld <= 39) mort = 52.6;
+            else mort = 71.3;
+
+            currentMeldText = `MELD score = ${meld}\n3-maanden mortaliteit = ${mort.toFixed(1)}%`;
+            document.getElementById('meldScore').textContent = currentMeldText;
+        }
+
+        document.getElementById('kreat_meld').addEventListener('input', calculateMELD);
+        document.getElementById('bili_meld').addEventListener('input', calculateMELD);
+        document.getElementById('inr_meld').addEventListener('input', calculateMELD);
+        document.querySelectorAll('input[name="dialyse_meld"]').forEach(radio => {
+            radio.addEventListener('change', calculateMELD);
+        });
+
+        setupCopy('copyButtonMeld', () => currentMeldText);
+
+        document.getElementById('resetButtonMeld').addEventListener('click', function () {
+            document.getElementById('kreat_meld').value = '';
+            document.getElementById('bili_meld').value = '';
+            document.getElementById('inr_meld').value = '';
+            document.querySelectorAll('input[name="dialyse_meld"]').forEach(radio => {
+                if (radio.value === "0") radio.checked = true;
+            });
+            calculateMELD();
+            showButtonFeedback(this, 'reset-done');
+        });
+
+        calculateMELD();
+    </script>
+</body>
+
+</html>

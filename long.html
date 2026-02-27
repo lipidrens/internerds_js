@@ -184,6 +184,52 @@
             </div>
         </div>
 
+        <!-- Light criteria -->
+        <div class="container">
+            <h1>Light criteria</h1>
+            <p class="subtitle">Pleuravocht</p>
+
+            <form id="lightForm">
+                <div class="form-group">
+                    <label for="pleuravocht_eiwit_light">Pleuravocht totaal eiwit (g/L)</label>
+                    <input type="number" id="pleuravocht_eiwit_light" min="0" max="300" step="0.1" placeholder="g/L">
+                </div>
+
+                <div class="form-group">
+                    <label for="pleuravocht_ldh_light">Pleuravocht LDH (IU/L)</label>
+                    <input type="number" id="pleuravocht_ldh_light" min="0" max="2000" step="1" placeholder="IU/L">
+                </div>
+
+                <div class="form-group">
+                    <label for="serum_eiwit_light">Serum totaal eiwit (g/L)</label>
+                    <input type="number" id="serum_eiwit_light" min="0" max="300" step="0.1" placeholder="g/L">
+                </div>
+
+                <div class="form-group">
+                    <label for="serum_ldh_light">Serum LDH (IU/L)</label>
+                    <input type="number" id="serum_ldh_light" min="0" max="2000" step="1" placeholder="IU/L">
+                </div>
+
+                <div class="form-group">
+                    <label for="ldhgrens_light">Bovengrens LDH (IU/L)</label>
+                    <input type="number" id="ldhgrens_light" min="0" max="500" step="1" value="248">
+                </div>
+            </form>
+
+            <div class="results show" id="lightResults">
+                <div class="result-item">
+                    <div class="result-value">
+                        <span id="lightScore">Light criteria = -</span>
+                    </div>
+                </div>
+            </div>
+            <div class="button-container">
+                <button type="button" id="resetButtonLight" class="reset-button">Reset</button>
+                <button type="button" id="copyButtonLight" class="copy-button"
+                    title="Kopieer naar klembord">Kopieer</button>
+            </div>
+        </div>
+
         <!-- Pneumonia Severity Index -->
         <div class="container">
             <h1>Pneumonia Severity Index</h1>
@@ -477,52 +523,6 @@
             <div class="button-container">
                 <button type="button" id="resetButtonPsi" class="reset-button">Reset</button>
                 <button type="button" id="copyButtonPsi" class="copy-button"
-                    title="Kopieer naar klembord">Kopieer</button>
-            </div>
-        </div>
-
-        <!-- Light criteria -->
-        <div class="container">
-            <h1>Light criteria</h1>
-            <p class="subtitle">Pleuravocht</p>
-
-            <form id="lightForm">
-                <div class="form-group">
-                    <label for="pleuravocht_eiwit_light">Pleuravocht totaal eiwit (g/L)</label>
-                    <input type="number" id="pleuravocht_eiwit_light" min="0" max="300" step="0.1" placeholder="g/L">
-                </div>
-
-                <div class="form-group">
-                    <label for="pleuravocht_ldh_light">Pleuravocht LDH (IU/L)</label>
-                    <input type="number" id="pleuravocht_ldh_light" min="0" max="2000" step="1" placeholder="IU/L">
-                </div>
-
-                <div class="form-group">
-                    <label for="serum_eiwit_light">Serum totaal eiwit (g/L)</label>
-                    <input type="number" id="serum_eiwit_light" min="0" max="300" step="0.1" placeholder="g/L">
-                </div>
-
-                <div class="form-group">
-                    <label for="serum_ldh_light">Serum LDH (IU/L)</label>
-                    <input type="number" id="serum_ldh_light" min="0" max="2000" step="1" placeholder="IU/L">
-                </div>
-
-                <div class="form-group">
-                    <label for="ldhgrens_light">Bovengrens LDH (IU/L)</label>
-                    <input type="number" id="ldhgrens_light" min="0" max="500" step="1" value="248">
-                </div>
-            </form>
-
-            <div class="results show" id="lightResults">
-                <div class="result-item">
-                    <div class="result-value">
-                        <span id="lightScore">Light criteria = -</span>
-                    </div>
-                </div>
-            </div>
-            <div class="button-container">
-                <button type="button" id="resetButtonLight" class="reset-button">Reset</button>
-                <button type="button" id="copyButtonLight" class="copy-button"
                     title="Kopieer naar klembord">Kopieer</button>
             </div>
         </div>
