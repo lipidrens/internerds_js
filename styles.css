@@ -56,11 +56,8 @@ body {
 }
 
 .wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    align-items: start;
-    gap: var(--spacing-sm);
+    columns: 380px auto;
+    column-gap: var(--spacing-sm);
     padding: var(--spacing-md);
     max-width: 1200px;
     margin: 0 auto;
@@ -70,13 +67,14 @@ body {
     background: var(--background-white);
     border-radius: var(--radius-xl);
     padding: var(--spacing-lg);
-    max-width: 380px;
     width: 100%;
     display: flex;
     flex-direction: column;
     box-shadow: var(--shadow-lg);
     border: 1.5px solid var(--border-main);
     transition: box-shadow var(--transition-normal);
+    break-inside: avoid;
+    margin-bottom: var(--spacing-sm);
 }
 
 h1 {
