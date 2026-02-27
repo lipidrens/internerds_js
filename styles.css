@@ -488,6 +488,41 @@ button:active {
     opacity: 0;
 }
 
+/* Davenport diagram */
+.davenport-wrapper {
+    position: relative;
+    display: block;
+    width: 100%;
+    margin-top: var(--spacing-sm);
+    line-height: 0;
+    font-size: 0;
+}
+
+.davenport-img {
+    max-width: 100%;
+    display: block;
+}
+
+.davenport-line-h {
+    position: absolute;
+    border-top: 1.25px solid red;
+    left: 0;
+    right: 0;
+    display: none;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.davenport-line-v {
+    position: absolute;
+    border-left: 1.25px solid red;
+    top: 0;
+    bottom: 0;
+    display: none;
+    pointer-events: none;
+    z-index: 1;
+}
+
 /* Responsive adjustments */
 @media (max-width: 480px) {
     .wrapper {

@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zuur-base</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- Zuur-base calculator -->
+        <div class="container">
+            <h1>Zuur-base</h1>
+
+            <form id="zbForm">
+                <div class="form-group">
+                    <label for="pH_zb">pH</label>
+                    <input type="number" id="pH_zb" min="6" max="8" step="0.01" placeholder="Bijv. 7.40">
+                </div>
+
+                <div class="form-group">
+                    <label for="pCO2_zb">pCO2</label>
+                    <input type="number" id="pCO2_zb" min="0" max="200" step="0.1" placeholder="Waarde">
+                </div>
+
+                <div class="form-group">
+                    <label>Eenheid pCO2</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="unit_zb" value="mmHg" checked>
+                            mmHg
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="unit_zb" value="kPa">
+                            kPa
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="bic_zb">Bicarbonaat (mmol/L)</label>
+                    <input type="number" id="bic_zb" min="0" max="50" step="0.1" placeholder="Optioneel">
+                </div>
+            </form>
+
+            <div class="results show" id="zbResults">
+                <div class="result-item">
+                    <div class="result-value">
+                        <span id="zbResult">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Davenport diagram -->
+            <div class="davenport-wrapper" id="davenportWrapper">
+                <div class="davenport-line-h" id="davenportLineH"></div>
+                <div class="davenport-line-v" id="davenportLineV"></div>
+                <img class="davenport-img" src="acid5-min.png" alt="Davenport diagram" />
+            </div>
+
+            <div class="button-container">
+                <button type="button" id="resetButtonZb" class="reset-button">Reset</button>
+                <button type="button" id="copyButtonZb" class="copy-button"
+                    title="Kopieer naar klembord">Kopieer</button>
+            </div>
+        </div>
+
+        <!-- Anion gap calculator -->
+        <div class="container">
+            <h1>Anion gap</h1>
+
+            <form id="agForm">
+                <div class="form-group">
+                    <label for="natrium_ag">Natrium (mmol/L)</label>
+                    <input type="number" id="natrium_ag" min="90" max="180" step="1" placeholder="mmol/L">
+                </div>
+
+                <div class="form-group">
+                    <label for="chloor_ag">Chloor (mmol/L)</label>
+                    <input type="number" id="chloor_ag" min="50" max="200" step="1" placeholder="mmol/L">
+                </div>
+
+                <div class="form-group">
+                    <label for="bic_ag">Bicarbonaat (mmol/L)</label>
+                    <input type="number" id="bic_ag" min="0" max="50" step="0.1" placeholder="mmol/L">
+                </div>
+
+                <div class="form-group">
+                    <label for="albumine_ag">Albumine (g/L)</label>
+                    <input type="number" id="albumine_ag" min="0" max="100" step="1" placeholder="Optioneel">
+                </div>
+            </form>
+
+            <div class="results show" id="agResults">
+                <div class="result-item">
+                    <div class="result-value">
+                        <span id="agResult">Anion Gap = -</span>
+                    </div>
+                </div>
+            </div>
+            <div class="button-container">
+                <button type="button" id="resetButtonAg" class="reset-button">Reset</button>
+                <button type="button" id="copyButtonAg" class="copy-button"
+                    title="Kopieer naar klembord">Kopieer</button>
+            </div>
+        </div>
+
+        <!-- Urine anion gap calculator -->
+        <div class="container">
+            <h1>Urine anion gap</h1>
+
+            <form id="uagForm">
+                <div class="form-group">
+                    <label for="natrium_uag">Urine natrium (mmol/L)</label>
+                    <input type="number" id="natrium_uag" min="0" step="1" placeholder="mmol/L">
+                </div>
+
+                <div class="form-group">
+                    <label for="kalium_uag">Urine kalium (mmol/L)</label>
+                    <input type="number" id="kalium_uag" min="0" step="1" placeholder="mmol/L">
+                </div>
+
+                <div class="form-group">
+                    <label for="chloride_uag">Urine chloride (mmol/L)</label>
+                    <input type="number" id="chloride_uag" min="0" step="1" placeholder="mmol/L">
+                </div>
+            </form>
+
+            <div class="results show" id="uagResults">
+                <div class="result-item">
+                    <div class="result-value">
+                        <span id="uagResult">Urine Anion Gap = -</span>
+                    </div>
+                </div>
+            </div>
+            <div class="button-container">
+                <button type="button" id="resetButtonUag" class="reset-button">Reset</button>
+                <button type="button" id="copyButtonUag" class="copy-button"
+                    title="Kopieer naar klembord">Kopieer</button>
+            </div>
+        </div>
+
+        <!-- Osmolaliteit & Osmol gap calculator -->
+        <div class="container">
+            <h1>Osmolaliteit & Osmol gap</h1>
+
+            <form id="ogForm">
+                <div class="form-group">
+                    <label for="natrium_og">Natrium (mmol/L)</label>
+                    <input type="number" id="natrium_og" min="90" max="180" step="1" placeholder="mmol/L">
+                </div>
+
+                <div class="form-group">
+                    <label for="glucose_og">Glucose (mmol/L)</label>
+                    <input type="number" id="glucose_og" min="0" max="100" step="0.1" placeholder="mmol/L">
+                </div>
+
+                <div class="form-group">
+                    <label for="ureum_og">Ureum (mmol/L)</label>
+                    <input type="number" id="ureum_og" min="0" max="60" step="0.1" placeholder="Optioneel">
+                </div>
+
+                <div class="form-group">
+                    <label for="osmol_og">Gemeten osmolaliteit</label>
+                    <input type="number" id="osmol_og" min="200" max="500" step="1" placeholder="Optioneel">
+                </div>
+            </form>
+
+            <div class="results show" id="ogResults">
+                <div class="result-item">
+                    <div class="result-value">
+                        <span id="ogResult">Geschatte Osmolaliteit = -</span>
+                    </div>
+                </div>
+            </div>
+            <div class="button-container">
+                <button type="button" id="resetButtonOg" class="reset-button">Reset</button>
+                <button type="button" id="copyButtonOg" class="copy-button"
+                    title="Kopieer naar klembord">Kopieer</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="shared.js"></script>
+    <script>
+        // =====================
+        // Zuur-base calculator
+        // =====================
+        let currentResultZb = '';
+
+        function calcZuurBase() {
+            const pH = parseFloat(document.getElementById('pH_zb').value);
+            const pCO2 = parseFloat(document.getElementById('pCO2_zb').value);
+            const bicInput = parseFloat(document.getElementById('bic_zb').value);
+            const unit = document.querySelector('input[name="unit_zb"]:checked').value;
+
+            const lineH = document.getElementById('davenportLineH');
+            const lineV = document.getElementById('davenportLineV');
+            lineH.style.display = 'none';
+            lineV.style.display = 'none';
+
+            if (isNaN(pH) || isNaN(pCO2)) {
+                currentResultZb = '-';
+                document.getElementById('zbResult').textContent = currentResultZb;
+                return;
+            }
+
+            // Calculate bicarbonate if not provided
+            let calcBic;
+            if (!isNaN(bicInput)) {
+                calcBic = bicInput;
+            } else {
+                if (unit === 'mmHg') {
+                    calcBic = 0.0307 * pCO2 * Math.pow(10, pH - 6.105);
+                } else {
+                    calcBic = 0.0307 * 7.50061683 * pCO2 * Math.pow(10, pH - 6.105);
+                }
+            }
+
+            // Output line
+            let outPH;
+            let pCO2L, pCO2H;
+            if (unit === 'mmHg') {
+                outPH = `pH = ${pH.toFixed(2)}, pCO2 = ${pCO2.toFixed(0)} ${unit},\nHCO3 = ${calcBic.toFixed(1)} mmol/L`;
+                pCO2L = 38;
+                pCO2H = 42;
+            } else {
+                outPH = `pH = ${pH.toFixed(2)}, pCO2 = ${pCO2.toFixed(1)} ${unit},\nHCO3 = ${calcBic.toFixed(1)} mmol/L`;
+                pCO2L = 5;
+                pCO2H = 5.6;
+            }
+
+            // Compensatie berekeningen
+            let outCompensatieR, outCompensatieM;
+
+            if (unit === 'mmHg') {
+                // Respiratoire compensatie
+                if (calcBic < 24) {
+                    const exPCO2L = 1.5 * calcBic + 8 - 2;
+                    const exPCO2U = 1.5 * calcBic + 8 + 2;
+                    outCompensatieR = `Verwacht pCO2 = ${exPCO2L.toFixed(1)} - ${exPCO2U.toFixed(1)} mmHg`;
+                    if (calcBic > 22) outCompensatieR = 'Verwacht pCO2 = NA';
+                } else {
+                    const exPCO2L = 40 + 0.7 * (calcBic - 24) - 2;
+                    const exPCO2U = 40 + 0.7 * (calcBic - 24) + 2;
+                    outCompensatieR = `Verwacht pCO2 = ${exPCO2L.toFixed(1)} - ${exPCO2U.toFixed(1)} mmHg`;
+                }
+                // Metabole compensatie
+                if (pCO2 < 40) {
+                    const exBicA = 24 - (40 - pCO2) / 10 * 2;
+                    const exBicC4 = 24 - (40 - pCO2) / 10 * 4;
+                    const exBicC5 = 24 - (40 - pCO2) / 10 * 5;
+                    outCompensatieM = `Verwacht HCO3 = ${exBicA.toFixed(1)} mmol/L (acuut)\n = ${exBicC4.toFixed(1)} tot ${exBicC5.toFixed(1)} mmol/L (chronisch)`;
+                } else {
+                    const exBicA = 24 + (pCO2 - 40) / 10 * 1;
+                    const exBicC4 = 24 + (pCO2 - 40) / 10 * 4;
+                    const exBicC5 = 24 + (pCO2 - 40) / 10 * 5;
+                    outCompensatieM = `Verwacht HCO3 = ${exBicA.toFixed(1)} mmol/L (acuut)\n = ${exBicC4.toFixed(1)} tot ${exBicC5.toFixed(1)} mmol/L (chronisch)`;
+                }
+            } else {
+                // kPa
+                if (calcBic < 24) {
+                    const exPCO2L = 0.2 * calcBic + 1.2 - 0.3;
+                    const exPCO2U = 0.2 * calcBic + 1.2 + 0.3;
+                    outCompensatieR = `Verwacht pCO2: ${exPCO2L.toFixed(1)} - ${exPCO2U.toFixed(1)} kPa`;
+                    if (calcBic > 22) outCompensatieR = 'Verwacht pCO2 = NA';
+                } else {
+                    const exPCO2L = 0.1 * calcBic + 2.8 - 0.2;
+                    const exPCO2U = 0.1 * calcBic + 2.8 + 0.2;
+                    outCompensatieR = `Verwacht pCO2 = ${exPCO2L.toFixed(1)} - ${exPCO2U.toFixed(1)} kPa`;
+                }
+                if (pCO2 < 5.3) {
+                    const exBicA = 24 - (5.3 - pCO2) / 1.3 * 2;
+                    const exBicC4 = 24 - (5.3 - pCO2) / 1.3 * 4;
+                    const exBicC5 = 24 - (5.3 - pCO2) / 1.3 * 5;
+                    outCompensatieM = `Verwacht HCO3 = ${exBicA.toFixed(1)} mmol/L (acuut)\n = ${exBicC4.toFixed(1)} tot ${exBicC5.toFixed(1)} mmol/L (chronisch)`;
+                } else {
+                    const exBicA = 24 + (pCO2 - 5.3) / 1.3 * 1;
+                    const exBicC4 = 24 + (pCO2 - 5.3) / 1.3 * 4;
+                    const exBicC5 = 24 + (pCO2 - 5.3) / 1.3 * 5;
+                    outCompensatieM = `Verwacht HCO3 = ${exBicA.toFixed(1)} mmol/L (acuut)\n = ${exBicC4.toFixed(1)} tot ${exBicC5.toFixed(1)} mmol/L (chronisch)`;
+                }
+            }
+
+            // Primaire stoornis
+            let outPrimair, outCompensatie;
+            if (pH < 7.38) {
+                if (calcBic < 22 && pCO2 <= pCO2H) {
+                    outPrimair = 'Primair = metabole acidose';
+                    outCompensatie = outCompensatieR;
+                } else if (calcBic >= 22 && pCO2 > pCO2H) {
+                    outPrimair = 'Primair = respiratoire acidose';
+                    outCompensatie = outCompensatieM;
+                } else {
+                    outPrimair = 'Primair = acidose, gecombineerd';
+                    outCompensatie = outCompensatieR + '\n' + outCompensatieM;
+                }
+            } else if (pH > 7.42) {
+                if (calcBic > 26 && pCO2 >= pCO2L) {
+                    outPrimair = 'Primair = metabole alkalose';
+                    outCompensatie = outCompensatieR;
+                } else if (calcBic <= 26 && pCO2 < pCO2L) {
+                    outPrimair = 'Primair = respiratoire alkalose';
+                    outCompensatie = outCompensatieM;
+                } else {
+                    outPrimair = 'Primair = alkalose, gecombineerd';
+                    outCompensatie = outCompensatieR + '\n' + outCompensatieM;
+                }
+            } else {
+                outPrimair = 'Geen zuur/base stoornis';
+                outCompensatie = outCompensatieR + '\n' + outCompensatieM;
+            }
+
+            currentResultZb = outPH + '\n' + outPrimair + '\n' + outCompensatie;
+            document.getElementById('zbResult').textContent = currentResultZb;
+
+            // Davenport diagram coordinates
+            const xmin = 46.5 / 1055;
+            const xmax = 1055 / 1055;
+            const ymin = 41 / 1000;
+            const ymax = 985 / 1000;
+
+            if (pH >= 7.0 && pH <= 7.8) {
+                const xcor = ((pH - 7.0) * (xmax - xmin) / 0.8 + xmin) * 100;
+                lineV.style.display = 'block';
+                lineV.style.left = `calc(${xcor.toFixed(2)}% - 1px)`;
+            }
+            if (calcBic >= 0 && calcBic <= 60) {
+                const ycor = (calcBic * (ymax - ymin) / 60 + ymin) * 100;
+                lineH.style.display = 'block';
+                lineH.style.top = `calc(${(100 - ycor).toFixed(2)}% - 1px)`;
+            }
+        }
+
+        document.getElementById('pH_zb').addEventListener('input', calcZuurBase);
+        document.getElementById('pCO2_zb').addEventListener('input', calcZuurBase);
+        document.getElementById('bic_zb').addEventListener('input', calcZuurBase);
+        document.querySelectorAll('input[name="unit_zb"]').forEach(r => r.addEventListener('change', calcZuurBase));
+
+        setupCopy('copyButtonZb', () => currentResultZb);
+
+        document.getElementById('resetButtonZb').addEventListener('click', function () {
+            document.getElementById('pH_zb').value = '';
+            document.getElementById('pCO2_zb').value = '';
+            document.getElementById('bic_zb').value = '';
+            document.querySelectorAll('input[name="unit_zb"]').forEach(r => {
+                r.checked = r.value === 'mmHg';
+            });
+            calcZuurBase();
+            showButtonFeedback(this, 'reset-done');
+        });
+
+        calcZuurBase();
+
+
+        // =====================
+        // Anion gap calculator
+        // =====================
+        let currentResultAg = '';
+
+        function calcAnionGap() {
+            const na = parseFloat(document.getElementById('natrium_ag').value);
+            const cl = parseFloat(document.getElementById('chloor_ag').value);
+            const bic = parseFloat(document.getElementById('bic_ag').value);
+            const alb = parseFloat(document.getElementById('albumine_ag').value);
+
+            if (isNaN(na) || isNaN(cl) || isNaN(bic)) {
+                currentResultAg = 'Anion Gap = -';
+                document.getElementById('agResult').textContent = currentResultAg;
+                return;
+            }
+
+            const ag = na - cl - bic;
+            const dag = ag - 12;
+            const dbic = 24 - bic;
+            const dd = dag - dbic;
+            const ddl = 0.6 * dag - dbic;
+
+            let A = `Anion Gap = ${ag.toFixed(1)}`;
+            let B = `\u2206AG = ${dag.toFixed(1)}`;
+            const C = `\u2206HCO3 = ${dbic.toFixed(1)}`;
+            let D = `\u2206AG-\u2206HCO3 = ${dd.toFixed(1)}`;
+            let E = `\u22060.6AG-\u2206HCO3 = ${ddl.toFixed(1)}`;
+
+            if (!isNaN(alb)) {
+                const agAlb = ag + 0.25 * (44 - alb);
+                const dagAlb = agAlb - 12;
+                const ddAlb = dagAlb - dbic;
+                const ddlAlb = 0.6 * dagAlb - dbic;
+                A += ` (\u2248 ${agAlb.toFixed(1)} albumine correctie)`;
+                B += ` (\u2248 ${dagAlb.toFixed(1)} albumine correctie)`;
+                D += ` (\u2248 ${ddAlb.toFixed(1)} albumine correctie)`;
+                E += ` (\u2248 ${ddlAlb.toFixed(1)} albumine correctie)`;
+            }
+
+            currentResultAg = [A, B, C, D, E].join('\n');
+            document.getElementById('agResult').textContent = currentResultAg;
+        }
+
+        ['natrium_ag', 'chloor_ag', 'bic_ag', 'albumine_ag'].forEach(id => {
+            document.getElementById(id).addEventListener('input', calcAnionGap);
+        });
+
+        setupCopy('copyButtonAg', () => currentResultAg);
+
+        document.getElementById('resetButtonAg').addEventListener('click', function () {
+            ['natrium_ag', 'chloor_ag', 'bic_ag', 'albumine_ag'].forEach(id => {
+                document.getElementById(id).value = '';
+            });
+            calcAnionGap();
+            showButtonFeedback(this, 'reset-done');
+        });
+
+        calcAnionGap();
+
+
+        // =====================
+        // Urine anion gap calculator
+        // =====================
+        let currentResultUag = '';
+
+        function calcUrineAnionGap() {
+            const na = parseFloat(document.getElementById('natrium_uag').value);
+            const k = parseFloat(document.getElementById('kalium_uag').value);
+            const cl = parseFloat(document.getElementById('chloride_uag').value);
+
+            if (isNaN(na) || isNaN(k) || isNaN(cl)) {
+                currentResultUag = 'Urine Anion Gap = -';
+                document.getElementById('uagResult').textContent = currentResultUag;
+                return;
+            }
+
+            const uag = na + k - cl;
+            currentResultUag = `Urine Anion Gap = ${uag}`;
+            document.getElementById('uagResult').textContent = currentResultUag;
+        }
+
+        ['natrium_uag', 'kalium_uag', 'chloride_uag'].forEach(id => {
+            document.getElementById(id).addEventListener('input', calcUrineAnionGap);
+        });
+
+        setupCopy('copyButtonUag', () => currentResultUag);
+
+        document.getElementById('resetButtonUag').addEventListener('click', function () {
+            ['natrium_uag', 'kalium_uag', 'chloride_uag'].forEach(id => {
+                document.getElementById(id).value = '';
+            });
+            calcUrineAnionGap();
+            showButtonFeedback(this, 'reset-done');
+        });
+
+        calcUrineAnionGap();
+
+
+        // =====================
+        // Osmolaliteit & Osmol gap calculator
+        // =====================
+        let currentResultOg = '';
+
+        function calcOsmolGap() {
+            const na = parseFloat(document.getElementById('natrium_og').value);
+            const gluc = parseFloat(document.getElementById('glucose_og').value);
+            const ureum = parseFloat(document.getElementById('ureum_og').value);
+            const osmol = parseFloat(document.getElementById('osmol_og').value);
+
+            if (isNaN(na) || isNaN(gluc)) {
+                currentResultOg = 'Geschatte Osmolaliteit = -';
+                document.getElementById('ogResult').textContent = currentResultOg;
+                return;
+            }
+
+            let estOsmol;
+            if (isNaN(ureum)) {
+                estOsmol = 2 * na + gluc;
+            } else {
+                estOsmol = 2 * na + gluc + ureum;
+            }
+
+            currentResultOg = `Geschatte Osmolaliteit = ${estOsmol.toFixed(1)}`;
+
+            if (!isNaN(osmol)) {
+                const calcOg = osmol - estOsmol;
+                currentResultOg = `Geschatte Osmolaliteit = ${estOsmol.toFixed(1)}\nOsmol gap = ${calcOg.toFixed(1)}`;
+            }
+
+            document.getElementById('ogResult').textContent = currentResultOg;
+        }
+
+        ['natrium_og', 'glucose_og', 'ureum_og', 'osmol_og'].forEach(id => {
+            document.getElementById(id).addEventListener('input', calcOsmolGap);
+        });
+
+        setupCopy('copyButtonOg', () => currentResultOg);
+
+        document.getElementById('resetButtonOg').addEventListener('click', function () {
+            ['natrium_og', 'glucose_og', 'ureum_og', 'osmol_og'].forEach(id => {
+                document.getElementById(id).value = '';
+            });
+            calcOsmolGap();
+            showButtonFeedback(this, 'reset-done');
+        });
+
+        calcOsmolGap();
+    </script>
+</body>
+
+</html>
