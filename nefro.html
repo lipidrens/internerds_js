@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nefrologie</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- Fractionele excretie natrium -->
+        <div class="container">
+            <h1>Fractionele excretie natrium</h1>
+
+            <form id="fenForm">
+                <div class="form-group">
+                    <label for="natrium_p_fen">Plasma natrium (mmol/L)</label>
+                    <input type="number" id="natrium_p_fen" min="90" max="180" step="1" placeholder="mmol/L">
+                </div>
+
+                <div class="form-group">
+                    <label for="creat_p_fen">Plasma creatinine (umol/L)</label>
+                    <input type="number" id="creat_p_fen" min="0" max="1500" step="1" placeholder="umol/L">
+                </div>
+
+                <div class="form-group">
+                    <label for="natrium_u_fen">Urine natrium (mmol/L)</label>
+                    <input type="number" id="natrium_u_fen" min="0" step="1" placeholder="mmol/L">
+                </div>
+
+                <div class="form-group">
+                    <label for="creat_u_fen">Urine creatinine</label>
+                    <input type="number" id="creat_u_fen" min="0" step="0.1" placeholder="Waarde">
+                </div>
+
+                <div class="form-group">
+                    <label for="unit_u_fen">Eenheid urine creatinine</label>
+                    <select id="unit_u_fen">
+                        <option value="1" selected>mmol/L</option>
+                        <option value="1000">umol/L</option>
+                    </select>
+                </div>
+            </form>
+
+            <div class="results show" id="fenResults">
+                <div class="result-item">
+                    <div class="result-value">
+                        <span id="fenScore">FENa = -</span>
+                    </div>
+                </div>
+            </div>
+            <div class="button-container">
+                <button type="button" id="resetButtonFen" class="reset-button">Reset</button>
+                <button type="button" id="copyButtonFen" class="copy-button"
+                    title="Kopieer naar klembord">Kopieer</button>
+            </div>
+        </div>
+
+        <!-- Fractionele excretie ureum -->
+        <div class="container">
+            <h1>Fractionele excretie ureum</h1>
+
+            <form id="feuForm">
+                <div class="form-group">
+                    <label for="ureum_p_feu">Plasma ureum (mmol/L)</label>
+                    <input type="number" id="ureum_p_feu" min="0" max="180" step="0.1" placeholder="mmol/L">
+                </div>
+
+                <div class="form-group">
+                    <label for="creat_p_feu">Plasma creatinine (umol/L)</label>
+                    <input type="number" id="creat_p_feu" min="0" max="1500" step="1" placeholder="umol/L">
+                </div>
+
+                <div class="form-group">
+                    <label for="ureum_u_feu">Urine ureum (mmol/L)</label>
+                    <input type="number" id="ureum_u_feu" min="0" step="1" placeholder="mmol/L">
+                </div>
+
+                <div class="form-group">
+                    <label for="creat_u_feu">Urine creatinine</label>
+                    <input type="number" id="creat_u_feu" min="0" step="0.1" placeholder="Waarde">
+                </div>
+
+                <div class="form-group">
+                    <label for="unit_u_feu">Eenheid urine creatinine</label>
+                    <select id="unit_u_feu">
+                        <option value="1" selected>mmol/L</option>
+                        <option value="1000">umol/L</option>
+                    </select>
+                </div>
+            </form>
+
+            <div class="results show" id="feuResults">
+                <div class="result-item">
+                    <div class="result-value">
+                        <span id="feuScore">FEUr = -</span>
+                    </div>
+                </div>
+            </div>
+            <div class="button-container">
+                <button type="button" id="resetButtonFeu" class="reset-button">Reset</button>
+                <button type="button" id="copyButtonFeu" class="copy-button"
+                    title="Kopieer naar klembord">Kopieer</button>
+            </div>
+        </div>
+
+        <!-- 24-uurs klaring -->
+        <div class="container">
+            <h1>24-uurs klaring</h1>
+
+            <form id="clearanceForm">
+                <div class="form-group">
+                    <label for="kreat_plasma">Plasma creatinine (umol/L)</label>
+                    <input type="number" id="kreat_plasma" min="0" max="1500" step="1" placeholder="umol/L">
+                </div>
+
+                <div class="form-group">
+                    <label for="kreat_urine">Totaal urine creatinine (mmol)</label>
+                    <input type="number" id="kreat_urine" min="0" step="0.1" placeholder="mmol">
+                </div>
+
+                <div class="form-group">
+                    <label for="ureum_plasma">Plasma ureum (mmol/L)</label>
+                    <input type="number" id="ureum_plasma" min="0" max="1500" step="0.1" placeholder="mmol/L">
+                </div>
+
+                <div class="form-group">
+                    <label for="ureum_urine">Totaal urine ureum (mmol)</label>
+                    <input type="number" id="ureum_urine" min="0" step="0.1" placeholder="mmol">
+                </div>
+            </form>
+
+            <div class="results show" id="clearanceResults">
+                <div class="result-item">
+                    <div class="result-value">
+                        <span id="clearanceScore">Klaring = -</span>
+                    </div>
+                </div>
+            </div>
+            <div class="button-container">
+                <button type="button" id="resetButtonClearance" class="reset-button">Reset</button>
+                <button type="button" id="copyButtonClearance" class="copy-button"
+                    title="Kopieer naar klembord">Kopieer</button>
+            </div>
+        </div>
+
+        <!-- Natrium excretie -->
+        <div class="container">
+            <h1>Natrium excretie</h1>
+
+            <form id="naclForm">
+                <div class="form-group">
+                    <label for="na_nacl">Totaal natrium urine (mmol/24 uur)</label>
+                    <input type="number" id="na_nacl" min="0" step="1" placeholder="mmol">
+                </div>
+            </form>
+
+            <div class="results show" id="naclResults">
+                <div class="result-item">
+                    <div class="result-value">
+                        <span id="naclScore">Natrium excretie = -</span>
+                    </div>
+                </div>
+            </div>
+            <div class="button-container">
+                <button type="button" id="resetButtonNacl" class="reset-button">Reset</button>
+                <button type="button" id="copyButtonNacl" class="copy-button"
+                    title="Kopieer naar klembord">Kopieer</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="shared.js"></script>
+    <script>
+        // ============================================================
+        // Fractionele excretie natrium (FENa)
+        // ============================================================
+        let currentFenText = '';
+
+        function calculateFEN() {
+            const natriumP = parseFloat(document.getElementById('natrium_p_fen').value);
+            const creatP = parseFloat(document.getElementById('creat_p_fen').value);
+            const natriumU = parseFloat(document.getElementById('natrium_u_fen').value);
+            const creatURaw = parseFloat(document.getElementById('creat_u_fen').value);
+            const unitU = parseFloat(document.getElementById('unit_u_fen').value);
+
+            if (isNaN(natriumP) || isNaN(creatP) || isNaN(natriumU) || isNaN(creatURaw)) {
+                currentFenText = 'FENa = -';
+                document.getElementById('fenScore').textContent = currentFenText;
+                return;
+            }
+
+            // Converteer urine creatinine naar mmol/L
+            const creatU = creatURaw / unitU;
+            const fena = 100 * (creatP * natriumU) / (natriumP * creatU * 1000);
+            const result = fena < 1 ? 'Pre-renale oorzaak waarschijnlijk' : 'Geen differentiatie mogelijk';
+
+            currentFenText = `FENa = ${fena.toFixed(2)}%\n= ${result}`;
+            document.getElementById('fenScore').textContent = currentFenText;
+        }
+
+        document.getElementById('natrium_p_fen').addEventListener('input', calculateFEN);
+        document.getElementById('creat_p_fen').addEventListener('input', calculateFEN);
+        document.getElementById('natrium_u_fen').addEventListener('input', calculateFEN);
+        document.getElementById('creat_u_fen').addEventListener('input', calculateFEN);
+        document.getElementById('unit_u_fen').addEventListener('change', calculateFEN);
+
+        setupCopy('copyButtonFen', () => currentFenText);
+
+        document.getElementById('resetButtonFen').addEventListener('click', function () {
+            document.getElementById('natrium_p_fen').value = '';
+            document.getElementById('creat_p_fen').value = '';
+            document.getElementById('natrium_u_fen').value = '';
+            document.getElementById('creat_u_fen').value = '';
+            document.getElementById('unit_u_fen').selectedIndex = 0;
+            calculateFEN();
+            showButtonFeedback(this, 'reset-done');
+        });
+
+        calculateFEN();
+
+        // ============================================================
+        // Fractionele excretie ureum (FEUr)
+        // ============================================================
+        let currentFeuText = '';
+
+        function calculateFEU() {
+            const ureumP = parseFloat(document.getElementById('ureum_p_feu').value);
+            const creatP = parseFloat(document.getElementById('creat_p_feu').value);
+            const ureumU = parseFloat(document.getElementById('ureum_u_feu').value);
+            const creatURaw = parseFloat(document.getElementById('creat_u_feu').value);
+            const unitU = parseFloat(document.getElementById('unit_u_feu').value);
+
+            if (isNaN(ureumP) || isNaN(creatP) || isNaN(ureumU) || isNaN(creatURaw)) {
+                currentFeuText = 'FEUr = -';
+                document.getElementById('feuScore').textContent = currentFeuText;
+                return;
+            }
+
+            const creatU = creatURaw / unitU;
+            const feu = 100 * (creatP * ureumU) / (ureumP * creatU * 1000);
+            const result = feu < 35 ? 'Pre-renale oorzaak waarschijnlijk' : 'Geen differentiatie mogelijk';
+
+            currentFeuText = `FEUr = ${feu.toFixed(1)}%\n= ${result}`;
+            document.getElementById('feuScore').textContent = currentFeuText;
+        }
+
+        document.getElementById('ureum_p_feu').addEventListener('input', calculateFEU);
+        document.getElementById('creat_p_feu').addEventListener('input', calculateFEU);
+        document.getElementById('ureum_u_feu').addEventListener('input', calculateFEU);
+        document.getElementById('creat_u_feu').addEventListener('input', calculateFEU);
+        document.getElementById('unit_u_feu').addEventListener('change', calculateFEU);
+
+        setupCopy('copyButtonFeu', () => currentFeuText);
+
+        document.getElementById('resetButtonFeu').addEventListener('click', function () {
+            document.getElementById('ureum_p_feu').value = '';
+            document.getElementById('creat_p_feu').value = '';
+            document.getElementById('ureum_u_feu').value = '';
+            document.getElementById('creat_u_feu').value = '';
+            document.getElementById('unit_u_feu').selectedIndex = 0;
+            calculateFEU();
+            showButtonFeedback(this, 'reset-done');
+        });
+
+        calculateFEU();
+
+        // ============================================================
+        // 24-uurs klaring Calculator
+        // ============================================================
+        let currentClearanceText = '';
+
+        function calculateClearance() {
+            const kreatPlasma = parseFloat(document.getElementById('kreat_plasma').value);
+            const kreatUrine = parseFloat(document.getElementById('kreat_urine').value);
+            const ureumPlasma = parseFloat(document.getElementById('ureum_plasma').value);
+            const ureumUrine = parseFloat(document.getElementById('ureum_urine').value);
+
+            const hasCreat = !isNaN(kreatPlasma) && !isNaN(kreatUrine);
+            const hasUreum = !isNaN(ureumPlasma) && !isNaN(ureumUrine);
+
+            if (!hasCreat && !hasUreum) {
+                currentClearanceText = 'Klaring = -';
+                document.getElementById('clearanceScore').textContent = currentClearanceText;
+                return;
+            }
+
+            let parts = [];
+            let creatClearance = NaN;
+            let ureumClearance = NaN;
+
+            if (hasCreat) {
+                // kreatUrine in mmol, kreatPlasma in umol/L
+                // mmol -> umol = *1000, dan /1000 voor umol->umol = *1000000 / (umol * 1440 min)
+                creatClearance = (kreatUrine * 1000000) / (kreatPlasma * 1440);
+                parts.push(`Creatinineklaring = ${creatClearance.toFixed(1)} ml/min`);
+            }
+
+            if (hasUreum) {
+                // ureumUrine in mmol, ureumPlasma in mmol/L
+                ureumClearance = (ureumUrine * 1000) / (ureumPlasma * 1440);
+                parts.push(`Ureumklaring = ${ureumClearance.toFixed(1)} ml/min`);
+            }
+
+            if (hasCreat && hasUreum) {
+                const gemiddeld = (creatClearance + ureumClearance) / 2;
+                parts.push(`Gemiddelde klaring = ${gemiddeld.toFixed(1)} ml/min`);
+            }
+
+            currentClearanceText = parts.join('\n');
+            document.getElementById('clearanceScore').textContent = currentClearanceText;
+        }
+
+        document.getElementById('kreat_plasma').addEventListener('input', calculateClearance);
+        document.getElementById('kreat_urine').addEventListener('input', calculateClearance);
+        document.getElementById('ureum_plasma').addEventListener('input', calculateClearance);
+        document.getElementById('ureum_urine').addEventListener('input', calculateClearance);
+
+        setupCopy('copyButtonClearance', () => currentClearanceText);
+
+        document.getElementById('resetButtonClearance').addEventListener('click', function () {
+            document.getElementById('kreat_plasma').value = '';
+            document.getElementById('kreat_urine').value = '';
+            document.getElementById('ureum_plasma').value = '';
+            document.getElementById('ureum_urine').value = '';
+            calculateClearance();
+            showButtonFeedback(this, 'reset-done');
+        });
+
+        calculateClearance();
+
+        // ============================================================
+        // Natrium excretie Calculator
+        // ============================================================
+        let currentNaclText = '';
+
+        function calculateNaCl() {
+            const na = parseFloat(document.getElementById('na_nacl').value);
+
+            if (isNaN(na)) {
+                currentNaclText = 'Natrium excretie = -';
+                document.getElementById('naclScore').textContent = currentNaclText;
+                return;
+            }
+
+            // Na in mmol * 22.99 g/mol / 1000 = g Na
+            const naG = (na * 22.99) / 1000;
+            // NaCl in mmol * 58.44 g/mol / 1000 = g NaCl
+            const naclG = (na * 58.44) / 1000;
+
+            currentNaclText = `Excretie Na = ${naG.toFixed(1)} g/24 uur\n= equiv. NaCl = ${naclG.toFixed(1)} g/24 uur`;
+            document.getElementById('naclScore').textContent = currentNaclText;
+        }
+
+        document.getElementById('na_nacl').addEventListener('input', calculateNaCl);
+
+        setupCopy('copyButtonNacl', () => currentNaclText);
+
+        document.getElementById('resetButtonNacl').addEventListener('click', function () {
+            document.getElementById('na_nacl').value = '';
+            calculateNaCl();
+            showButtonFeedback(this, 'reset-done');
+        });
+
+        calculateNaCl();
+    </script>
+</body>
+
+</html>
