@@ -99,7 +99,8 @@ h1 {
     color: var(--text-light);
     font-size: 0.875rem;
     line-height: 1.5;
-    margin-bottom: var(--spacing-md);
+    margin-top: var(--spacing-md);
+    margin-bottom: 0;
 }
 
 .result-legend {
