@@ -149,15 +149,27 @@ Eff. osmol T2 = -
             const glu2 = parseFloat(document.getElementById('glu2_eo').value);
             const dT = parseFloat(document.getElementById('dT_eo').value);
 
-            if (isNaN(na1) || isNaN(glu1) || isNaN(na2) || isNaN(glu2) || isNaN(dT) || dT === 0) {
-                currentEoText = 'Eff. osmol T1 = -\nEff. osmol T2 = -\n∆ = -';
-            } else {
-                const eo1 = 2 * na1 + glu1;
-                const eo2 = 2 * na2 + glu2;
+            const hasT1 = !isNaN(na1) && !isNaN(glu1);
+            const hasT2 = !isNaN(na2) && !isNaN(glu2);
+
+            const eo1 = hasT1 ? 2 * na1 + glu1 : null;
+            const eo2 = hasT2 ? 2 * na2 + glu2 : null;
+
+            const t1Text = `Eff. osmol T1 = ${hasT1 ? Math.round(eo1) + ' mosm' : '-'}`;
+            const t2Text = `Eff. osmol T2 = ${hasT2 ? Math.round(eo2) + ' mosm' : '-'}`;
+
+            let deltaText = '∆ = -';
+            if (hasT1 && hasT2) {
                 const eoD = eo2 - eo1;
-                const eoT = eoD / dT;
-                currentEoText = `Eff. osmol T1 = ${Math.round(eo1)} mosm\nEff. osmol T2 = ${Math.round(eo2)} mosm\n∆ = ${eoD.toFixed(1)} mosm = ${eoT.toFixed(1)} mosm/uur`;
+                if (!isNaN(dT) && dT !== 0) {
+                    const eoT = eoD / dT;
+                    deltaText = `∆ = ${eoD.toFixed(1)} mosm = ${eoT.toFixed(1)} mosm/uur`;
+                } else {
+                    deltaText = `∆ = ${eoD.toFixed(1)} mosm`;
+                }
             }
+
+            currentEoText = `${t1Text}\n${t2Text}\n${deltaText}`;
 
             document.getElementById('eoResult').textContent = currentEoText;
             document.getElementById('eoResults').classList.add('show');
