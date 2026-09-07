@@ -95,6 +95,19 @@ h1 {
     font-weight: 400;
 }
 
+.info-note {
+    color: var(--text-light);
+    font-size: 0.875rem;
+    line-height: 1.5;
+    margin-bottom: var(--spacing-md);
+}
+
+.result-legend {
+    color: var(--text-light);
+    font-size: 0.8125rem;
+    margin-bottom: var(--spacing-sm);
+}
+
 .form-group {
     margin-bottom: var(--spacing-md);
     display: flex;

@@ -25,13 +25,17 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="timing">Tijdstip van toediening</label>
-                    <select id="timing">
+                    <label for="residualFunction">Restfunctie</label>
+                    <select id="residualFunction">
                         <option value="">-- Selecteer --</option>
-                        <option value="na">Na dialyse</option>
-                        <option value="tijdens">Tijdens dialyse (laatste 30-60 minuten)</option>
+                        <option value="zonder">Zonder restfunctie</option>
+                        <option value="met">Met restfunctie</option>
                     </select>
                 </div>
+
+                <p class="info-note">Toedienen in het laatste half uur van de dialyse. Neem direct
+                    voorafgaand aan elke volgende dialyse een dalspiegel af en doseer op geleide van de
+                    concentratie.</p>
 
                 <div class="form-group">
                     <label for="bridgingPeriod">Aantal dagen tot volgende dialyse/toediening</label>
@@ -44,6 +48,7 @@
             </form>
 
             <div class="results show" id="results">
+                <p class="result-legend">Eerste getal afgerond op 50 mg, tweede getal op 250 mg.</p>
                 <div class="result-item">
                     <div class="result-value">
                         <span id="vancoResult">Oplaaddosis = -
@@ -66,48 +71,60 @@ Onderhoudsdosis = -</span>
             return Math.round(value / 250) * 250;
         }
 
+        // Functie om af te ronden op dichtstbijzijnde veelvoud van 50
+        function roundToNearest50(value) {
+            return Math.round(value / 50) * 50;
+        }
+
         let currentResultText = '';
 
         function calculateVanco() {
             const weight = parseFloat(document.getElementById('weight').value);
-            const timing = document.getElementById('timing').value;
+            const residualFunction = document.getElementById('residualFunction').value;
             const bridgingPeriod = document.getElementById('bridgingPeriod').value;
 
-            if (!weight || weight <= 0 || !timing || !bridgingPeriod) {
+            if (!weight || weight <= 0 || !residualFunction || !bridgingPeriod) {
                 currentResultText = 'Oplaaddosis = -\nOnderhoudsdosis = -';
                 document.getElementById('vancoResult').textContent = currentResultText;
                 return;
             }
 
-            let loadingDose, maintenancePerKg, maintenanceMax;
+            let loadingMax, maintenancePerKg, maintenanceMax;
 
-            if (timing === 'na') {
-                loadingDose = Math.min(25 * weight, 2000);
+            if (residualFunction === 'zonder') {
+                loadingMax = 1500;
                 maintenancePerKg = 7.5;
                 maintenanceMax = 750;
             } else {
-                loadingDose = Math.min(35 * weight, 2500);
+                loadingMax = 2000;
                 maintenancePerKg = 10;
                 maintenanceMax = 1000;
             }
 
+            let loadingDose = Math.min(20 * weight, loadingMax);
+
             if (bridgingPeriod === '3') {
                 maintenancePerKg *= 1.25;
-                maintenanceMax *= 1.25;
+                // Max ook +25%, maar nooit boven de max oplaaddosis
+                maintenanceMax = Math.min(maintenanceMax * 1.25, loadingMax);
             }
 
             let maintenanceDose = Math.min(maintenancePerKg * weight, maintenanceMax);
 
-            loadingDose = roundToNearest250(loadingDose);
-            maintenanceDose = roundToNearest250(maintenanceDose);
+            const loading50 = roundToNearest50(loadingDose);
+            const loading250 = roundToNearest250(loadingDose);
+            const maintenance50 = roundToNearest50(maintenanceDose);
+            const maintenance250 = roundToNearest250(maintenanceDose);
 
-            currentResultText = `Oplaaddosis = ${loadingDose} mg\nOnderhoudsdosis = ${maintenanceDose} mg`;
+            currentResultText =
+                `Oplaaddosis = ${loading50} / ${loading250} mg\n` +
+                `Onderhoudsdosis = ${maintenance50} / ${maintenance250} mg`;
             document.getElementById('vancoResult').textContent = currentResultText;
         }
 
         // Real-time berekening bij input wijziging
         document.getElementById('weight').addEventListener('input', calculateVanco);
-        document.getElementById('timing').addEventListener('change', calculateVanco);
+        document.getElementById('residualFunction').addEventListener('change', calculateVanco);
         document.getElementById('bridgingPeriod').addEventListener('change', calculateVanco);
 
         setupCopy('copyButton', () => currentResultText);
@@ -115,7 +132,7 @@ Onderhoudsdosis = -</span>
         // Reset
         document.getElementById('resetButton').addEventListener('click', function () {
             document.getElementById('weight').value = '';
-            document.getElementById('timing').selectedIndex = 0;
+            document.getElementById('residualFunction').selectedIndex = 0;
             document.getElementById('bridgingPeriod').selectedIndex = 0;
             calculateVanco();
             showButtonFeedback(this, 'reset-done');
