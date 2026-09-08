@@ -103,21 +103,21 @@ Onderhoudsdosis = -</span>
                 <div class="result-item">
                     <div class="result-value">
                         <span id="tpvResult">TPV-quick (40 ml/kg) = -
-TPV-standaard (Nadler) = -
-TPV-obesitas (Lemmens) = -</span>
+TPV-standaard (Nadler) = -</span>
                     </div>
                 </div>
                 <div class="result-item">
                     <div class="result-value">
                         <span id="tpvTussenResult">BMI = -
-TBV (Nadler) = -
-TBV (Lemmens) = -</span>
+TBV (Nadler) = -</span>
                     </div>
                 </div>
             </div>
-            <p class="info-note">TPV = TBV x (1 - Ht). TBV volgens Nadler; bij obesitas geeft Nadler een
-                overschatting en is Lemmens-Bernstein-Brodsky passender. TPV-quick (40 ml/kg) is een snelle
-                schatting die geen rekening houdt met lengte, geslacht en hematocriet.</p>
+            <p class="info-note">TPV = TBV x (1 - Ht). TBV volgens Nadler; omdat Nadler bij obesitas een
+                overschatting geeft, verschijnt vanaf een BMI van 30 daarnaast TPV-obesitas volgens
+                Lemmens-Bernstein-Brodsky. Onder die grens is Nadler passend en blijft die regel weg.
+                TPV-quick (40 ml/kg) is een snelle schatting die geen rekening houdt met lengte, geslacht
+                en hematocriet.</p>
             <div class="button-container">
                 <button type="button" id="resetButtonTpv" class="reset-button">Reset</button>
                 <button type="button" id="copyButtonTpv" class="copy-button"
@@ -274,15 +274,25 @@ TBV (Lemmens) = -</span>
             const tpvNadler = (tbvNadler !== null && hctOk) ? tbvNadler * (1 - hct) : null;
             const tpvLemmens = (tbvLemmens !== null && hctOk) ? tbvLemmens * (1 - hct) : null;
 
-            const hoofdText =
-                formatTpv('TPV-quick (40 ml/kg)', tpvQuick) + '\n' +
-                formatTpv('TPV-standaard (Nadler)', tpvNadler) + '\n' +
-                formatTpv('TPV-obesitas (Lemmens)', tpvLemmens);
+            // Lemmens is bedoeld voor obesitas en verschijnt daarom pas vanaf een BMI van 30
+            const toonLemmens = bmi !== null && bmi >= 30;
 
-            const tussenText =
-                `BMI = ${bmi === null ? '-' : bmi.toFixed(1) + ' kg/m²'}\n` +
-                formatTbv('TBV (Nadler)', tbvNadler) + '\n' +
-                formatTbv('TBV (Lemmens)', tbvLemmens);
+            const hoofdRegels = [
+                formatTpv('TPV-quick (40 ml/kg)', tpvQuick),
+                formatTpv('TPV-standaard (Nadler)', tpvNadler)
+            ];
+            const tussenRegels = [
+                `BMI = ${bmi === null ? '-' : bmi.toFixed(1) + ' kg/m²'}`,
+                formatTbv('TBV (Nadler)', tbvNadler)
+            ];
+
+            if (toonLemmens) {
+                hoofdRegels.push(formatTpv('TPV-obesitas (Lemmens)', tpvLemmens));
+                tussenRegels.push(formatTbv('TBV (Lemmens)', tbvLemmens));
+            }
+
+            const hoofdText = hoofdRegels.join('\n');
+            const tussenText = tussenRegels.join('\n');
 
             document.getElementById('tpvResult').textContent = hoofdText;
             document.getElementById('tpvTussenResult').textContent = tussenText;
