@@ -99,7 +99,6 @@ Onderhoudsdosis = -</span>
             </form>
 
             <div class="results show" id="tpvResults">
-                <p class="result-legend">Tussen haakjes 1.5x TPV in mL; de plasmaferese-range loopt van 1x tot 1.5x TPV.</p>
                 <div class="result-item">
                     <div class="result-value">
                         <span id="tpvResult">TPV-quick = -
@@ -108,14 +107,13 @@ TPV-Nadler = -</span>
                 </div>
                 <div class="result-item">
                     <div class="result-value">
-                        <span id="tpvTussenResult">BMI = -
-TBV (Nadler) = -</span>
+                        <span id="tpvTussenResult">TBV (Nadler) = -</span>
                     </div>
                 </div>
             </div>
-            <p class="info-note">TPV = TBV x (1 - Ht). Quick = 40 ml/kg, los van lengte, geslacht en Ht.
-                Nadler is de standaard; omdat die bij obesitas overschat, komt vanaf BMI 30
-                Lemmens-Bernstein-Brodsky erbij.</p>
+            <p class="info-note">TPV = TBV x (1 - Ht). TPV-quick = 40 ml/kg; Nadler is standaard berekening;
+                bij obesitas (BMI&gt;30) kan Lemmens-Bernstein-Brodsky gebruikt worden. TPV = total plasma volume,
+                TBV = total blood volume, Ht = hematocriet</p>
             <div class="button-container">
                 <button type="button" id="resetButtonTpv" class="reset-button">Reset</button>
                 <button type="button" id="copyButtonTpv" class="copy-button"
@@ -280,7 +278,6 @@ TBV (Nadler) = -</span>
                 formatTpv('TPV-Nadler', tpvNadler)
             ];
             const tussenRegels = [
-                `BMI = ${bmi === null ? '-' : bmi.toFixed(1) + ' kg/m²'}`,
                 formatTbv('TBV (Nadler)', tbvNadler)
             ];
 
