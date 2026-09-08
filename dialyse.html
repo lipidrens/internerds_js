@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vancomycine Dosering Calculator voor Hemodialyse</title>
+    <title>Dialyse</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -57,6 +57,70 @@ Onderhoudsdosis = -</span>
             <div class="button-container">
                 <button type="button" id="resetButton" class="reset-button">Reset</button>
                 <button type="button" id="copyButton" class="copy-button"
+                    title="Kopieer naar klembord">Kopieer</button>
+            </div>
+        </div>
+
+        <!-- Total plasmavolume (TPV) voor plasmaferese -->
+        <div class="container">
+            <h1>Total plasmavolume (TPV)</h1>
+            <p class="subtitle">Voor plasmaferese</p>
+
+            <form id="tpvForm">
+                <div class="form-group">
+                    <label>Geslacht</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="geslacht_tpv" value="Man" checked>
+                            Man
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="geslacht_tpv" value="Vrouw">
+                            Vrouw
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="gewicht_tpv">Gewicht (kg)</label>
+                    <input type="number" id="gewicht_tpv" min="0" max="300" step="0.1" placeholder="Bijv. 70">
+                </div>
+
+                <div class="form-group">
+                    <label for="lengte_tpv">Lengte (cm)</label>
+                    <input type="number" id="lengte_tpv" min="0" max="250" step="1" placeholder="Bijv. 175">
+                </div>
+
+                <div class="form-group">
+                    <label for="hct_tpv">Hematocriet (L/L)</label>
+                    <input type="number" id="hct_tpv" min="0" max="1" step="0.01" placeholder="Bijv. 0.42">
+                    <div class="error" id="hctError">Voer hematocriet in als fractie tussen 0 en 1 (bijv. 0.42)</div>
+                </div>
+            </form>
+
+            <div class="results show" id="tpvResults">
+                <p class="result-legend">Plasmaferese-range: 1x TPV tot 1.5x TPV (waarde tussen haakjes).</p>
+                <div class="result-item">
+                    <div class="result-value">
+                        <span id="tpvResult">TPV-quick (40 ml/kg) = -
+TPV-standaard (Nadler) = -
+TPV-obesitas (Lemmens) = -</span>
+                    </div>
+                </div>
+                <div class="result-item">
+                    <div class="result-value">
+                        <span id="tpvTussenResult">BMI = -
+TBV (Nadler) = -
+TBV (Lemmens) = -</span>
+                    </div>
+                </div>
+            </div>
+            <p class="info-note">TPV = TBV x (1 - Ht). TBV volgens Nadler; bij obesitas geeft Nadler een
+                overschatting en is Lemmens-Bernstein-Brodsky passender. TPV-quick (40 ml/kg) is een snelle
+                schatting die geen rekening houdt met lengte, geslacht en hematocriet.</p>
+            <div class="button-container">
+                <button type="button" id="resetButtonTpv" class="reset-button">Reset</button>
+                <button type="button" id="copyButtonTpv" class="copy-button"
                     title="Kopieer naar klembord">Kopieer</button>
             </div>
         </div>
@@ -138,6 +202,119 @@ Onderhoudsdosis = -</span>
 
         // Initiële berekening
         calculateVanco();
+
+
+        // ============================================================
+        // Total plasmavolume (TPV) voor plasmaferese
+        // ============================================================
+        let currentTpvText = '';
+
+        // Afronden op dichtstbijzijnde veelvoud van 10
+        function roundToNearest10(value) {
+            return Math.round(value / 10) * 10;
+        }
+
+        // Regel met TPV en de bijbehorende 1.5x waarde
+        function formatTpv(label, tpv) {
+            if (tpv === null) {
+                return `${label} = -`;
+            }
+            return `${label} = ${roundToNearest10(tpv)} mL (1.5x TPV = ${roundToNearest10(tpv * 1.5)} mL)`;
+        }
+
+        function formatTbv(label, tbv) {
+            return tbv === null ? `${label} = -` : `${label} = ${roundToNearest10(tbv)} mL`;
+        }
+
+        function calculateTpv() {
+            const gewicht = parseFloat(document.getElementById('gewicht_tpv').value);
+            const lengte = parseFloat(document.getElementById('lengte_tpv').value);
+            const hctInput = document.getElementById('hct_tpv').value;
+            const hct = parseFloat(hctInput);
+            const geslacht = document.querySelector('input[name="geslacht_tpv"]:checked').value;
+            const hctError = document.getElementById('hctError');
+
+            const gewichtOk = !isNaN(gewicht) && gewicht > 0;
+            const lengteOk = !isNaN(lengte) && lengte > 0;
+            // Hematocriet strikt als fractie: 0 < Ht < 1
+            const hctIngevuld = hctInput.trim() !== '' && !isNaN(hct);
+            const hctOk = hctIngevuld && hct > 0 && hct < 1;
+
+            if (hctIngevuld && !hctOk) {
+                hctError.classList.add('show');
+            } else {
+                hctError.classList.remove('show');
+            }
+
+            // TPV-quick: 40 ml/kg, heeft alleen gewicht nodig
+            const tpvQuick = gewichtOk ? 40 * gewicht : null;
+
+            // Nadler en Lemmens: bloedvolume uit gewicht, lengte en geslacht
+            let tbvNadler = null;
+            let tbvLemmens = null;
+            let bmi = null;
+
+            if (gewichtOk && lengteOk) {
+                const lengteM = lengte / 100;
+                bmi = gewicht / (lengteM * lengteM);
+
+                // Nadler: resultaat in liters -> omrekenen naar mL
+                if (geslacht === 'Man') {
+                    tbvNadler = (0.3669 * Math.pow(lengteM, 3) + 0.03219 * gewicht + 0.6041) * 1000;
+                } else {
+                    tbvNadler = (0.3561 * Math.pow(lengteM, 3) + 0.03308 * gewicht + 0.1833) * 1000;
+                }
+
+                // Lemmens-Bernstein-Brodsky: resultaat in mL
+                const factor = geslacht === 'Man' ? 70 : 65;
+                tbvLemmens = gewicht * factor / Math.sqrt(bmi / 22);
+            }
+
+            // TPV = TBV x (1 - Ht)
+            const tpvNadler = (tbvNadler !== null && hctOk) ? tbvNadler * (1 - hct) : null;
+            const tpvLemmens = (tbvLemmens !== null && hctOk) ? tbvLemmens * (1 - hct) : null;
+
+            const hoofdText =
+                formatTpv('TPV-quick (40 ml/kg)', tpvQuick) + '\n' +
+                formatTpv('TPV-standaard (Nadler)', tpvNadler) + '\n' +
+                formatTpv('TPV-obesitas (Lemmens)', tpvLemmens);
+
+            const tussenText =
+                `BMI = ${bmi === null ? '-' : bmi.toFixed(1) + ' kg/m²'}\n` +
+                formatTbv('TBV (Nadler)', tbvNadler) + '\n' +
+                formatTbv('TBV (Lemmens)', tbvLemmens);
+
+            document.getElementById('tpvResult').textContent = hoofdText;
+            document.getElementById('tpvTussenResult').textContent = tussenText;
+            document.getElementById('tpvResults').classList.add('show');
+
+            currentTpvText = hoofdText + '\n' + tussenText;
+        }
+
+        // Real-time berekening bij input wijziging
+        document.getElementById('gewicht_tpv').addEventListener('input', calculateTpv);
+        document.getElementById('lengte_tpv').addEventListener('input', calculateTpv);
+        document.getElementById('hct_tpv').addEventListener('input', calculateTpv);
+        document.querySelectorAll('input[name="geslacht_tpv"]').forEach(radio => {
+            radio.addEventListener('change', calculateTpv);
+        });
+
+        setupCopy('copyButtonTpv', () => currentTpvText);
+
+        // Reset
+        document.getElementById('resetButtonTpv').addEventListener('click', function () {
+            document.getElementById('gewicht_tpv').value = '';
+            document.getElementById('lengte_tpv').value = '';
+            document.getElementById('hct_tpv').value = '';
+            document.querySelectorAll('input[name="geslacht_tpv"]').forEach(radio => {
+                if (radio.value === 'Man') radio.checked = true;
+            });
+            calculateTpv();
+            showButtonFeedback(this, 'reset-done');
+        });
+
+        // Initiële berekening
+        calculateTpv();
     </script>
 </body>
 
