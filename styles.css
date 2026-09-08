@@ -264,6 +264,14 @@ button:active {
     display: none;
 }
 
+.optional-inputs {
+    margin-top: var(--spacing-md);
+}
+
+.optional-inputs .note {
+    margin-top: 0;
+}
+
 .error.show {
     display: block;
     animation: shake 0.4s cubic-bezier(.36, .07, .19, .97) both;
