@@ -99,11 +99,11 @@ Onderhoudsdosis = -</span>
             </form>
 
             <div class="results show" id="tpvResults">
-                <p class="result-legend">Plasmaferese-range: 1x TPV tot 1.5x TPV (waarde tussen haakjes).</p>
+                <p class="result-legend">Tussen haakjes 1.5x TPV in mL; de plasmaferese-range loopt van 1x tot 1.5x TPV.</p>
                 <div class="result-item">
                     <div class="result-value">
-                        <span id="tpvResult">TPV-quick (40 ml/kg) = -
-TPV-standaard (Nadler) = -</span>
+                        <span id="tpvResult">TPV-quick = -
+TPV-Nadler = -</span>
                     </div>
                 </div>
                 <div class="result-item">
@@ -113,11 +113,11 @@ TBV (Nadler) = -</span>
                     </div>
                 </div>
             </div>
-            <p class="info-note">TPV = TBV x (1 - Ht). TBV volgens Nadler; omdat Nadler bij obesitas een
-                overschatting geeft, verschijnt vanaf een BMI van 30 daarnaast TPV-obesitas volgens
-                Lemmens-Bernstein-Brodsky. Onder die grens is Nadler passend en blijft die regel weg.
-                TPV-quick (40 ml/kg) is een snelle schatting die geen rekening houdt met lengte, geslacht
-                en hematocriet.</p>
+            <p class="info-note">TPV = TBV x (1 - Ht). TPV-quick is de snelle schatting van 40 ml/kg
+                lichaamsgewicht en houdt geen rekening met lengte, geslacht en hematocriet. TPV-Nadler is de
+                standaardberekening, met TBV volgens Nadler. Omdat Nadler bij obesitas een overschatting
+                geeft, verschijnt vanaf een BMI van 30 daarnaast TPV-Lemmens, met TBV volgens
+                Lemmens-Bernstein-Brodsky; onder die grens is Nadler passend en blijft die regel weg.</p>
             <div class="button-container">
                 <button type="button" id="resetButtonTpv" class="reset-button">Reset</button>
                 <button type="button" id="copyButtonTpv" class="copy-button"
@@ -219,7 +219,7 @@ TBV (Nadler) = -</span>
             if (tpv === null) {
                 return `${label} = -`;
             }
-            return `${label} = ${roundToNearest10(tpv)} mL (1.5x TPV = ${roundToNearest10(tpv * 1.5)} mL)`;
+            return `${label} = ${roundToNearest10(tpv)} mL (1.5x = ${roundToNearest10(tpv * 1.5)})`;
         }
 
         function formatTbv(label, tbv) {
@@ -278,8 +278,8 @@ TBV (Nadler) = -</span>
             const toonLemmens = bmi !== null && bmi >= 30;
 
             const hoofdRegels = [
-                formatTpv('TPV-quick (40 ml/kg)', tpvQuick),
-                formatTpv('TPV-standaard (Nadler)', tpvNadler)
+                formatTpv('TPV-quick', tpvQuick),
+                formatTpv('TPV-Nadler', tpvNadler)
             ];
             const tussenRegels = [
                 `BMI = ${bmi === null ? '-' : bmi.toFixed(1) + ' kg/m²'}`,
@@ -287,7 +287,7 @@ TBV (Nadler) = -</span>
             ];
 
             if (toonLemmens) {
-                hoofdRegels.push(formatTpv('TPV-obesitas (Lemmens)', tpvLemmens));
+                hoofdRegels.push(formatTpv('TPV-Lemmens', tpvLemmens));
                 tussenRegels.push(formatTbv('TBV (Lemmens)', tbvLemmens));
             }
 
