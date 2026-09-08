@@ -223,6 +223,26 @@
                     </div>
                 </div>
             </div>
+
+            <form id="lightExtraFields" class="hidden">
+                <p class="note">Optioneel bij klinische verdenking op transsudaat ondanks positieve Light criteria</p>
+                <div class="form-group">
+                    <label for="serum_albumine_light">Serum albumine (g/L)</label>
+                    <input type="number" id="serum_albumine_light" min="0" max="60" step="0.1" placeholder="g/L">
+                </div>
+
+                <div class="form-group">
+                    <label for="pleuravocht_albumine_light">Pleuravocht albumine (g/L)</label>
+                    <input type="number" id="pleuravocht_albumine_light" min="0" max="60" step="0.1"
+                        placeholder="g/L">
+                </div>
+
+                <div class="form-group">
+                    <label for="ntprobnp_light">NT-proBNP pleuravocht (pg/mL)</label>
+                    <input type="number" id="ntprobnp_light" min="0" max="50000" step="1" placeholder="pg/mL">
+                </div>
+            </form>
+
             <div class="button-container">
                 <button type="button" id="resetButtonLight" class="reset-button">Reset</button>
                 <button type="button" id="copyButtonLight" class="copy-button"
@@ -782,6 +802,8 @@
         // ============================================================
         let currentLightText = '';
 
+        const lightExtraFields = document.getElementById('lightExtraFields');
+
         function calculateLight() {
             const pleuravocht_eiwit = parseFloat(document.getElementById('pleuravocht_eiwit_light').value);
             const pleuravocht_ldh = parseFloat(document.getElementById('pleuravocht_ldh_light').value);
@@ -792,6 +814,7 @@
             if (isNaN(pleuravocht_eiwit) || isNaN(pleuravocht_ldh) || isNaN(serum_eiwit) || isNaN(serum_ldh) || isNaN(ldhgrens)) {
                 currentLightText = 'Light criteria = -';
                 document.getElementById('lightScore').textContent = currentLightText;
+                lightExtraFields.classList.add('hidden');
                 return;
             }
 
@@ -807,6 +830,30 @@
             if (light2) details += '\nPositief voor LDH pleuravocht/serum > 0.6';
             if (light3) details += '\nPositief voor LDH pleuravocht > 2/3 bovengrens serum LDH';
 
+            lightExtraFields.classList.toggle('hidden', lightScore === 0);
+
+            if (lightScore > 0) {
+                const serum_albumine = parseFloat(document.getElementById('serum_albumine_light').value);
+                const pleuravocht_albumine = parseFloat(document.getElementById('pleuravocht_albumine_light').value);
+                const ntprobnp = parseFloat(document.getElementById('ntprobnp_light').value);
+
+                const eiwitgradient = serum_eiwit - pleuravocht_eiwit;
+                if (eiwitgradient > 31) {
+                    details += `\nEiwitgradiënt serum-pleuravocht ${eiwitgradient.toFixed(1)} g/L > 31 g/L: suggereert toch transsudaat`;
+                }
+
+                if (!isNaN(serum_albumine) && !isNaN(pleuravocht_albumine)) {
+                    const albuminegradient = serum_albumine - pleuravocht_albumine;
+                    if (albuminegradient > 12) {
+                        details += `\nAlbuminegradiënt serum-pleuravocht ${albuminegradient.toFixed(1)} g/L > 12 g/L: suggereert toch transsudaat`;
+                    }
+                }
+
+                if (!isNaN(ntprobnp) && ntprobnp > 1500) {
+                    details += `\nNT-proBNP pleuravocht ${ntprobnp} pg/mL > 1500 pg/mL: ondersteunt hartfalen`;
+                }
+            }
+
             currentLightText = `Light criteria ${lightScore}/3: ${conclusie}${details}`;
             document.getElementById('lightScore').textContent = currentLightText;
         }
@@ -816,6 +863,9 @@
         document.getElementById('serum_eiwit_light').addEventListener('input', calculateLight);
         document.getElementById('serum_ldh_light').addEventListener('input', calculateLight);
         document.getElementById('ldhgrens_light').addEventListener('input', calculateLight);
+        document.getElementById('serum_albumine_light').addEventListener('input', calculateLight);
+        document.getElementById('pleuravocht_albumine_light').addEventListener('input', calculateLight);
+        document.getElementById('ntprobnp_light').addEventListener('input', calculateLight);
 
         setupCopy('copyButtonLight', () => currentLightText);
 
@@ -825,6 +875,10 @@
             document.getElementById('serum_eiwit_light').value = '';
             document.getElementById('serum_ldh_light').value = '';
             document.getElementById('ldhgrens_light').value = 248;
+            document.getElementById('serum_albumine_light').value = '';
+            document.getElementById('pleuravocht_albumine_light').value = '';
+            document.getElementById('ntprobnp_light').value = '';
+            lightExtraFields.classList.add('hidden');
             calculateLight();
             showButtonFeedback(this, 'reset-done');
         });

@@ -260,6 +260,10 @@ button:active {
     font-weight: 500;
 }
 
+.hidden {
+    display: none;
+}
+
 .error.show {
     display: block;
     animation: shake 0.4s cubic-bezier(.36, .07, .19, .97) both;
