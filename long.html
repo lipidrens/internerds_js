@@ -863,20 +863,20 @@
 
             const eiwitgradient = serum_eiwit - pleuravocht_eiwit;
             const extraRegels = [eiwitgradient > 31
-                ? `Eiwitgradiënt ${eiwitgradient.toFixed(1)} g/L > 31 g/L: past toch bij transsudaat`
-                : `Eiwitgradiënt ${eiwitgradient.toFixed(1)} g/L ≤ 31 g/L: geen aanwijzing voor transsudaat`];
+                ? `Eiwitgradiënt = ${eiwitgradient.toFixed(1)} g/L: > 31 g/L, past toch bij transsudaat`
+                : `Eiwitgradiënt = ${eiwitgradient.toFixed(1)} g/L: ≤ 31 g/L, geen aanwijzing voor transsudaat`];
 
             if (!isNaN(serum_albumine) && !isNaN(pleuravocht_albumine)) {
                 const albuminegradient = serum_albumine - pleuravocht_albumine;
                 extraRegels.push(albuminegradient > 12
-                    ? `Albuminegradiënt ${albuminegradient.toFixed(1)} g/L > 12 g/L: past toch bij transsudaat`
-                    : `Albuminegradiënt ${albuminegradient.toFixed(1)} g/L ≤ 12 g/L: geen aanwijzing voor transsudaat`);
+                    ? `Albuminegradiënt = ${albuminegradient.toFixed(1)} g/L: > 12 g/L, past toch bij transsudaat`
+                    : `Albuminegradiënt = ${albuminegradient.toFixed(1)} g/L: ≤ 12 g/L, geen aanwijzing voor transsudaat`);
             }
 
             if (!isNaN(ntprobnp)) {
                 extraRegels.push(ntprobnp > 1500
-                    ? `NT-proBNP pleuravocht ${ntprobnp} pg/mL > 1500 pg/mL: ondersteunt hartfalen`
-                    : `NT-proBNP pleuravocht ${ntprobnp} pg/mL ≤ 1500 pg/mL: geen aanwijzing voor hartfalen`);
+                    ? `NT-proBNP pleuravocht = ${ntprobnp} pg/mL: > 1500 pg/mL, ondersteunt hartfalen`
+                    : `NT-proBNP pleuravocht = ${ntprobnp} pg/mL: ≤ 1500 pg/mL, geen aanwijzing voor hartfalen`);
             }
 
             showLightExtra(extraRegels.join('\n'));
