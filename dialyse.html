@@ -261,10 +261,9 @@ TPV-Nadler = -</span>
                     tbvNadler = (0.3561 * Math.pow(lengteM, 3) + 0.03308 * gewicht + 0.1833) * 1000;
                 }
 
-                // Lemmens-Bernstein-Brodsky: resultaat in mL. Mannen volgen de gepubliceerde
-                // formule (70); vrouwen de aangepaste variant LB-60 (Raymond, J Clin Apher 2025)
-                const factor = geslacht === 'Man' ? 70 : 60;
-                tbvLemmens = gewicht * factor / Math.sqrt(bmi / 22);
+                // Lemmens-Bernstein-Brodsky in de aangepaste variant LB-60 (Raymond,
+                // J Clin Apher 2025); die is niet geslachtsafhankelijk. Resultaat in mL.
+                tbvLemmens = gewicht * 60 / Math.sqrt(bmi / 22);
             }
 
             // TPV = TBV x (1 - Ht)
