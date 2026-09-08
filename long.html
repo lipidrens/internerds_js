@@ -800,14 +800,14 @@
             const light3 = pleuravocht_ldh > (2 / 3 * ldhgrens);
 
             const lightScore = (light1 ? 1 : 0) + (light2 ? 1 : 0) + (light3 ? 1 : 0);
-            const conclusie = lightScore > 0 ? 'passende bij exsudaat' : 'passende bij transudaat';
+            const conclusie = lightScore > 0 ? 'passend bij exsudaat' : 'passend bij transudaat';
 
             let details = '';
-            if (light1) details += '\n+Totaal eiwit pleuravocht > 0.5 totaal eiwit serum';
-            if (light2) details += '\n+LDH pleuravocht > 0.6 LDH serum';
-            if (light3) details += '\n+LDH pleuravocht > 2/3 bovengrens serum LDH';
+            if (light1) details += '\nPositief voor totaal eiwit pleuravocht/serum > 0.5';
+            if (light2) details += '\nPositief voor LDH pleuravocht/serum > 0.6';
+            if (light3) details += '\nPositief voor LDH pleuravocht > 2/3 bovengrens serum LDH';
 
-            currentLightText = `Light criteria = ${lightScore}/3\n= ${conclusie}${details}`;
+            currentLightText = `Light criteria ${lightScore}/3: ${conclusie}${details}`;
             document.getElementById('lightScore').textContent = currentLightText;
         }
 
