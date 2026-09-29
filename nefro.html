@@ -175,6 +175,99 @@
                     title="Kopieer naar klembord">Kopieer</button>
             </div>
         </div>
+        <!-- Albuminurie / proteinurie -->
+        <div class="container">
+            <h1>Albuminurie / proteïnurie</h1>
+
+            <form id="protForm">
+                <div class="form-group">
+                    <label>Bepaling</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="type_prot" value="albumine" checked>
+                            Albumine
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="type_prot" value="eiwit">
+                            Eiwit
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Urine</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="collectie_prot" value="portie" checked>
+                            Portie
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="collectie_prot" value="24uur">
+                            24-uurs
+                        </label>
+                    </div>
+                </div>
+
+                <div id="portieFieldsProt">
+                    <div class="form-group">
+                        <label for="conc_prot" id="concLabelProt">Urine albumine</label>
+                        <input type="number" id="conc_prot" min="0" step="0.1" placeholder="Waarde">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="unit_conc_prot" id="concUnitLabelProt">Eenheid urine albumine</label>
+                        <select id="unit_conc_prot">
+                            <option value="1" selected>mg/L</option>
+                            <option value="1000">g/L</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="creat_u_prot">Urine creatinine</label>
+                        <input type="number" id="creat_u_prot" min="0" step="0.1" placeholder="Waarde">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="unit_creat_prot">Eenheid urine creatinine</label>
+                        <select id="unit_creat_prot">
+                            <option value="1" selected>mmol/L</option>
+                            <option value="1000">umol/L</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="totaalFieldsProt" class="hidden">
+                    <div class="form-group">
+                        <label for="totaal_prot" id="totaalLabelProt">Albumine in 24-uurs urine</label>
+                        <input type="number" id="totaal_prot" min="0" step="0.1" placeholder="Waarde">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="unit_totaal_prot">Eenheid</label>
+                        <select id="unit_totaal_prot">
+                            <option value="1" selected>mg/24 uur</option>
+                            <option value="1000">g/24 uur</option>
+                        </select>
+                    </div>
+                </div>
+            </form>
+
+            <div class="results show" id="protResults">
+                <div class="result-item">
+                    <div class="result-value">
+                        <span id="protScore">ACR = -</span>
+                    </div>
+                </div>
+            </div>
+            <p class="info-note">Omrekening tussen portie en 24-uurs urine gaat uit van een creatinine-excretie van
+                ca. 10 mmol/dag; die varieert met leeftijd, geslacht en spiermassa, dus de schatting is
+                benaderend. KDIGO-categorieën volgens KDIGO 2012 (tabel 7).</p>
+            <div class="button-container">
+                <button type="button" id="resetButtonProt" class="reset-button">Reset</button>
+                <button type="button" id="copyButtonProt" class="copy-button"
+                    title="Kopieer naar klembord">Kopieer</button>
+            </div>
+        </div>
     </div>
 
     <script src="shared.js"></script>
@@ -370,6 +463,124 @@
         });
 
         calculateNaCl();
+
+        // ============================================================
+        // Albuminurie / proteinurie (KDIGO)
+        // ============================================================
+        let currentProtText = '';
+
+        // Grenzen per KDIGO-categorie: A1 < laag, A2 laag t/m hoog, A3 > hoog
+        const PROT_GRENZEN = {
+            albumine: { ratio: [3, 30], excretie: [30, 300] },
+            eiwit: { ratio: [15, 50], excretie: [150, 500] }
+        };
+        const PROT_CATEGORIEEN = {
+            A1: 'normaal tot licht verhoogd',
+            A2: 'matig verhoogd',
+            A3: 'ernstig verhoogd'
+        };
+        // Aanname: creatinine-excretie ca. 10 mmol/dag
+        const CREAT_EXCRETIE_MMOL_DAG = 10;
+        // Exacte omrekening mg/mmol creatinine -> mg/g creatinine
+        const MG_MMOL_NAAR_MG_G = 1 / 0.113;
+
+        function getRadioValue(name) {
+            return document.querySelector(`input[name="${name}"]:checked`).value;
+        }
+
+        function kdigoCategorie(waarde, grenzen) {
+            if (waarde < grenzen[0]) return 'A1';
+            if (waarde <= grenzen[1]) return 'A2';
+            return 'A3';
+        }
+
+        function calculateProt() {
+            const type = getRadioValue('type_prot');
+            const collectie = getRadioValue('collectie_prot');
+            const isAlbumine = type === 'albumine';
+            const stof = isAlbumine ? 'albumine' : 'eiwit';
+            const ratioNaam = isAlbumine ? 'ACR' : 'PCR';
+            const excretieNaam = isAlbumine ? 'Albumine-excretie' : 'Eiwitexcretie';
+
+            // Labels en zichtbare velden volgen de keuzes
+            document.getElementById('concLabelProt').textContent = `Urine ${stof}`;
+            document.getElementById('concUnitLabelProt').textContent = `Eenheid urine ${stof}`;
+            document.getElementById('totaalLabelProt').textContent =
+                `${isAlbumine ? 'Albumine' : 'Eiwit'} in 24-uurs urine`;
+            document.getElementById('portieFieldsProt').classList.toggle('hidden', collectie !== 'portie');
+            document.getElementById('totaalFieldsProt').classList.toggle('hidden', collectie === 'portie');
+
+            let ratio = NaN;       // mg/mmol creatinine
+            let excretie = NaN;    // mg/24 uur
+            const regels = [];
+
+            if (collectie === 'portie') {
+                const concRaw = parseFloat(document.getElementById('conc_prot').value);
+                const concFactor = parseFloat(document.getElementById('unit_conc_prot').value);
+                const creatRaw = parseFloat(document.getElementById('creat_u_prot').value);
+                const creatUnit = parseFloat(document.getElementById('unit_creat_prot').value);
+
+                if (!isNaN(concRaw) && !isNaN(creatRaw) && creatRaw > 0) {
+                    const concMgL = concRaw * concFactor;
+                    const creatMmolL = creatRaw / creatUnit;
+                    ratio = concMgL / creatMmolL;
+                    excretie = ratio * CREAT_EXCRETIE_MMOL_DAG;
+                    regels.push(`${ratioNaam} = ${ratio.toFixed(1)} mg/mmol (${Math.round(ratio * MG_MMOL_NAAR_MG_G)} mg/g)`);
+                    regels.push(`Geschatte ${excretieNaam.toLowerCase()} ≈ ${Math.round(excretie)} mg/24 uur`);
+                }
+            } else {
+                const totaalRaw = parseFloat(document.getElementById('totaal_prot').value);
+                const totaalFactor = parseFloat(document.getElementById('unit_totaal_prot').value);
+
+                if (!isNaN(totaalRaw)) {
+                    excretie = totaalRaw * totaalFactor;
+                    ratio = excretie / CREAT_EXCRETIE_MMOL_DAG;
+                    regels.push(`${excretieNaam} = ${Math.round(excretie)} mg/24 uur`);
+                    regels.push(`Geschatte ${ratioNaam} ≈ ${ratio.toFixed(1)} mg/mmol`);
+                }
+            }
+
+            if (!regels.length) {
+                currentProtText = collectie === 'portie' ? `${ratioNaam} = -` : `${excretieNaam} = -`;
+                document.getElementById('protScore').textContent = currentProtText;
+                return;
+            }
+
+            // Classificeer op de gemeten grootheid, niet op de schatting
+            const grenzen = PROT_GRENZEN[type];
+            const categorie = collectie === 'portie'
+                ? kdigoCategorie(ratio, grenzen.ratio)
+                : kdigoCategorie(excretie, grenzen.excretie);
+            regels.push(`KDIGO ${categorie}: ${PROT_CATEGORIEEN[categorie]}`);
+
+            // Nefrotisch bereik (KDIGO: ACR > 220 mg/mmol)
+            if (isAlbumine && (collectie === 'portie' ? ratio > 220 : excretie > 2200)) {
+                regels.push('Nefrotisch bereik');
+            }
+
+            currentProtText = regels.join('\n');
+            document.getElementById('protScore').textContent = currentProtText;
+        }
+
+        document.getElementById('protForm').addEventListener('input', calculateProt);
+        document.getElementById('protForm').addEventListener('change', calculateProt);
+
+        setupCopy('copyButtonProt', () => currentProtText);
+
+        document.getElementById('resetButtonProt').addEventListener('click', function () {
+            document.querySelector('input[name="type_prot"][value="albumine"]').checked = true;
+            document.querySelector('input[name="collectie_prot"][value="portie"]').checked = true;
+            document.getElementById('conc_prot').value = '';
+            document.getElementById('creat_u_prot').value = '';
+            document.getElementById('totaal_prot').value = '';
+            document.getElementById('unit_conc_prot').selectedIndex = 0;
+            document.getElementById('unit_creat_prot').selectedIndex = 0;
+            document.getElementById('unit_totaal_prot').selectedIndex = 0;
+            calculateProt();
+            showButtonFeedback(this, 'reset-done');
+        });
+
+        calculateProt();
     </script>
 </body>
 
