@@ -636,11 +636,6 @@ input[type="text"]:focus {
     box-shadow: none;
 }
 
-/* Eenheid als cursieve placeholder in een leeg invoerveld */
-.unit-placeholder::placeholder {
-    font-style: italic;
-}
-
 /* Hidden element for clipboard fallback */
 .clipboard-helper {
     position: fixed;
