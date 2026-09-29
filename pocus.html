@@ -63,7 +63,7 @@
                     <label>Vraagstelling</label>
                     <div id="ts_vraag_cor"></div>
                 </div>
-                <div class="form-group">
+                <div class="form-group form-group-stack">
                     <label>Beeldkwaliteit</label>
                     <div class="radio-group">
                         <label class="radio-label"><input type="radio" name="quality_cor" value="onvoldoende">Onvoldoende</label>
@@ -131,7 +131,7 @@
                     <label>Vraagstelling</label>
                     <div id="ts_vraag_vci"></div>
                 </div>
-                <div class="form-group">
+                <div class="form-group form-group-stack">
                     <label>Beeldkwaliteit</label>
                     <div class="radio-group">
                         <label class="radio-label"><input type="radio" name="quality_vci" value="onvoldoende">Onvoldoende</label>
@@ -181,7 +181,7 @@
                     <label>Vraagstelling</label>
                     <div id="ts_vraag_long"></div>
                 </div>
-                <div class="form-group">
+                <div class="form-group form-group-stack">
                     <label>Beeldkwaliteit</label>
                     <div class="radio-group">
                         <label class="radio-label"><input type="radio" name="quality_long" value="onvoldoende">Onvoldoende</label>
@@ -217,7 +217,7 @@
                     <label>Vraagstelling</label>
                     <div id="ts_vraag_nier"></div>
                 </div>
-                <div class="form-group">
+                <div class="form-group form-group-stack">
                     <label>Beeldkwaliteit</label>
                     <div class="radio-group">
                         <label class="radio-label"><input type="radio" name="quality_nier" value="onvoldoende">Onvoldoende</label>
@@ -305,6 +305,7 @@
                 placeholder="Vul velden in om het verslag te genereren..."></textarea>
             <div class="button-container">
                 <button type="button" id="copyVerslag" class="copy-button" title="Kopieer naar klembord">Kopieer</button>
+                <button type="button" id="resetAll" class="reset-button" title="Alle velden van alle onderdelen wissen">Alles resetten</button>
             </div>
         </div>
 
@@ -660,8 +661,8 @@
         createTagSelect('vraag_vci', { options: ['diameter en collaps VCI?'] });
         createTagSelect('conclusie_vci', {
             options: [
-                { value: '!cvd', label: 'Lage / intermediaire / hoge CVD (automatisch, cutoff 1.5-2-2.5 cm)' },
-                { value: '!RA', label: 'Schatting RA-druk (automatisch, cutoff 2.1 cm)' }
+                { value: '!cvd', label: 'Lage / intermediaire / hoge CVD o.b.v. spontane collaps (automatisch, cutoff 1.5-2-2.5 cm)' },
+                { value: '!RA', label: 'Schatting RA-druk o.b.v. sniff-test (automatisch, cutoff 2.1 cm)' }
             ],
             selected: ['!cvd']
         });
@@ -685,7 +686,7 @@
             ]
         });
         createTagSelect('vraag_nier', {
-            options: ['hydronefrose?', 'niergrootte?', 'blaasretentie?', 'post-renale obstructie?']
+            options: ['hydronefrose?', 'niergrootte?', 'urineretentie?', 'post-renale obstructie?']
         });
         createTagSelect('hrechts_nier', { options: NIER });
         createTagSelect('hlinks_nier', { options: NIER });
@@ -971,58 +972,72 @@
             generateReport();
         }
 
-        document.getElementById('resetEcho').addEventListener('click', function () {
-            resetFields({
+        const zoneTags = [];
+        const zoneStatus = {};
+        ZONES.forEach(zone => {
+            zoneTags.push(zone.id + '_long1', zone.id + '_long2', zone.id + '_long3');
+            zoneStatus[zone.id + '_status'] = 'adequaat';
+        });
+
+        const RESETS = {
+            resetEcho: {
                 tags: ['vraag_echo'],
                 clear: ['naam_echo', 'supervisor_echo', 'conclusie_echo', 'opm_echo'],
                 set: { suptype_echo: 'indirecte' }
-            });
-            showButtonFeedback(this, 'reset-done');
-        });
-
-        document.getElementById('resetCor').addEventListener('click', function () {
-            resetFields({
+            },
+            resetCor: {
                 tags: ['vraag_cor', 'beelden_cor', 'lvf_cor', 'rechtsbelasting_cor', 'rvf_cor',
                     'pericardvocht_cor', 'conclusie_cor'],
                 clear: ['epss_cor', 'tapse_cor', 'pericardschil_cor', 'overig_cor'],
                 radios: { quality_cor: 'voldoende' }
-            });
-            showButtonFeedback(this, 'reset-done');
-        });
-
-        document.getElementById('resetVci').addEventListener('click', function () {
-            resetFields({
+            },
+            resetVci: {
                 tags: ['vraag_vci', 'conclusie_vci'],
                 clear: ['max_vci', 'min_vci', 'sniff_vci'],
                 set: { sniffmethode_vci: 'gemeten' },
                 radios: { quality_vci: 'voldoende' }
-            });
-            showButtonFeedback(this, 'reset-done');
-        });
-
-        document.getElementById('resetLong').addEventListener('click', function () {
-            const zoneTags = [];
-            const zoneStatus = {};
-            ZONES.forEach(zone => {
-                zoneTags.push(zone.id + '_long1', zone.id + '_long2', zone.id + '_long3');
-                zoneStatus[zone.id + '_status'] = 'adequaat';
-            });
-            resetFields({
+            },
+            resetLong: {
                 tags: ['vraag_long', 'conclusie_long'].concat(zoneTags),
                 set: zoneStatus,
                 radios: { quality_long: 'voldoende' }
-            });
-            showButtonFeedback(this, 'reset-done');
-        });
-
-        document.getElementById('resetNier').addEventListener('click', function () {
-            resetFields({
+            },
+            resetNier: {
                 tags: ['vraag_nier', 'hrechts_nier', 'hlinks_nier', 'htrans_nier', 'conclusie_nier'],
                 clear: ['grechts_nier', 'glinks_nier', 'gtrans_nier', 'hoogte_blaas', 'diepte_blaas',
                     'breedte_blaas', 'overig_nier'],
                 set: { vorm_blaas: 'bolvormig', cor_blaas: '0.52' },
                 radios: { quality_nier: 'voldoende' }
+            }
+        };
+
+        Object.keys(RESETS).forEach(buttonId => {
+            document.getElementById(buttonId).addEventListener('click', function () {
+                resetFields(RESETS[buttonId]);
+                showButtonFeedback(this, 'reset-done');
             });
+        });
+
+        // Algemene reset vraagt een tweede klik, zodat een volledig verslag niet per ongeluk verdwijnt
+        const RESET_ALL_LABEL = 'Alles resetten';
+        let resetAllTimer = null;
+
+        function disarmResetAll(button) {
+            clearTimeout(resetAllTimer);
+            resetAllTimer = null;
+            button.textContent = RESET_ALL_LABEL;
+            button.classList.remove('reset-confirm');
+        }
+
+        document.getElementById('resetAll').addEventListener('click', function () {
+            if (!resetAllTimer) {
+                this.textContent = 'Klik nogmaals om alles te wissen';
+                this.classList.add('reset-confirm');
+                resetAllTimer = setTimeout(() => disarmResetAll(this), 3000);
+                return;
+            }
+            disarmResetAll(this);
+            Object.keys(RESETS).forEach(buttonId => resetFields(RESETS[buttonId]));
             showButtonFeedback(this, 'reset-done');
         });
 
