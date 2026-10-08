@@ -288,8 +288,8 @@
             const dosisHydroM = hasValidInput ? dosis * mineraPotency[med] : 0;
 
             const meds = Object.keys(glucoPotency);
-            let html = '<table class="calc-table"><thead><tr><th>Medicament</th><th>Gluco.</th><th>Minera.</th></tr></thead><tbody>';
-            const copyLines = ['Medicament\tGluco. (mg)\tMinera. (mg)'];
+            let html = '<table class="calc-table wrap-headers"><thead><tr><th>Medicament</th><th>Zelfde gluco-werking (mg)</th><th>Zelfde minera-werking (mg)</th></tr></thead><tbody>';
+            const copyLines = ['Medicament\tZelfde gluco-werking (mg)\tZelfde minera-werking (mg)'];
 
             meds.forEach(m => {
                 const rowClass = m === med ? ' class="current-row"' : '';

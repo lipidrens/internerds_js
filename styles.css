@@ -448,6 +448,10 @@ button:active {
     white-space: nowrap;
 }
 
+.calc-table.wrap-headers th {
+    white-space: normal;
+}
+
 .calc-table tr.current-row td {
     font-weight: 600;
     color: var(--text-dark);
