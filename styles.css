@@ -268,6 +268,10 @@ button:active {
     margin-top: var(--spacing-md);
 }
 
+.note.table-note {
+    margin-top: var(--spacing-xs);
+}
+
 .optional-inputs .note {
     margin-top: 0;
 }
