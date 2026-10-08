@@ -269,23 +269,13 @@
             'Fludrocortison': 10
         };
 
-        // Mineralocorticoid: forward factor (input → dosis.hydroM)
-        const mineraForward = {
+        // Mineralocorticoid potency relative to hydrocortisone (symmetric)
+        const mineraPotency = {
             'Hydrocortison': 1,
             'Cortison': 0.8,
             'Predniso(lo)n': 0.8,
             'Methylprednisolon': 0.5,
             'Dexamethason': 0,
-            'Fludrocortison': 10
-        };
-
-        // Mineralocorticoid: reverse factor (dosis.hydroM → each med)
-        const mineraReverse = {
-            'Hydrocortison': 1,
-            'Cortison': 0.8,
-            'Predniso(lo)n': 0.8,
-            'Methylprednisolon': 0.5,
-            'Dexamethason': 0,   // always 0
             'Fludrocortison': 125
         };
 
@@ -295,7 +285,7 @@
             const hasValidInput = !isNaN(dosis) && dosis >= 0;
 
             const dosisHydro = hasValidInput ? dosis * glucoPotency[med] : 0;
-            const dosisHydroM = hasValidInput ? dosis * mineraForward[med] : 0;
+            const dosisHydroM = hasValidInput ? dosis * mineraPotency[med] : 0;
 
             const meds = Object.keys(glucoPotency);
             let html = '<table class="calc-table"><thead><tr><th>Medicament</th><th>Gluco.</th><th>Minera.</th></tr></thead><tbody>';
@@ -305,7 +295,7 @@
                 const rowClass = m === med ? ' class="current-row"' : '';
                 if (hasValidInput) {
                     const glucoEquiv = dosisHydro / glucoPotency[m];
-                    const mineraEquiv = m === 'Dexamethason' ? 0 : dosisHydroM / mineraReverse[m];
+                    const mineraEquiv = mineraPotency[m] === 0 ? 0 : dosisHydroM / mineraPotency[m];
                     html += `<tr${rowClass}><td>${m}</td><td>${glucoEquiv.toFixed(2)}</td><td>${mineraEquiv.toFixed(2)}</td></tr>`;
                     copyLines.push(`${m}\t${glucoEquiv.toFixed(2)}\t${mineraEquiv.toFixed(2)}`);
                 } else {
