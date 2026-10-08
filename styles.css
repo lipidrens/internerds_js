@@ -268,6 +268,10 @@ button:active {
     margin-top: var(--spacing-md);
 }
 
+.note.table-note {
+    margin-top: var(--spacing-xs);
+}
+
 .optional-inputs .note {
     margin-top: 0;
 }
@@ -446,6 +450,10 @@ button:active {
 .calc-table th:not(:first-child) {
     text-align: right;
     white-space: nowrap;
+}
+
+.calc-table.wrap-headers th {
+    white-space: normal;
 }
 
 .calc-table tr.current-row td {
